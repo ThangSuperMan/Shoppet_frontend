@@ -1,0 +1,34 @@
+@import "../../scss/variables";
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+
+  &__hamburger {
+    width: 24.5px;
+    height: 24.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+
+    svg {
+      width: 26px;
+      height: 26px;
+    }
+
+  }
+
+  &__cart {
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
