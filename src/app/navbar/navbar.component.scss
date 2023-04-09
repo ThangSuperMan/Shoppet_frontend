@@ -33,3 +33,7 @@ button {
     }
   }
 }
+
+.navbar__cart:hover path {
+    fill: $blue-hard-color;
+}
