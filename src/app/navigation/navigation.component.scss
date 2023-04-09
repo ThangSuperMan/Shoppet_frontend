@@ -1,0 +1,55 @@
+@import "../../scss/variables";
+
+.navigation {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #eaeaea;
+  padding-block: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 199;
+  position: fixed;
+
+  &__item {
+    width: calc(100% / 4);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.item {
+  &__icon {
+    width: auto;
+    display: inline-block;
+    position: relative;
+  }
+
+  &__title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+  }
+}
+
+.icon {
+  &__item-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 18px;
+    width: 18px;
+    font-size: 12px;
+    font-weight: 700;
+    background-color: $blue-hard-color;
+    color: #ffffff;
+    border-radius: 100rem;
+    top: -6px;
+    right: -15px;
+    position: absolute;
+  }
+}
