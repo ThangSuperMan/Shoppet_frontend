@@ -1,4 +1,4 @@
-@import "../../scss/variables";
+@import "../../../../../scss/variables";
 
 .navigation {
   display: flex;
@@ -53,6 +53,7 @@
     background-color: $blue-hard-color;
     color: #ffffff;
     border-radius: 100rem;
+    font-weight: 300;
     top: -6px;
     right: -15px;
     position: absolute;
