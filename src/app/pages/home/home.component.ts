@@ -8,6 +8,6 @@ import { getAllProducts } from '@api';
 })
 export class HomeComponent {
   ngOnInit(): void {
-    getAllProducts();
+    // getAllProducts();
   }
 }

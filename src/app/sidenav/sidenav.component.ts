@@ -8,44 +8,61 @@ import { sideNavData, sideNavProps } from './sidenav-data';
 })
 export class SideNavComponent {
   @Input() isShowSideNav: boolean = false;
-  @Input() message?: string;
+  @Input() message: string | undefined;
   sidenavData: sideNavProps[] = sideNavData;
 
-  constructor() {
-    console.log('Just render SideNavComponent');
-  }
-
-  ngAfterContentChecked() {
+  handleOnClickBodyEl = () => {
     const body = document.querySelector('body');
-
-    const handleOnClickBodyEl = () => {
-      console.log('handleOnClickBodyEl');
-      if (body) {
-        body.classList.add('new');
-        body.classList.remove('body-active');
-      }
-    };
-
+    const overlay = document.querySelector('.overlay');
     if (this.isShowSideNav) {
       if (body) {
-        body.style.transition = 'transform 0.3s ease';
-        body.style.transform = 'translateX(300px)';
-        body.style.transform = 'translateX(300px)';
-        // body.style.background = 'red';
-        body.classList.add('body-active');
-
-        body.addEventListener('click', handleOnClickBodyEl);
-
-        // body.addEventListener('click', () => {
-        //   console.log('just click body');
-        //   body.classList.add('new');
-        //   body.classList.remove('body-active');
-        // });
+        overlay?.classList.remove('active');
+        body.style.transform = 'translateX(0px)';
       }
     } else {
       if (body) {
+        body.style.transform = 'translateX(0px)';
+      }
+    }
+  };
+
+  handleToggleSideNav(): void {
+    console.log('handleToggleSideNav');
+    const overlay = document.querySelector('.overlay');
+    const body = document.querySelector('body');
+    console.log('overlay :>> ', overlay);
+    if (this.isShowSideNav) {
+      return;
+    } else {
+      if (body) {
         body.style.transform = 'translateX(0)';
-        body.removeEventListener('click', handleOnClickBodyEl);
+        body.style.transform = 'none';
+      }
+    }
+  }
+
+  ngOnChanges(): void {
+    const overlay = document.querySelector('.overlay');
+    const body = document.querySelector('body');
+
+    if (this.isShowSideNav) {
+      // Disable scroll
+      window.onscroll = function () {
+        window.scroll(0, 0);
+      };
+
+      overlay?.classList.add('active');
+      if (body) {
+        body.style.transition = 'transform 0.3s ease';
+        body.style.transform = 'translateX(300px)';
+      }
+    } else {
+      // Enable scroll
+      window.onscroll = function () {};
+
+      overlay?.removeEventListener('click', this.handleToggleSideNav);
+      if (body) {
+        body.style.transform = 'none';
       }
     }
   }
