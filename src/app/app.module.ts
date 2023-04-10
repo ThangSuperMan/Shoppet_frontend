@@ -6,9 +6,11 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LogoComponent } from './logo/logo.component';
 import { BannerComponent } from './pages/home/components/banner/banner.component';
-import { HomeComponent } from './pages/home/home.component';
-import { NavigationComponent } from './pages/home/components/navigation/navigation.component';
 import { IntroductionServiceComponent } from './pages/home/components/introduction-service/introduction-service.component';
+import { DiscountComponent } from './pages/home/components/discount/discount.component';
+import { BottomNavigationComponent } from './pages/home/components/bottom-navigation/bottom-navigation.component';
+import { HomeComponent } from './pages/home/home.component';
+import { SideNavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -16,8 +18,10 @@ import { IntroductionServiceComponent } from './pages/home/components/introducti
     NavbarComponent,
     LogoComponent,
     BannerComponent,
-    NavigationComponent,
+    BottomNavigationComponent,
     IntroductionServiceComponent,
+    DiscountComponent,
+    SideNavComponent,
     HomeComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],

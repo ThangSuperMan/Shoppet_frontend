@@ -1,0 +1,77 @@
+@import "../../scss/variables";
+
+.sidenav {
+  padding-block: 15px;
+  width: 300px;
+  height: 100%;
+  top: 0;
+  left: -300px;
+  bottom: 0;
+  z-index: 299;
+  position: fixed;
+
+  &.active {
+    background: blue;
+  }
+
+  &__search-product {
+    padding-inline: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-self: center;
+    position: relative;
+  }
+
+  input {
+    padding-block: 1px;
+    padding-left: 20px; 
+    padding-right: 40px; 
+    border: none;
+    outline: none;
+    width: 260px;
+    height: 36px;
+    background-color: #EEEEEC;
+  }
+
+  button {
+    background-color: inherit;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+    top: 50%;
+    right: 30px;
+    position: absolute;
+    cursor: pointer;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      transition: 0.3s;
+    }
+
+    &:hover {
+      svg {
+        rotate: 90deg;
+      }
+    }
+  }
+}
+
+.category {
+  &__item {
+    display: block;
+    padding-inline: 20px;
+    height: 48px;
+    border-top: 1px solid #ececec;
+    display: flex;
+    align-items: center;
+    
+    a {
+      font-size: 18px;
+      font-family: "Chewy", cursive;
+      color: $secondary-color;
+    }
+  }
+}
