@@ -1,0 +1,90 @@
+@import "../../scss/variables";
+
+.btn-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 100em;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%) ;
+  position: absolute;
+  border: none;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.btn-signin {
+  width: 100%;
+  height: 40px;
+  color: #ffffff;
+  padding: 5.250px 22.500px;
+  border: none;
+  background-color: $teal-thin-color;
+  margin-top: 30px;
+  border-radius: 25px;
+}
+
+.signin {
+  margin-left: -300px;
+
+  > div:first-child {
+    background: rgba(0, 0, 0, 0.5);
+    inset: 0;
+    z-index: 399;
+    position: fixed;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  &__form {
+    display: block;
+    text-align: center;
+    width: 84%;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 40px 30px;
+    background-color: $green-thin-color;
+    transition: transform 0.3s ease;
+    position: relative;
+    scale: 1;
+
+    input {
+      width: 90%;
+      height: 48px;
+      padding: 6px 12px;
+      outline: none;
+      border: 1px solid $gray-thin-color;
+      border-radius: 5px;
+    }
+
+    > input {
+      margin-top: 30px;
+    }
+  }
+}
+
+.form__bottom {
+  width: 90%;
+  margin-top: 30px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+
+  > input {
+    width: 13px;
+    height: 13px;
+  }
+
+  > span {
+    margin-left: 8px;
+  }
+}

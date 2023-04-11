@@ -10,10 +10,6 @@
   z-index: 299;
   position: fixed;
 
-  &.active {
-    background: blue;
-  }
-
   &__search-product {
     padding-inline: 20px;
     margin-bottom: 20px;
@@ -24,13 +20,13 @@
 
   input {
     padding-block: 1px;
-    padding-left: 20px; 
-    padding-right: 40px; 
+    padding-left: 20px;
+    padding-right: 40px;
     border: none;
     outline: none;
     width: 260px;
     height: 36px;
-    background-color: #EEEEEC;
+    background-color: #eeeeec;
   }
 
   button {
@@ -67,7 +63,7 @@
     border-top: 1px solid #ececec;
     display: flex;
     align-items: center;
-    
+
     a {
       font-size: 18px;
       font-family: "Chewy", cursive;

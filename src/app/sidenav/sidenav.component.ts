@@ -9,7 +9,8 @@ import { sideNavData, sideNavProps } from './sidenav-data';
 export class SideNavComponent {
   @Input() isShowSideNav: boolean = false;
   @Input() message: string | undefined;
-  sidenavData: sideNavProps[] = sideNavData;
+  sideNavData: sideNavProps[] = sideNavData;
+  isShowPopupFormWindow: boolean = false;
 
   handleOnClickBodyEl = () => {
     const body = document.querySelector('body');
@@ -25,6 +26,11 @@ export class SideNavComponent {
       }
     }
   };
+
+  handleShowFormPopupWindow(): void {
+    console.log('handleShowFormPopupWindow');
+    this.isShowPopupFormWindow = !this.isShowPopupFormWindow;
+  }
 
   handleToggleSideNav(): void {
     console.log('handleToggleSideNav');

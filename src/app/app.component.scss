@@ -8,3 +8,14 @@
 .main-content {
   background-color: $bg-blue-color;
 }
+
+.tiny-discount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 15px;
+  text-align: center;
+  background-color: #95ccfa;
+  color: #ffffff;
+  font-family: "Poppins";
+}
