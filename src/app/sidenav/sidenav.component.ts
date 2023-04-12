@@ -10,7 +10,6 @@ export class SideNavComponent {
   @Input() isShowSideNav: boolean = false;
   @Input() message: string | undefined;
   sideNavData: sideNavProps[] = sideNavData;
-  isShowPopupFormWindow: boolean = false;
 
   handleOnClickBodyEl = () => {
     const body = document.querySelector('body');
@@ -26,11 +25,6 @@ export class SideNavComponent {
       }
     }
   };
-
-  handleShowFormPopupWindow(): void {
-    console.log('handleShowFormPopupWindow');
-    this.isShowPopupFormWindow = !this.isShowPopupFormWindow;
-  }
 
   handleToggleSideNav(): void {
     console.log('handleToggleSideNav');

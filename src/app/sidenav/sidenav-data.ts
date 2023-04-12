@@ -12,4 +12,8 @@ export const sideNavData: sideNavProps[] = [
     routeLink: 'signin',
     label: 'Sign in',
   },
+  {
+    routeLink: 'signup',
+    label: 'Sign up',
+  },
 ];

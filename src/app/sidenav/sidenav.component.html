@@ -1,5 +1,4 @@
 <div class="sidenav">
-  <app-signin [isShowFormPopup]="isShowPopupFormWindow"></app-signin>
   <div class="sidenav__search-product">
     <input type="text" placeholder="Search products..." />
     <button>
@@ -21,10 +20,8 @@
   </div>
   <ul class="sidenav__category">
     <li class="category__item" *ngFor="let data of sideNavData">
-      <!-- <a [routerLink]="[data.routeLink]"> -->
-      <a>
-        <span (click)="handleShowFormPopupWindow()">{{ data.label }}</span>
-        <!-- <span (click)="(handleShowFormPopupWindow)">{{ data.label }}</span> -->
+      <a [routerLink]="[data.routeLink]">
+        <span>{{ data.label }}</span>
       </a>
     </li>
   </ul>

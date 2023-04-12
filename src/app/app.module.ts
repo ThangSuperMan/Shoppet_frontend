@@ -11,8 +11,9 @@ import { DiscountComponent } from './pages/home/components/discount/discount.com
 import { BottomNavigationComponent } from './pages/home/components/bottom-navigation/bottom-navigation.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SideNavComponent } from './sidenav/sidenav.component';
-import { SigninComponent } from './signin/signin.component';
 import { LayoutComponent } from './layout/layout.component';
+import { SigninComponent } from './pages/signin/signin.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,9 @@ import { LayoutComponent } from './layout/layout.component';
     DiscountComponent,
     SideNavComponent,
     HomeComponent,
-    SigninComponent,
     LayoutComponent,
+    SigninComponent,
+    SignupComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

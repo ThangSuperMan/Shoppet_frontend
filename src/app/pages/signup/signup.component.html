@@ -1,0 +1,71 @@
+<div class="signin">
+  <form class="signin__form" method="post">
+    <h5 class="signin__title">Sign up</h5>
+    <div class="signin__text-field">
+      <label for="Email">
+        <svg
+          width="16"
+          height="16"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 101 101"
+          id="user"
+        >
+          <path
+            d="M50.4 54.5c10.1 0 18.2-8.2 18.2-18.2S60.5 18 50.4 18s-18.2 8.2-18.2 18.2 8.1 18.3 18.2 18.3zm0-31.7c7.4 0 13.4 6 13.4 13.4s-6 13.4-13.4 13.4S37 43.7 37 36.3s6-13.5 13.4-13.5zM18.8 83h63.4c1.3 0 2.4-1.1 2.4-2.4 0-12.6-10.3-22.9-22.9-22.9H39.3c-12.6 0-22.9 10.3-22.9 22.9 0 1.3 1.1 2.4 2.4 2.4zm20.5-20.5h22.4c9.2 0 16.7 6.8 17.9 15.7H21.4c1.2-8.9 8.7-15.7 17.9-15.7z"
+          />
+        </svg>
+        <span>Email</span>
+      </label>
+      <br />
+      <input type="text" placeholder="Email" id="email" />
+    </div>
+    <div class="signin__text-field">
+      <label for="confirm-password">
+        <svg
+          width="16"
+          height="16"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 64 64"
+          id="confirm-password"
+        >
+          <path
+            d="M50 2 25.223 26.776A17.984 17.984 0 0 0 20 26c-9.941 0-18 8.059-18 18s8.059 18 18 18 18-8.059 18-18c0-1.817-.275-3.57-.777-5.224L42 34v-4h4l16-16V2H50zm10 11.171L45.172 28H40v5.171l-4.191 4.19-.848.848.348 1.147C35.768 40.868 36 42.43 36 44c0 8.822-7.178 16-16 16S4 52.822 4 44s7.178-16 16-16a16 16 0 0 1 4.643.69l1.146.348.848-.848L50.828 4H60v9.171z"
+          />
+          <circle cx="16" cy="48" r="4" />
+          <path d="m41.293 21.293 12-12 1.414 1.414-12 12z" />
+        </svg>
+        <span>Password</span>
+      </label>
+      <br />
+      <input type="password" placeholder="Password" id="password" />
+    </div>
+    <div class="signin__text-field">
+      <label for="password">
+        <svg
+          width="16"
+          height="16"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 64 64"
+          id="password"
+        >
+          <path
+            d="M50 2 25.223 26.776A17.984 17.984 0 0 0 20 26c-9.941 0-18 8.059-18 18s8.059 18 18 18 18-8.059 18-18c0-1.817-.275-3.57-.777-5.224L42 34v-4h4l16-16V2H50zm10 11.171L45.172 28H40v5.171l-4.191 4.19-.848.848.348 1.147C35.768 40.868 36 42.43 36 44c0 8.822-7.178 16-16 16S4 52.822 4 44s7.178-16 16-16a16 16 0 0 1 4.643.69l1.146.348.848-.848L50.828 4H60v9.171z"
+          />
+          <circle cx="16" cy="48" r="4" />
+          <path d="m41.293 21.293 12-12 1.414 1.414-12 12z" />
+        </svg>
+        <span>Confirm password</span>
+      </label>
+      <br />
+      <input
+        type="password"
+        placeholder="Confirm password"
+        id="confirm-password"
+      />
+    </div>
+    <button class="btn-signin" type="submit">Login</button>
+    <a class="signin__forgot-password" routerLink="/forget_password"
+      >Forgot your password?</a
+    >
+  </form>
+</div>
