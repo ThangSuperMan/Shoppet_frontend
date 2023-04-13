@@ -1,4 +1,5 @@
 @import "../../../../../scss/variables";
+@import "../../../../../scss/mixins";
 
 .navigation {
   display: flex;
@@ -33,7 +34,7 @@
 
 .item {
   &__icon {
-    margin-bottom: 4px; 
+    margin-bottom: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,7 +42,7 @@
   }
 
   &__title {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 12px;
     line-height: 1;
@@ -64,5 +65,13 @@
     top: -6px;
     right: -15px;
     position: absolute;
+  }
+}
+
+@include breakpoint(smallestDesktop) {
+  .navigation {
+    display: none;
+    // visibility: visible;
+    // background: orange;
   }
 }

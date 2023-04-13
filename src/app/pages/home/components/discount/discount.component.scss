@@ -1,9 +1,11 @@
 @import "../../../../../scss/variables";
+@import "../../../../../scss/mixins";
 
 .btn-submit {
   padding: 2px 16px;
   border-radius: 25px;
-  color: $secondary-color;
+  color: #ffffff;
+  background-color: $secondary-color;
   font-family: "Chewy", Sans-serif;
   border: none;
   margin-top: 0.5px;
@@ -30,7 +32,7 @@
     display: block;
     padding-inline: 15px;
     border-radius: 50px;
-    background-image: url('/assets/images/Sans-titre18-1024x546.png');
+    background-image: url("/assets/images/Sans-titre18-1024x546.png");
     background-size: 900px auto;
     background-repeat: no-repeat;
     width: 100%;
@@ -54,9 +56,29 @@
         border-radius: 19px;
 
         ::placeholder {
-          color: #AAAAAA;
+          color: #aaaaaa;
         }
       }
+    }
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .discount-content {
+    background-size: 1100px auto;
+  }
+}
+
+@include breakpoint(tablet) {
+  .discount-content__form {
+    width: 50%;
+
+    input {
+      width: 40%;
+    }
+
+    .btn-submit {
+      width: 20%;
     }
   }
 }

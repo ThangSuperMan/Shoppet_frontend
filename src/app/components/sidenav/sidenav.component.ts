@@ -27,10 +27,7 @@ export class SideNavComponent {
   };
 
   handleToggleSideNav(): void {
-    console.log('handleToggleSideNav');
-    const overlay = document.querySelector('.overlay');
     const body = document.querySelector('body');
-    console.log('overlay :>> ', overlay);
     if (this.isShowSideNav) {
       return;
     } else {

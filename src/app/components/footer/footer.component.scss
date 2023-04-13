@@ -1,0 +1,84 @@
+@import "../../../scss/variables";
+@import "../../../scss/mixins";
+
+.footer {
+  background-color: $secondary-color;
+  padding-inline: 15px;
+  margin-bottom: $bottom-navigation-height;
+
+  &-content {
+    padding-inline: 15px;
+    padding-top: 55px;
+    padding-bottom: 70px;
+
+    &__payment-method {
+      small {
+        display: block;
+        padding-top: 30px;
+        color: rgba(189, 217, 224, 1);
+      }
+
+      ul {
+        list-style: none;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+
+    &__item {
+      h6 {
+        color: $blue-thin-color;
+        font-size: 18px;
+        line-height: 1.5;
+        font-family: Poppins;
+        margin-top: 15px;
+        margin-bottom: 20px;
+      }
+
+      ul {
+        list-style: none;
+
+        li {
+          color: $teal-light-color;
+          font-family: "Chewy";
+          height: 36px;
+          line-height: 2;
+
+          a {
+            line-height: 1;
+          }
+        }
+      }
+    }
+
+    &__item-discount {
+      color: rgba(189, 217, 224, 1);
+      font-size: 14px;
+      font-family: "Poppins";
+    }
+  }
+}
+
+@include breakpoint(smallestDesktop) {
+  .footer {
+    margin-bottom: 0px;
+    &-content {
+      margin-inline: auto;
+      width: 70%;
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    margin-inline: auto;
+
+    &__item {
+      width: 50%;
+    }
+  }
+}

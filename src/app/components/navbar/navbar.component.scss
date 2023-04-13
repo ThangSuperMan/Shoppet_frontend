@@ -1,4 +1,4 @@
-@import "../../scss/variables";
+@import "../../../scss/variables";
 
 button {
   background-color: transparent;
@@ -24,9 +24,7 @@ button {
     height: 24.5px;
     display: flex;
     align-items: center;
-    justify-content: center
-
-    svg {
+    justify-content: center svg {
       width: 26px;
       height: 26px;
     }
@@ -41,5 +39,5 @@ button {
 }
 
 .navbar__cart:hover path {
-    fill: $blue-hard-color;
+  fill: $blue-hard-color;
 }
