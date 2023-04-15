@@ -1,0 +1,11 @@
+.ranger {
+  &-slider {
+    display: flex;
+
+    &__min::-webkit-outer-spin-button,
+    &__max::-webkit-inner-spin-button {
+      background: orange;
+      -webkit-appearance: none;
+    }
+  }
+}
