@@ -14,6 +14,7 @@ import { LogoComponent } from './components/logo/logo.component';
 import { SideNavComponent } from './components/sidenav/sidenav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { ProductComponent } from './pages/shop/components/product/product.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     SigninComponent,
     SignupComponent,
     FooterComponent,
+    ProductComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, LazyLoadImageModule],
   providers: [],

@@ -1,31 +1,161 @@
 <div class="shop">
-  <div class="ranger">
-    <div class="ranger-slider">
-      <div class="ranger-slider__numberValue">
-        <span>From: </span>
-        <input type="number" min="0" max="10000" value="2500" disabled />
-      </div>
-      <div class="progress"></div>
-      <input
-        type="range"
-        class="ranger-slider__min"
-        min="0"
-        max="10000"
-        value="2500"
-        disabled
-      />
-      <input
-        type="range"
-        class="ranger-slider__max"
-        min="0"
-        max="10000"
-        value="2500"
-        disabled
-      />
-      <div class="ranger-slider__numberValue">
-        <span>to: </span>
-        <input type="number" min="0" max="10000" value="2500" disabled />
-      </div>
+  <div class="shop-top">
+    <span>1-24 of over 40,000 results</span>
+    <div class="shop-top__selection">
+      <select>
+        <option>Sort by: Featured</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Avg. Customer Review</option>
+        <option>Best Sellers</option>
+      </select>
     </div>
   </div>
+  <section class="shop-content">
+    <div class="shop-content__left-bar">
+      <div class="department">
+        <span class="department__title">Department</span>
+        <div class="department__supplies">
+          <div class="supplies__item">
+            <span class="supplies__title"><strong>Pet Supplies</strong></span>
+            <div class="supplies__item-sub">
+              <span>Dog</span>
+            </div>
+            <div class="supplies__item-sub">
+              <span>Cats</span>
+            </div>
+            <div class="supplies__item-sub">
+              <span>Fish & Aquatic Pets</span>
+            </div>
+            <div class="supplies__item-sub">
+              <span>Birds</span>
+            </div>
+            <div class="supplies__item-sub">
+              <span>Horses</span>
+            </div>
+            <div class="supplies__item-sub">
+              <span>Small Animals</span>
+            </div>
+          </div>
+        </div>
+        <div class="department__supplies">
+          <div class="supplies__item">
+            <span class="supplies__title">Featured brands</span>
+            <div class="supplies__item-sub">
+              <input type="checkbox" />
+              <span>Amazon</span>
+            </div>
+            <div class="supplies__item-sub">
+              <input type="checkbox" />
+              <span>Earch Rated</span>
+            </div>
+            <div class="supplies__item-sub">
+              <input type="checkbox" />
+              <span>Dr. Elsey's</span>
+            </div>
+            <div class="supplies__item-sub">
+              <input type="checkbox" />
+              <span>Purila</span>
+            </div>
+            <div class="supplies__item-sub">
+              <input type="checkbox" />
+              <span>Fresh Step</span>
+            </div>
+          </div>
+        </div>
+        <div class="department__supplies">
+          <div class="supplies__item">
+            <span class="supplies__title">Price</span>
+            <div class="supplies__item-sub">
+              <span>Up to $25</span>
+            </div>
+            <div class="supplies__item-sub">
+              <span>$25 to $50</span>
+            </div>
+            <div class="supplies__item-sub">
+              <span>$50 to $100</span>
+            </div>
+            <div class="supplies__item-sub">
+              <span>$100 to $200</span>
+            </div>
+            <div class="supplies__item-sub">
+              <span>$200 & above</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="shop-content__right-bar">
+      <div class="product">
+        <a routerLink="product_detai/id" class="product-item">
+          <div class="product-item__img">
+            <img
+              src="https://m.media-amazon.com/images/I/81P6Z2vH2-L._AC_UL320_.jpg"
+              alt="Product image"
+            />
+          </div>
+          <p class="product-item__desc">
+            Seresto Large Dog Vet-Recommended Flea & Tick Treatment & Prevention
+            Collar for Dogs Over 18 lbs. | 8 Months
+          </p>
+          <div class="product-item__rating">
+            <i></i>
+            <i class="icon-popover"></i>
+            <span class="sum-reviews">69,199</span>
+          </div>
+        </a>
+        <a routerLink="product_detai/id" class="product-item">
+          <div class="product-item__img">
+            <img
+              src="https://m.media-amazon.com/images/I/71LtXuEA1sL._AC_UL320_.jpg"
+              alt="Product image"
+            />
+          </div>
+          <p class="product-item__desc">
+            Seresto Large Dog Vet-Recommended Flea & Tick Treatment & Prevention
+            Collar for Dogs Over 18 lbs. | 8 Months
+          </p>
+          <div class="product-item__rating">
+            <i></i>
+            <i class="icon-popover"></i>
+            <span class="sum-reviews">69,199</span>
+          </div>
+        </a>
+        <a routerLink="product_detai/id" class="product-item">
+          <div class="product-item__img">
+            <img
+              src="https://m.media-amazon.com/images/I/71yvqBnUtKL._AC_UL320_.jpg"
+              alt="Product image"
+            />
+          </div>
+          <p class="product-item__desc">
+            Seresto Large Dog Vet-Recommended Flea & Tick Treatment & Prevention
+            Collar for Dogs Over 18 lbs. | 8 Months
+          </p>
+          <div class="product-item__rating">
+            <i></i>
+            <i class="icon-popover"></i>
+            <span class="sum-reviews">69,199</span>
+          </div>
+        </a>
+        <a routerLink="product_detai/id" class="product-item">
+          <div class="product-item__img">
+            <img
+              src="https://m.media-amazon.com/images/I/81zoEhDafVL._AC_UL320_.jpg"
+              alt="Product image"
+            />
+          </div>
+          <p class="product-item__desc">
+            Seresto Large Dog Vet-Recommended Flea & Tick Treatment & Prevention
+            Collar for Dogs Over 18 lbs. | 8 Months
+          </p>
+          <div class="product-item__rating">
+            <i></i>
+            <i class="icon-popover"></i>
+            <span class="sum-reviews">69,199</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
 </div>
