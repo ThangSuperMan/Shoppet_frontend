@@ -1,5 +1,9 @@
 <div class="signin">
-  <form class="signin__form" method="post">
+  <form
+    #loginForm="ngForm"
+    (ngSubmit)="handleLogin(loginForm)"
+    class="signin__form"
+  >
     <h5 class="signin__title">Login</h5>
     <div class="signin__text-field">
       <label for="username">
@@ -17,7 +21,13 @@
         <span>Username</span>
       </label>
       <br />
-      <input type="text" placeholder="Username" id="username" />
+      <input
+        ngModel
+        name="username"
+        type="text"
+        placeholder="Username"
+        id="username"
+      />
     </div>
     <div class="signin__text-field">
       <label for="password">
@@ -37,7 +47,13 @@
         <span>Password</span>
       </label>
       <br />
-      <input type="password" placeholder="Password" id="password" />
+      <input
+        ngModel
+        name="password"
+        type="password"
+        placeholder="Password"
+        id="password"
+      />
     </div>
     <button class="btn-signin" type="submit">Login</button>
     <a class="signin__forgot-password" routerLink="/forget_password"

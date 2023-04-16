@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@api": ["src/app/api/"]
+      "@env": ["src/app/enviroment/"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

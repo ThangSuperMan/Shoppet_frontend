@@ -15,6 +15,9 @@ import { SideNavComponent } from './components/sidenav/sidenav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ProductComponent } from './pages/shop/components/product/product.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,8 +34,15 @@ import { ProductComponent } from './pages/shop/components/product/product.compon
     SignupComponent,
     FooterComponent,
     ProductComponent,
+    AdminComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, LazyLoadImageModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    LazyLoadImageModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
