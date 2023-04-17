@@ -18,6 +18,9 @@ import { ProductComponent } from './pages/shop/components/product/product.compon
 import { AdminComponent } from './pages/admin/admin.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { UserComponent } from './pages/user/user.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +38,15 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     ProductComponent,
     AdminComponent,
+    UserComponent,
+    ForbiddenComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    RouterModule,
     LazyLoadImageModule,
   ],
   providers: [],

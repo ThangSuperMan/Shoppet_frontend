@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { UserService } from 'src/app/_services/user.service';
 
 @Component({
@@ -7,32 +10,35 @@ import { UserService } from 'src/app/_services/user.service';
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private userAuthService: UserAuthService,
+    private router: Router
+  ) {}
 
-  handleLogin(loginForm: any) {
+  setUpLocalStorage(jwtToken: string, role: string) {
+    this.userAuthService.setToken(jwtToken);
+    this.userAuthService.setRoles(role);
+  }
+
+  handleLogin(loginForm: NgForm) {
     console.log('Login form submitted!');
-    console.log('loginForm.value :>> ', loginForm.value);
-    this.userService.login(loginForm.value).subscribe((res: any) => {
-      console.log('res :>> ', res);
+    this.userService.login(loginForm.value).subscribe({
+      next: (response: any) => {
+        console.log('response :>> ', response);
+        const jwtToken: string = response.jwtToken;
+        const role: string = response.user.role;
+        this.setUpLocalStorage(jwtToken, role);
+
+        if (role === 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/user']);
+        }
+      },
+      error: (error: any) => {
+        console.log('Error in login component :>> ', error);
+      },
     });
-    // this.userService.login(loginForm.value).subscribe(
-    //   {
-    //     complete: () => {
-    //       console.log('complete');
-    //     },
-    //     error: (error: any) => {
-    //       console.log(' error:>> ', error);
-    //     },
-    //     next: (data: any) => {
-    //       console.log('data :>> ', data);
-    //     },
-    //   }
-    // (response: any) => {
-    //   console.log('response :>> ', response);
-    // },
-    // (error: Error) => {
-    //   console.log('Error :>> ', error);
-    // }
-    // );
   }
 }

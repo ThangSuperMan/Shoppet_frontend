@@ -19,10 +19,24 @@
     </button>
   </div>
   <ul class="sidenav__category">
-    <li class="category__item" *ngFor="let data of sideNavData">
-      <!-- <a [routerLink]="[data.routeLink]"> -->
-      <a href="{{ data.routeLink }}">
-        <span>{{ data.label }}</span>
+    <li class="category__item">
+      <a class="category__link" href="/">
+        <span>Track your order</span>
+      </a>
+    </li>
+    <li class="category__item">
+      <a class="category__link" href="/signup">
+        <span>Sign up</span>
+      </a>
+    </li>
+    <li class="category__item">
+      <a class="category__link" href="/login">
+        <span>Log in</span>
+      </a>
+    </li>
+    <li class="category__item">
+      <a (click)="handleLogout()" class="category__link">
+        <span>Log out</span>
       </a>
     </li>
   </ul>

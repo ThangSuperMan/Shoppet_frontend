@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { sideNavData, sideNavProps } from './sidenav-data';
 
 @Component({
@@ -10,6 +12,16 @@ export class SideNavComponent {
   @Input() isShowSideNav: boolean = false;
   @Input() message: string | undefined;
   sideNavData: sideNavProps[] = sideNavData;
+
+  constructor(
+    private userAuthService: UserAuthService,
+    private router: Router
+  ) {}
+
+  handleLogout() {
+    this.userAuthService.clear();
+    this.router.navigate(['/']);
+  }
 
   handleOnClickBodyEl = () => {
     const body = document.querySelector('body');

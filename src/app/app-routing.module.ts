@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ShopComponnet } from './pages/shop/shop.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { UserComponent } from './pages/user/user.component';
+import { AuthGuard } from './_auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +16,7 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'signin',
+    path: 'login',
     component: SigninComponent,
   },
   {
@@ -29,8 +32,18 @@ const routes: Routes = [
     component: CartComponent,
   },
   {
+    path: 'user',
+    component: UserComponent,
+  },
+  {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'ADMIN' },
+  },
+  {
+    path: 'forbidden',
+    component: ForbiddenComponent,
   },
 ];
 
