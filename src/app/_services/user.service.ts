@@ -26,8 +26,8 @@ export class UserService {
     });
   }
 
-  public getAdmidnResourcePage() {
-    console.log('getAdmidnResourcePage');
+  public forAdmin() {
+    console.log('forAdmin just triggred');
     return this.httpClient.get(`${env.pathApi}/admin`, {
       responseType: 'text',
     });

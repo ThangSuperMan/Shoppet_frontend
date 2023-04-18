@@ -17,10 +17,11 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { ProductComponent } from './pages/shop/components/product/product.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { UserComponent } from './pages/user/user.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { AuthInterceptor } from './_auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,13 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     RouterModule,
     LazyLoadImageModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

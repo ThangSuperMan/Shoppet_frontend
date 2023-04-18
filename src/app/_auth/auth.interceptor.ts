@@ -18,11 +18,14 @@ export class AuthInterceptor implements HttpInterceptor {
     console.log('AuthInterceptor just inited');
   }
 
+  // Auto trigger this function when the user send the request
+  // to the szerver
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     console.log('intercept method in authe.intercept.ts file');
+    console.log("req.headers.get('No-Auth')", req.headers.get('No-Auth'));
     if (req.headers.get('No-Auth') === 'True') {
       return next.handle(req.clone());
     }
