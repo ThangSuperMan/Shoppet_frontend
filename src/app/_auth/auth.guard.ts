@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserAuthService } from '../_services/user-auth.service';
-import { UserService } from '../_services/user.service';
+import { UserService } from '../_services/user/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,16 +27,11 @@ export class AuthGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    console.log('route :>> ', route);
-    console.log('state :>> ', state);
-
+    console.log('canActivate in auth gruad is running...');
     const role = route.data['role'];
-    console.log('role from data route :>> ', role);
 
     if (this.userAuthService.getToken() !== null) {
       const isMatchRole = this.userService.isRoleMatch(role);
-      console.log('isMatchRole :>> ', isMatchRole);
-
       if (isMatchRole) {
         return true;
       } else {
@@ -45,7 +40,6 @@ export class AuthGuard {
       }
     }
     this.router.navigate(['/login']);
-    // this.router.navigate(['/admin']);
     return false;
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-// import { UserService } from 'src/app/_services/user.service';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { CustomValidationService } from 'src/app/_services/custom-validation/custom-validation.service';
 
 @Component({
   selector: 'app-signup',
@@ -7,17 +8,39 @@ import { Component } from '@angular/core';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent {
-  // constructor(private userService: UserService) {}
-  // handleLogin(loginForm: any) {
-  //   console.log('Login form submitted!');
-  //   console.log('loginForm.value :>> ', loginForm.value);
-  //   this.userService.login(loginForm.value).subscribe(
-  //     (response: any) => {
-  //       console.log('response :>> ', response);
-  //     },
-  //     (error: Error) => {
-  //       console.log('Error :>> ', error);
-  //     }
-  //   );
-  // }
+  registerForm!: FormGroup;
+
+  constructor(private customValidator: CustomValidationService) {}
+
+  ngOnInit() {
+    this.registerForm = new FormGroup(
+      {
+        username: new FormControl('', Validators.required),
+        password: new FormControl(
+          '',
+          Validators.compose([
+            Validators.required,
+            this.customValidator.patternValidator(),
+          ])
+        ),
+        confirmPassword: new FormControl('', [Validators.required]),
+      },
+      {
+        validators: [
+          this.customValidator.checkUsername('username'),
+          this.customValidator.matchPassword('password', 'confirmPassword'),
+        ],
+      }
+    );
+  }
+
+  get registerFormControl() {
+    return this.registerForm.controls;
+  }
+
+  handleRegister(registerForm: NgForm): void {
+    console.log('handleRegister');
+    console.log('registerForm :>> ', registerForm);
+  }
+
 }

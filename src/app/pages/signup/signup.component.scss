@@ -1,6 +1,7 @@
 @import "../../../scss/variables";
 
-.btn-signin {
+.btn-signup {
+  font-family: "Poppins", sans-serif;
   color: #ffffff;
   background-color: $primary-color;
   border: none;
@@ -12,7 +13,7 @@
   margin-top: 30px;
 }
 
-.signin {
+.signup {
   height: 100vh;
   padding: 16px 32px;
   max-width: 540px;
@@ -49,6 +50,13 @@
       }
     }
 
+    span.text-danger {
+      display: block;
+      font-size: 14px;
+      color: $light-red-color;
+      margin-top: 4px;
+    }
+
     input {
       width: 100%;
       padding: 10.8px 8px;
@@ -78,9 +86,13 @@
     }
   }
 
-  &__text-field:last-child {
-    margin-top: 20px;
+  &__text-field:not(:last-child) {
+    margin-bottom: 20px;
   }
+
+  // &__text-field:last-child {
+  //   margin-top: 20px;
+  // }
 
   &__forgot-password {
     font-size: 14px;

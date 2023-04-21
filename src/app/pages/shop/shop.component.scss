@@ -41,23 +41,23 @@
       width: 200px;
       padding-right: 12px;
 
-      .department {
-        padding-inline: 4px;
+      // .department {
+      //   padding-inline: 4px;
 
-        &__title {
-          margin-bottom: 8px;
-          font-size: 14px;
-          font-weight: 700;
-        }
+      //   &__title {
+      //     margin-bottom: 8px;
+      //     font-size: 14px;
+      //     font-weight: 700;
+      //   }
 
-        &__supplies {
-          .supplies__title {
-            font-size: 14px;
-            margin-left: 12px;
-            margin-bottom: 4px;
-          }
-        }
-      }
+      //   &__supplies {
+      //     .supplies__title {
+      //       font-size: 14px;
+      //       margin-left: 12px;
+      //       margin-bottom: 4px;
+      //     }
+      //   }
+      // }
     }
 
     &__right-bar {
@@ -65,97 +65,3 @@
     }
   }
 }
-
-.supplies__item {
-  &-sub {
-    display: flex;
-    align-items: center;
-    margin-left: 24px;
-    margin-bottom: 4px;
-    font-weight: normal;
-    font-size: 14px;
-
-    > span {
-      margin-left: 8px;
-
-      &:hover {
-        color: #e38e10;
-      }
-    }
-  }
-}
-
-.product {
-  width: 100%;
-  display: grid;
-  grid-row-gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(320px, auto));
-
-  &-item {
-    border-top: 2px solid #f8f8f8;
-    width: 320px;
-    padding: 2px 6px 6px 6px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    cursor: pointer;
-
-    &__img {
-      // background-color: #f7f7f7;
-      text-align: center;
-
-      img {
-        overflow-clip-margin: content-box;
-        overflow: clipy;
-        background: transparent;
-      }
-    }
-
-    &__rating {
-      display: flex;
-      align-items: flex-start;
-
-      i {
-        display: inline-block;
-        width: 80px;
-        height: 18px;
-        background-position: -2px -42px;
-        background-image: url(https://m.media-amazon.com/images/S/sash/ouR9NRElwmzAIev.png);
-        background-size: 512px 512px;
-        background-repeat: no-repeat;
-      }
-
-      .icon-popover {
-        display: inline-block;
-        margin: 5px 0 0 4px;
-        vertical-align: text-top;
-        width: 7px;
-        height: 5px;
-        background-position: -90px -5px;
-        opacity: 0.6;
-        background-image: url(https://m.media-amazon.com/images/S/sash/McBZv0ZvnbehkIx.png);
-        -webkit-background-size: 400px 900px;
-        background-size: 400px 900px;
-        background-repeat: no-repeat;
-      }
-
-      .sum-reviews {
-        margin-left: 4px;
-        color: #007185;
-        font-size: 14px;
-        line-height: 1.3;
-      }
-    }
-  }
-}
-
-// Media queries from big desktop to small desktop
-// @media screen and (max-width: 1656px) {
-//   .product {
-//     grid-template-columns: repeat(3, calc(100% / 3));
-//   }
-// }
-
-// @media screen and (max-width: 1024px) {
-//   .product {
-//     grid-template-columns: repeat(2, calc(100% / 2));
-//   }
-// }

@@ -14,14 +14,18 @@ import { LogoComponent } from './components/logo/logo.component';
 import { SideNavComponent } from './components/sidenav/sidenav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { ProductComponent } from './pages/shop/components/product/product.component';
 import { AdminComponent } from './pages/admin/admin.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { UserComponent } from './pages/user/user.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AuthInterceptor } from './_auth/auth.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { ProductComponent } from './pages/shop/components/product/product.component';
+import { CategoryComponent } from './pages/shop/components/category/category.component';
+import { ShopComponnet } from './pages/shop/shop.component';
 
 @NgModule({
   declarations: [
@@ -34,13 +38,15 @@ import { AuthInterceptor } from './_auth/auth.interceptor';
     DiscountComponent,
     SideNavComponent,
     HomeComponent,
+    ShopComponnet,
+    ProductComponent,
     SigninComponent,
     SignupComponent,
     FooterComponent,
-    ProductComponent,
     AdminComponent,
     UserComponent,
     ForbiddenComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +55,13 @@ import { AuthInterceptor } from './_auth/auth.interceptor';
     FormsModule,
     RouterModule,
     LazyLoadImageModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      timeOut: 2500,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: false,
+    }),
   ],
   providers: [
     {

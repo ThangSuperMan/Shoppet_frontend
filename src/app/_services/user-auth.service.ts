@@ -13,11 +13,11 @@ export class UserAuthService {
   }
 
   public setToken(jwtToken: string) {
-    localStorage.setItem('jwtToken', jwtToken);
+    localStorage.setItem('access-token', jwtToken);
   }
 
   public getToken(): string | null {
-    return localStorage.getItem('jwtToken');
+    return localStorage.getItem('access-token');
   }
 
   public clear() {

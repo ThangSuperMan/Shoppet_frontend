@@ -10,37 +10,40 @@ import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { UserAuthService } from '../_services/user-auth.service';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
-// Injectable header for every requests from client to backend server
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router, private userAuthSerive: UserAuthService) {
-    console.log('AuthInterceptor just inited');
-  }
+  constructor(
+    private toastService: ToastrService,
+    private router: Router,
+    private userAuthSerive: UserAuthService
+  ) {}
 
-  // Auto trigger this function when the user send the request
-  // to the szerver
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('intercept method in authe.intercept.ts file');
-    console.log("req.headers.get('No-Auth')", req.headers.get('No-Auth'));
+    console.log('Sending Request interceptor');
     if (req.headers.get('No-Auth') === 'True') {
       return next.handle(req.clone());
     }
-
     const jwtToken = this.userAuthSerive.getToken();
+    let modifiedRequest = this.addToken(req, jwtToken);
 
-    req = this.addToken(req, jwtToken);
-
-    return next.handle(req).pipe(
+    return next.handle(modifiedRequest).pipe(
       catchError((err: HttpErrorResponse) => {
-        console.log('Error status :>> ', err.status);
-        if (err.status === 401) {
-          this.router.navigate(['/login']);
-        } else if (err.status === 403) {
-          this.router.navigate(['/forbidden']);
+        switch (err.status) {
+          case 403: // Forbidden
+            this.toastService.error(`${err.statusText}`, 'Access Error');
+            this.router.navigate(['/forbidden']);
+            break;
+          case 404: // Not found
+            this.toastService.error(`${err.statusText}`, 'Route Error');
+            break;
+          case 500: // External server
+              this.toastService.error(`${err.statusText}`, 'Access Error')
+            break;
         }
         return throwError(() => 'Something is wrong in here!');
       })

@@ -1,9 +1,12 @@
-<!-- #loginForm="ngForm" -->
-<!-- (ngSubmit)="handleLogin(loginForm)" -->
-<div class="signin">
-  <form class="signin__form">
-    <h5 class="signin__title">Sign up</h5>
-    <div class="signin__text-field">
+<div class="signup">
+  <form
+    #userRegister="ngForm"
+    [formGroup]="registerForm"
+    (ngSubmit)="handleRegister(userRegister.value)"
+    class="signup__form"
+  >
+    <h5 class="signup__title">Sign up</h5>
+    <div class="signup__text-field">
       <label for="smail">
         <svg
           width="16"
@@ -20,21 +23,36 @@
       </label>
       <br />
       <input
-        ngModel
-        name="username"
+        formControlName="username"
         type="text"
         placeholder="Username"
         id="username"
       />
+      <div class="validate">
+        <span
+          *ngIf="registerFormControl['username'].touched &&
+            registerFormControl['username'].errors?.['required']
+          "
+          class="text-danger"
+        >
+          Required!
+        </span>
+        <span
+          *ngIf="registerFormControl['username'].errors?.['userNameAvailable']"
+          class="text-danger"
+        >
+          Username not available!
+        </span>
+      </div>
     </div>
-    <div class="signin__text-field">
-      <label for="confirm-password">
+    <div class="signup__text-field">
+      <label for="password">
         <svg
           width="16"
           height="16"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 64 64"
-          id="confirm-password"
+          id="password"
         >
           <path
             d="M50 2 25.223 26.776A17.984 17.984 0 0 0 20 26c-9.941 0-18 8.059-18 18s8.059 18 18 18 18-8.059 18-18c0-1.817-.275-3.57-.777-5.224L42 34v-4h4l16-16V2H50zm10 11.171L45.172 28H40v5.171l-4.191 4.19-.848.848.348 1.147C35.768 40.868 36 42.43 36 44c0 8.822-7.178 16-16 16S4 52.822 4 44s7.178-16 16-16a16 16 0 0 1 4.643.69l1.146.348.848-.848L50.828 4H60v9.171z"
@@ -46,14 +64,33 @@
       </label>
       <br />
       <input
-        ngModel
-        name="password"
+        formControlName="password"
         type="password"
         placeholder="Password"
         id="password"
       />
+      <div class="valdiate">
+        <span
+          *ngIf="registerFormControl['password'].touched &&
+            registerFormControl['password'].errors?.['required']
+          "
+          class="text-danger"
+        >
+          Required!
+        </span>
+        <span
+          *ngIf="
+            registerFormControl['password'].touched &&
+            registerFormControl['password'].errors?.['invalidPassword']
+          "
+          class="text-danger"
+        >
+          Password should have mininum 6 characters, at least 1 uppercase
+          letter, 1 lowercase letter and 1 number
+        </span>
+      </div>
     </div>
-    <div class="signin__text-field">
+    <div class="signup__text-field">
       <label for="password">
         <svg
           width="16"
@@ -72,15 +109,29 @@
       </label>
       <br />
       <input
-        ngModel
+        formControlName="confirmPassword"
         name="confirm_password"
         type="password"
         placeholder="Confirm password"
         id="confirm-password"
       />
+
+      <div class="validate">
+        <span
+          class="text-danger"
+          *ngIf="
+            registerFormControl['confirmPassword'].invalid &&
+            registerFormControl['confirmPassword'].touched
+          "
+        >
+          Password does not match
+        </span>
+      </div>
     </div>
-    <button class="btn-signin" type="submit">Login</button>
-    <a class="signin__forgot-password" routerLink="/forget_password"
+    <button class="btn-signup" [disabled]="registerForm.invalid" type="submit">
+      Sign up
+    </button>
+    <a class="signup__forgot-password" routerLink="/forget_password"
       >Forgot your password?</a
     >
   </form>
