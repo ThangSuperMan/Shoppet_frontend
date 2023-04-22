@@ -24,7 +24,6 @@ export class CustomValidationService {
     console.log('checkUsername triggred!');
     return (formGroup: FormGroup): any => {
       const usernameControl = formGroup.controls[username];
-      console.log('usernameControl :>> ', usernameControl);
       let returnResult;
       this.userService.getUserByUsername(usernameControl.value).subscribe({
         next: (response: any) => {
@@ -61,22 +60,5 @@ export class CustomValidationService {
         confirmPasswordControl.setErrors(null);
       }
     };
-  }
-
-  userNameValidator(userControl: AbstractControl) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (this.validateUsername(userControl.value)) {
-          resolve({ userNameNotAvailable: true });
-        } else {
-          resolve(null);
-        }
-      });
-    });
-  }
-
-  validateUsername(username: string): boolean {
-    const users = ['thang', 'nhi', 'ngoc'];
-    return users.indexOf(username) > -1;
   }
 }

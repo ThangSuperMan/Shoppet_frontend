@@ -5,14 +5,15 @@ import env from '@env';
 import { Observable } from 'rxjs';
 import { User } from '@models';
 
-interface LoginProps {
+export interface LoginProps {
   username: string;
   password: string;
 }
 
-interface RegisterProps {
+export interface RegisterProps {
   username: string;
   password: string;
+  confirmPassword: string;
 }
 
 @Injectable({
@@ -28,15 +29,16 @@ export class UserService {
 
   public login(loginData: LoginProps) {
     console.log('UserService login method is running...');
-    return this.httpClient.post(`${env.pathApi}/authenticate`, loginData, {
+    return this.httpClient.post(`${env.pathApi}/signin`, loginData, {
       headers: this.requestHeader,
     });
   }
 
-  public register(registerData: RegisterProps) {
+  public signup(registerData: RegisterProps) {
     console.log('UserSerivce register method is running...');
     console.log('registerData :>> ', registerData);
-    return this.httpClient.post(`${env.pathApi}/register`, registerData, {
+    console.log('current sign up route :>> ', `${env.pathApi}/signup`);
+    return this.httpClient.post(`${env.pathApi}/signup`, registerData, {
       headers: this.requestHeader,
     });
   }
