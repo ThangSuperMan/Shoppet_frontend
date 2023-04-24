@@ -26,7 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProductComponent } from './pages/shop/components/product/product.component';
 import { CategoryComponent } from './pages/shop/components/category/category.component';
 import { ShopComponnet } from './pages/shop/shop.component';
-import { ProductDetailsComponent } from './pages/shop/components/product-details/product-details.component';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 
 @NgModule({
   declarations: [

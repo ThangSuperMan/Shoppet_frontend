@@ -4,6 +4,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { ShopComponnet } from './pages/shop/shop.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { SignupComponent } from './pages/signup/signup.component';
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'shop',
     component: ShopComponnet,
+  },
+  {
+    path: 'shop/products/:product_id',
+    component: ProductDetailsComponent,
   },
   {
     path: 'cart',
