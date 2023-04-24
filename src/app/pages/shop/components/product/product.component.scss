@@ -12,10 +12,17 @@
     cursor: pointer;
 
     &__img {
-      // background-color: #f7f7f7;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
 
       img {
+        width: 154px;
+        height: 240px;
+        display: block;
+        object-fit: cover;
         overflow-clip-margin: content-box;
         overflow: clipy;
         background: transparent;
@@ -23,6 +30,7 @@
     }
 
     &__rating {
+      padding-top: 8px;
       display: flex;
       align-items: flex-start;
 

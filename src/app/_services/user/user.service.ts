@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserAuthService } from '../user-auth.service';
-import env from '@env';
 import { Observable } from 'rxjs';
 import { User } from '@models';
+import env from '@env';
 
 export interface LoginProps {
   username: string;
@@ -35,9 +35,8 @@ export class UserService {
   }
 
   public signup(registerData: RegisterProps) {
-    console.log('UserSerivce register method is running...');
+    console.log('UserSerivce sign up method is running...');
     console.log('registerData :>> ', registerData);
-    console.log('current sign up route :>> ', `${env.pathApi}/signup`);
     return this.httpClient.post(`${env.pathApi}/signup`, registerData, {
       headers: this.requestHeader,
     });

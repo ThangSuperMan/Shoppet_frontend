@@ -26,6 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProductComponent } from './pages/shop/components/product/product.component';
 import { CategoryComponent } from './pages/shop/components/category/category.component';
 import { ShopComponnet } from './pages/shop/shop.component';
+import { ProductDetailsComponent } from './pages/shop/components/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ShopComponnet } from './pages/shop/shop.component';
     UserComponent,
     ForbiddenComponent,
     CategoryComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     BrowserModule,
