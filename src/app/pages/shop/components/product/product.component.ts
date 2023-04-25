@@ -8,4 +8,12 @@ import { Product } from '@models';
 })
 export class ProductComponent {
   @Input() products: Product[] = [];
+
+  handleShowPopupRatingWindow(): void {
+    console.log('handleShowPopupRatingWindow');
+  }
+
+  handleClosePopupRatingWindow(): void {
+    console.log('handleClosePopupRatingWindow');
+  }
 }

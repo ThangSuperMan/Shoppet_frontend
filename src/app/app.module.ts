@@ -27,6 +27,7 @@ import { ProductComponent } from './pages/shop/components/product/product.compon
 import { CategoryComponent } from './pages/shop/components/category/category.component';
 import { ShopComponnet } from './pages/shop/shop.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { RatingPopupComponent } from './components/rating-popup/rating-popup.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
     ForbiddenComponent,
     CategoryComponent,
     ProductDetailsComponent,
+    RatingPopupComponent
   ],
   imports: [
     BrowserModule,

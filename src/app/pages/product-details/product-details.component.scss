@@ -77,19 +77,11 @@
     margin-top: 20px;
 
     > div {
-    margin-top: 20px;
+      margin-top: 20px;
       display: flex;
       align-items: flex-start;
       max-width: 1464px;
       margin-inline: auto;
-    }
-
-    &__title {
-      max-width: 1464px;
-      margin-inline: auto;
-      font-size: 24px;
-      font-weight: 400;
-      line-height: 32px;
     }
 
     &__left {
@@ -106,6 +98,12 @@
 
     &__center {
       width: 30%;
+
+      .title {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 32px;
+      }
 
       .rating {
         padding-top: 8px;
@@ -165,7 +163,7 @@
         > div {
           display: flex;
           align-items: center;
-        } 
+        }
 
         &__content {
           font-size: 14px;
@@ -184,7 +182,7 @@
           width: 80px;
           height: 74px;
           border-radius: 5px;
-          border: 1px solid $orange-light-color; 
+          border: 1px solid $orange-light-color;
           padding: 1px 6px;
           cursor: pointer;
 
@@ -192,7 +190,6 @@
             margin-left: 8px;
           }
         }
-
       }
     }
 
