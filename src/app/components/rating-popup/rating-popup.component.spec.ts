@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RaringPopupComponent } from './raring-popup.component';
+import { RatingPopupComponent } from './rating-popup.component';
 
 describe('RaringPopupComponent', () => {
-  let component: RaringPopupComponent;
-  let fixture: ComponentFixture<RaringPopupComponent>;
+  let component: RatingPopupComponent;
+  let fixture: ComponentFixture<RatingPopupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RaringPopupComponent ]
-    })
-    .compileComponents();
+      declarations: [RatingPopupComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(RaringPopupComponent);
+    fixture = TestBed.createComponent(RatingPopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

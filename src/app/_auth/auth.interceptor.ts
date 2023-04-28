@@ -42,7 +42,7 @@ export class AuthInterceptor implements HttpInterceptor {
             this.toastService.error(`${err.statusText}`, 'Route Error');
             break;
           case 500: // External server
-              this.toastService.error(`${err.statusText}`, 'Access Error')
+            this.toastService.error(`${err.statusText}`, 'Access Error');
             break;
         }
         return throwError(() => 'Something is wrong in here!');

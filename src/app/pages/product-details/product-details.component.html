@@ -1,7 +1,9 @@
 <div class="product-details">
   <div class="product-details__back">
-    <span class="product-details__back-icon"> ‹ </span>
-    <span> Back to results </span>
+    <button (click)="handleGoBackPreviousPage()">
+      <span class="product-details__back-icon"> ‹ </span>
+      <span> Back to results </span>
+    </button>
   </div>
   <div class="product-details-content">
     <!-- <h1 class="product-details-content__title"> -->
@@ -10,14 +12,15 @@
     <!-- </h1> -->
     <div>
       <div class="product-details-content__left">
-        <img
-          src="https://m.media-amazon.com/images/I/71LtXuEA1sL._AC_SX679_.jpg"
-        />
+        <!-- src="https://m.media-amazon.com/images/I/71LtXuEA1sL._AC_SX679_.jpg" -->
+        <img src="{{ product?.imageUrl }}" />
       </div>
       <div class="product-details-content__center">
         <h1 class="title">
-          (Packaging May Vary) Earth Rated Dog Poop Bags, Guaranteed Leak Proof and
-          Extra Thick Waste Bag Refill Rolls For Dogs, Lavender Scented, 270 Count
+          {{ product?.title }}
+          <!-- (Packaging May Vary) Earth Rated Dog Poop Bags, Guaranteed Leak Proof -->
+          <!-- and Extra Thick Waste Bag Refill Rolls For Dogs, Lavender Scented, 270 -->
+          <!-- Count -->
         </h1>
         <span class="indicator brand">Brand: Earth Rated</span>
         <span class="rating">
@@ -31,7 +34,16 @@
           <span>In Pet Supplies</span>
         </div>
         <div class="sep"></div>
-        <div class="space"></div>
+        <div class="price">
+          <span>Price: </span>
+          <span class="money">
+            <!-- <strong>$20.99</strong> -->
+            <strong>
+              {{ product?.moneyType === "USD" ? "$" : "" }}
+              {{ product?.price }}
+            </strong>
+          </span>
+        </div>
         <div class="sep"></div>
         <div class="colors">
           <div class="colors__content">
@@ -56,8 +68,97 @@
             </div>
           </div>
         </div>
+        <div class="sep"></div>
+        <div class="colors">
+          <div class="colors__content">
+            Flavor Name: &nbsp;
+            <span #optionFlavorProduct>Beef</span>
+            <input #inputOptionFlavorProduct type="hidden" value="Beef" />
+          </div>
+          <div>
+            <div
+              (mouseover)="handleChangeFlavorProduct($event)"
+              class="colors__img"
+            >
+              <input type="hidden" value="Beef" />
+              <span>Beef</span>
+            </div>
+            <div
+              (mouseover)="handleChangeFlavorProduct($event)"
+              class="colors__img"
+            >
+              <input type="hidden" value="Bacon" />
+              <span>Bacon</span>
+            </div>
+          </div>
+        </div>
+        <div class="sep"></div>
+        <div class="sub-desc">
+          <table>
+            <tbody>
+              <tr>
+                <td>Brand</td>
+                <td>Milk-Bone</td>
+              </tr>
+              <tr>
+                <td>Flavor</td>
+                <td>Beef</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sep"></div>
+        <div class="about-this">
+          <h1>About this item</h1>
+          <div class="about-this__content">
+            <ul>
+              <li>
+                <span
+                  >Contains one (1) 40 ounce package of small dog treats with
+                  real bone marrow (packaging may vary)</span
+                >
+              </li>
+              <li>
+                The dog biscuit shell encases a real bone marrow center,
+                delicious treats that you can feel good about giving
+              </li>
+              <li>
+                Crunchy on the outside and meaty on the inside, our MaroSnacks
+                dog snacks are a satisfying combo of texture and mouthwatering
+                flavor
+              </li>
+              <li>Savory treats with calcium, perfect for dogs of all sizes</li>
+              <li>
+                Baked with love in Buffalo, New York, USA, with colors from
+                natural ingredients only
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="product-details-content__right">right</div>
+      <div class="product-details-content__right">
+        <div>
+          <div class="quantity-select">
+            <span>Qty:</span>
+            <div class="select-wrapper">
+              <select id="quantity" name="quantity">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+          </div>
+          <br />
+          <button class="btn-addtocart">Add to cart</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

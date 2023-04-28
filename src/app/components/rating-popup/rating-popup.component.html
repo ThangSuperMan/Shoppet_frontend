@@ -1,16 +1,21 @@
+<!-- <div class="loading-container"> -->
+<!--   <div class="loading-circle"></div> -->
+<!-- </div> -->
 <div
   class="rating-container"
   (mouseover)="showPopup()"
   (mouseleave)="closePopup()"
 >
-  <div class="loading-container">
-    <div class="loading-circle"></div>
-  </div>
+  <div class="rating-container__"></div>
   <div class="rating">
     <i></i>
     <i class="icon-popover"></i>
     <span class="sum-reviews">69,199</span>
-    <div *ngIf="isPopupVisible">
+    <div
+      class="popup-container"
+      *ngIf="isPopupVisible"
+      [ngClass]="isPopupVisible ? 'popup-show' : undefined"
+    >
       <div class="popup">
         <p>Hello from popup window</p>
       </div>

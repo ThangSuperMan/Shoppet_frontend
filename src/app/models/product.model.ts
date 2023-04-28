@@ -4,4 +4,5 @@ export default interface Product {
   price: number;
   description: string;
   imageUrl: string;
+  moneyType: string;
 }

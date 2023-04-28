@@ -1,35 +1,40 @@
 <div class="product">
-  <a *ngFor="let product of products" class="product-item">
+  <a
+    *ngFor="let product of products"
+    routerLink="/shop/products/{{ product.id }}"
+    class="product-item"
+  >
     <div class="product-item__img">
       <img src="{{ product.imageUrl }}" alt="Product image" />
     </div>
     <p class="product-item__title">
       {{ product.title }}
     </p>
-    <div class="product-item__rating">
-      <i></i>
-      <i class="icon-popover"></i>
-      <span class="sum-reviews">{{ product.price }}</span>
-    </div>
-  </a>
-  <a routerLink="product_detai/id" class="product-item">
-    <div class="product-item__img">
-      <img
-        src="https://m.media-amazon.com/images/I/81P6Z2vH2-L._AC_UL320_.jpg"
-        alt="Product image"
-      />
-    </div>
-    <p class="product-item__desc">
-      Seresto Large Dog Vet-Recommended Flea & Tick Treatment & Prevention
-      Collar for Dogs Over 18 lbs. | 8 Months
-    </p>
     <app-rating-popup></app-rating-popup>
     <!-- <div class="product-item__rating"> -->
     <!--   <i></i> -->
     <!--   <i class="icon-popover"></i> -->
-    <!--   <span class="sum-reviews">69,199</span> -->
+    <!--   <span class="sum-reviews">{{ product.price }}</span> -->
     <!-- </div> -->
   </a>
+  <!-- <a routerLink="product_detai/id" class="product-item"> -->
+  <!--   <div class="product-item__img"> -->
+  <!--     <img -->
+  <!--       src="https://m.media-amazon.com/images/I/81P6Z2vH2-L._AC_UL320_.jpg" -->
+  <!--       alt="Product image" -->
+  <!--     /> -->
+  <!--   </div> -->
+  <!--   <p class="product-item__desc"> -->
+  <!--     Seresto Large Dog Vet-Recommended Flea & Tick Treatment & Prevention -->
+  <!--     Collar for Dogs Over 18 lbs. | 8 Months -->
+  <!--   </p> -->
+  <!--   <app-rating-popup></app-rating-popup> -->
+  <!--   <!-1- <div class="product-item__rating"> -1-> -->
+  <!--   <!-1-   <i></i> -1-> -->
+  <!--   <!-1-   <i class="icon-popover"></i> -1-> -->
+  <!--   <!-1-   <span class="sum-reviews">69,199</span> -1-> -->
+  <!--   <!-1- </div> -1-> -->
+  <!-- </a> -->
   <!-- <a routerLink="product_detai/id" class="product-item"> -->
   <!--   <div class="product-item__img"> -->
   <!--     <img -->

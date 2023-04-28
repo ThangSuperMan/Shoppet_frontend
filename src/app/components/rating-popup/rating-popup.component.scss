@@ -1,6 +1,17 @@
 @import "../../../scss/variables";
 
-// Amazon loading animateion
+.popup-show {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .loading-container {
   display: flex;
@@ -29,6 +40,13 @@
   position: relative;
   margin-top: 4px;
   height: 18px;
+
+  &::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    position: absolute;
+  }
 }
 
 .popup {

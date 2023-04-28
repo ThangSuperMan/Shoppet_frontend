@@ -16,7 +16,7 @@ export class ShopComponnet {
   }
 
   getProducts(): void {
-    console.log('ShopController renderProducts is running...');
+    console.log('ShopComponent getProducts method is running...');
     this.productService.getAllProducts().subscribe({
       next: (response: any) => {
         console.log('response :>> ', response);

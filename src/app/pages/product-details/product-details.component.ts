@@ -1,4 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ProductService } from 'src/app/_services/product/product.service';
+import { Product } from '@models';
 
 @Component({
   selector: 'app-product-details',
@@ -6,16 +9,67 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent {
+  @ViewChild('optionFlavorProduct') optionFlavorProduct: ElementRef | undefined;
+  @ViewChild('inputOptionFlavorProduct') inputOptionFlavorProduct:
+    | ElementRef
+    | undefined;
   @ViewChild('optionColorProduct') optionColorProduct: ElementRef | undefined;
   @ViewChild('inputOptionColorProduct') inputOptionColorProduct:
     | ElementRef
     | undefined;
+  product: Product | undefined;
+
+  constructor(
+    private router: Router,
+    private productSerivce: ProductService,
+    private route: ActivatedRoute
+  ) {}
+
+  handleGoBackPreviousPage() {
+    this.router.navigate(['/shop']);
+  }
+
+  ngOnInit(): void {
+    this.getProduct();
+  }
+
+  getProduct(): void {
+    console.log('ProductDetailsComponent getProuduct method is running...');
+    const routeParams: ParamMap = this.route.snapshot.paramMap;
+    const productId: number = Number(routeParams.get('product_id'));
+    console.log('productId :>> ', productId);
+    this.productSerivce.getProduct(productId).subscribe({
+      next: (response: any) => {
+        console.log('response :>> ', response);
+        this.product = response;
+      },
+      error: (error: any) => {
+        console.log('Error :>> ', error);
+      },
+    });
+  }
+
+  changeOptionFlavorProduct(flavor: string): void {
+    console.log('changeOptionFlavorProduct');
+    // @ts-ignore
+    this.optionFlavorProduct.nativeElement.innerText = flavor;
+    // @ts-ignore
+    this.optionFlavorProduct.nativeElement.innerText = flavor;
+  }
 
   changeOptionColorProduct(newColor: string): void {
+    console.log('changeOptionColorProduct');
     // @ts-ignore
     this.optionColorProduct.nativeElement.innerText = newColor;
     // @ts-ignore
     this.inputOptionColorProduct.nativeElement.innerText = newColor;
+  }
+
+  handleChangeFlavorProduct(event: MouseEvent): void {
+    console.log('handleChangeFlavorProduct');
+    // @ts-ignore
+    const flavor = event.target.children[1].innerText;
+    this.changeOptionFlavorProduct(flavor);
   }
 
   handleChangeColorProduct(event: MouseEvent): void {

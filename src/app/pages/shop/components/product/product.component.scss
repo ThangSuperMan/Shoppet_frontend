@@ -2,16 +2,22 @@
 
 .product {
   width: 100%;
-  display: grid;
-  grid-row-gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(320px, auto));
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 
   &-item {
+    width: 25%;
     border-top: 2px solid #f8f8f8;
     width: 320px;
     padding: 2px 6px 6px 6px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     cursor: pointer;
+
+    &__title {
+      font-size: 16px;
+      line-height: 22px;
+    }
 
     &__img {
       text-align: center;
@@ -79,16 +85,3 @@
     }
   }
 }
-
-// Media queries from big desktop to small desktop
-// @media screen and (max-width: 1656px) {
-//   .product {
-//     grid-template-columns: repeat(3, calc(100% / 3));
-//   }
-// }
-
-// @media screen and (max-width: 1024px) {
-//   .product {
-//     grid-template-columns: repeat(2, calc(100% / 2));
-//   }
-// }

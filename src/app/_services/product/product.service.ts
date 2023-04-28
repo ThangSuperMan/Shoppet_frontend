@@ -17,4 +17,11 @@ export class ProductService {
       headers: this.requestHeader,
     });
   }
+
+  public getProduct(id: number): Observable<any> {
+    console.log('ProductService getProduct method is running...');
+    return this.httpClient.get<any>(`${env.pathApi}/products/${id}`, {
+      headers: this.requestHeader,
+    });
+  }
 }
