@@ -267,7 +267,8 @@
           padding-bottom: 3px;
         }
 
-        tbody tr td:nth-child(2) {
+        tbody tr td:not(:first-child) {
+          display: inline;
           width: 100%;
           padding-right: 3px;
           padding-bottom: 3px;

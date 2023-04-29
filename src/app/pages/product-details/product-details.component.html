@@ -1,6 +1,6 @@
 <div class="product-details">
   <div class="product-details__back">
-    <button (click)="handleGoBackPreviousPage()">
+    <button (click)="handleGoBackPreviousPage()" class="indicator">
       <span class="product-details__back-icon"> ‹ </span>
       <span> Back to results </span>
     </button>
@@ -44,8 +44,7 @@
           <span class="money">
             <!-- <strong>$20.99</strong> -->
             <strong>
-              {{ product?.moneyType === "USD" ? "$" : "" }}
-              {{ product?.price }}
+              {{ product?.moneyType === "USD" ? "$" : "" }}{{ product?.price }}
             </strong>
           </span>
         </div>
@@ -106,9 +105,17 @@
                 <!-- <td>Milk-Bone</td> -->
                 <td>{{ brand?.name }}</td>
               </tr>
-              <tr>
+              <!-- <h2>Lenght: {{ foodFlavors.length }}</h2> -->
+              <!-- <strong *ngIf="foodFlavors.length === 0">Length is 0</strong> -->
+              <tr *ngIf="foodFlavors !== undefined">
                 <td>Flavor</td>
-                <td>Beef</td>
+                <td *ngFor="let flavor of foodFlavors">
+                  <span *ngIf="lastFlavor === flavor.name; else elseBlock"
+                    >{{ flavor.name }}.</span
+                  >
+                  <ng-template #elseBlock>{{ flavor.name }},</ng-template>
+                </td>
+                <!-- <td>Beef</td> -->
               </tr>
             </tbody>
           </table>

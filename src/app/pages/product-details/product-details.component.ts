@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ProductService } from 'src/app/_services/product/product.service';
-import { Brand, Product } from '@models';
+import { Brand, FoodFlavor, Product } from '@models';
 
 @Component({
   selector: 'app-product-details',
@@ -20,6 +20,8 @@ export class ProductDetailsComponent {
   product: Product | undefined;
   productDetail: any | undefined;
   brand: Brand | undefined;
+  foodFlavors: FoodFlavor[] | undefined;
+  lastFlavor: string | undefined;
 
   constructor(
     private router: Router,
@@ -45,6 +47,11 @@ export class ProductDetailsComponent {
         console.log('response :>> ', response);
         this.product = response.product;
         this.brand = response.brand;
+        this.foodFlavors = response.foodFlavors;
+        if (this.foodFlavors) {
+          this.lastFlavor = this.foodFlavors[this.foodFlavors.length - 1].name;
+          console.log('lastFlavor :>> ', this.lastFlavor);
+        }
       },
       error: (error: any) => {
         console.log('Error :>> ', error);
