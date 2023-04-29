@@ -14,6 +14,10 @@
       <div class="product-details-content__left">
         <!-- src="https://m.media-amazon.com/images/I/71LtXuEA1sL._AC_SX679_.jpg" -->
         <img src="{{ product?.imageUrl }}" />
+        <div class="product-images">
+          <img src="{{ product?.imageUrl }}" />
+          <img src="{{ product?.imageUrl }}" />
+        </div>
       </div>
       <div class="product-details-content__center">
         <h1 class="title">
@@ -22,7 +26,8 @@
           <!-- and Extra Thick Waste Bag Refill Rolls For Dogs, Lavender Scented, 270 -->
           <!-- Count -->
         </h1>
-        <span class="indicator brand">Brand: Earth Rated</span>
+        <!-- <span class="indicator brand">Brand: Earth Rated</span> -->
+        <span class="indicator brand">Brand: {{ brand?.name }}</span>
         <span class="rating">
           <span class="rating-num-total">4.8</span>
           <i class="icon-stars"></i>
@@ -98,7 +103,8 @@
             <tbody>
               <tr>
                 <td>Brand</td>
-                <td>Milk-Bone</td>
+                <!-- <td>Milk-Bone</td> -->
+                <td>{{ brand?.name }}</td>
               </tr>
               <tr>
                 <td>Flavor</td>

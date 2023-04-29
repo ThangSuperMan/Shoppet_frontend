@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ProductService } from 'src/app/_services/product/product.service';
-import { Product } from '@models';
+import { Brand, Product } from '@models';
 
 @Component({
   selector: 'app-product-details',
@@ -18,6 +18,8 @@ export class ProductDetailsComponent {
     | ElementRef
     | undefined;
   product: Product | undefined;
+  productDetail: any | undefined;
+  brand: Brand | undefined;
 
   constructor(
     private router: Router,
@@ -41,7 +43,8 @@ export class ProductDetailsComponent {
     this.productSerivce.getProduct(productId).subscribe({
       next: (response: any) => {
         console.log('response :>> ', response);
-        this.product = response;
+        this.product = response.product;
+        this.brand = response.brand;
       },
       error: (error: any) => {
         console.log('Error :>> ', error);
@@ -73,10 +76,6 @@ export class ProductDetailsComponent {
   }
 
   handleChangeColorProduct(event: MouseEvent): void {
-    console.log(
-      'inputOptionColorProduct :>> ',
-      this.inputOptionColorProduct?.nativeElement
-    );
     console.log('handleChangeColorProduct');
     // @ts-ignore
     const newColor = event.target.parentNode.children[0].value;
