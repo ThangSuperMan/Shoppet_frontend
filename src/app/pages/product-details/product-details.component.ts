@@ -19,6 +19,7 @@ export class ProductDetailsComponent {
     | undefined;
   product: Product | undefined;
   productDetail: any | undefined;
+  aboutThisItem: any | undefined;
   brand: Brand | undefined;
   foodFlavors: FoodFlavor[] | undefined;
   lastFlavor: string | undefined;
@@ -48,6 +49,11 @@ export class ProductDetailsComponent {
         this.product = response.product;
         this.brand = response.brand;
         this.foodFlavors = response.foodFlavors;
+        this.productDetail = response.productDetail;
+        if (this.productDetail) {
+          this.aboutThisItem = this.productDetail.description.split('<br>');
+          console.log('aboutThisItem :>> ', this.aboutThisItem);
+        }
         if (this.foodFlavors) {
           this.lastFlavor = this.foodFlavors[this.foodFlavors.length - 1].name;
           console.log('lastFlavor :>> ', this.lastFlavor);

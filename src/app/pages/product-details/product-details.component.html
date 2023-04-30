@@ -2,7 +2,7 @@
   <div class="product-details__back">
     <button (click)="handleGoBackPreviousPage()" class="indicator">
       <span class="product-details__back-icon"> ‹ </span>
-      <span> Back to results </span>
+      <span>Back to results</span>
     </button>
   </div>
   <div class="product-details-content">
@@ -81,19 +81,27 @@
           </div>
           <div>
             <div
+              *ngFor="let flavor of foodFlavors"
               (mouseover)="handleChangeFlavorProduct($event)"
               class="colors__img"
             >
               <input type="hidden" value="Beef" />
-              <span>Beef</span>
+              <span>{{ flavor.name }}</span>
             </div>
-            <div
-              (mouseover)="handleChangeFlavorProduct($event)"
-              class="colors__img"
-            >
-              <input type="hidden" value="Bacon" />
-              <span>Bacon</span>
-            </div>
+            <!-- <div -->
+            <!--   (mouseover)="handleChangeFlavorProduct($event)" -->
+            <!--   class="colors__img" -->
+            <!-- > -->
+            <!--   <input type="hidden" value="Beef" /> -->
+            <!--   <span>Beef</span> -->
+            <!-- </div> -->
+            <!-- <div -->
+            <!--   (mouseover)="handleChangeFlavorProduct($event)" -->
+            <!--   class="colors__img" -->
+            <!-- > -->
+            <!--   <input type="hidden" value="Bacon" /> -->
+            <!--   <span>Bacon</span> -->
+            <!-- </div> -->
           </div>
         </div>
         <div class="sep"></div>
@@ -105,14 +113,12 @@
                 <!-- <td>Milk-Bone</td> -->
                 <td>{{ brand?.name }}</td>
               </tr>
-              <!-- <h2>Lenght: {{ foodFlavors.length }}</h2> -->
-              <!-- <strong *ngIf="foodFlavors.length === 0">Length is 0</strong> -->
               <tr *ngIf="foodFlavors !== undefined">
                 <td>Flavor</td>
                 <td *ngFor="let flavor of foodFlavors">
-                  <span *ngIf="lastFlavor === flavor.name; else elseBlock"
-                    >{{ flavor.name }}.</span
-                  >
+                  <span *ngIf="lastFlavor === flavor.name; else elseBlock">{{
+                    flavor.name
+                  }}</span>
                   <ng-template #elseBlock>{{ flavor.name }},</ng-template>
                 </td>
                 <!-- <td>Beef</td> -->
@@ -125,26 +131,25 @@
           <h1>About this item</h1>
           <div class="about-this__content">
             <ul>
-              <li>
-                <span
-                  >Contains one (1) 40 ounce package of small dog treats with
-                  real bone marrow (packaging may vary)</span
-                >
+              <li *ngFor="let paragraph of aboutThisItem">
+                {{ paragraph }}
+                <!-- Contains one (1) 40 ounce package of small dog treats with -->
+                <!-- real bone marrow (packaging may vary)</span -->
               </li>
-              <li>
-                The dog biscuit shell encases a real bone marrow center,
-                delicious treats that you can feel good about giving
-              </li>
-              <li>
-                Crunchy on the outside and meaty on the inside, our MaroSnacks
-                dog snacks are a satisfying combo of texture and mouthwatering
-                flavor
-              </li>
-              <li>Savory treats with calcium, perfect for dogs of all sizes</li>
-              <li>
-                Baked with love in Buffalo, New York, USA, with colors from
-                natural ingredients only
-              </li>
+              <!-- <li> -->
+              <!--   The dog biscuit shell encases a real bone marrow center, -->
+              <!--   delicious treats that you can feel good about giving -->
+              <!-- </li> -->
+              <!-- <li> -->
+              <!--   Crunchy on the outside and meaty on the inside, our MaroSnacks -->
+              <!--   dog snacks are a satisfying combo of texture and mouthwatering -->
+              <!--   flavor -->
+              <!-- </li> -->
+              <!-- <li>Savory treats with calcium, perfect for dogs of all sizes</li> -->
+              <!-- <li> -->
+              <!--   Baked with love in Buffalo, New York, USA, with colors from -->
+              <!--   natural ingredients only -->
+              <!-- </li> -->
             </ul>
           </div>
         </div>
