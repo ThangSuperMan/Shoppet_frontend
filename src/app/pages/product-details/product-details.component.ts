@@ -30,12 +30,12 @@ export class ProductDetailsComponent {
     private route: ActivatedRoute
   ) {}
 
-  handleGoBackPreviousPage() {
-    this.router.navigate(['/shop']);
-  }
-
   ngOnInit(): void {
     this.getProduct();
+  }
+
+  handleGoBackPreviousPage() {
+    this.router.navigate(['/shop']);
   }
 
   getProduct(): void {

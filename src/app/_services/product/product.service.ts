@@ -18,6 +18,18 @@ export class ProductService {
     });
   }
 
+  public getAllProuctsBasedOnPageNumber(pageNumber: number): Observable<any> {
+    console.log(
+      'ProductService getAllProuctsBasedOnPageNumber method is running...'
+    );
+    return this.httpClient.get<any>(
+      `${env.pathApi}/products?pageNumber=${pageNumber}`,
+      {
+        headers: this.requestHeader,
+      }
+    );
+  }
+
   public getProduct(id: number): Observable<any> {
     console.log('ProductService getProduct method is running...');
     return this.httpClient.get<any>(`${env.pathApi}/products/${id}`, {

@@ -7,10 +7,12 @@
     <div class="product-item__img">
       <img src="{{ product.imageUrl }}" alt="Product image" />
     </div>
-    <p class="product-item__title">
-      {{ product.title }}
-    </p>
-    <app-rating-popup></app-rating-popup>
+    <div class="product-item__content">
+      <p class="product-item__title">
+        {{ product.title }}
+      </p>
+      <app-rating-popup></app-rating-popup>
+    </div>
     <!-- <div class="product-item__rating"> -->
     <!--   <i></i> -->
     <!--   <i class="icon-popover"></i> -->
