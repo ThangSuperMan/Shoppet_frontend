@@ -52,7 +52,7 @@ import { NavigationComponent } from './pages/shop/components/navigation/navigati
     CategoryComponent,
     ProductDetailsComponent,
     RatingPopupComponent,
-    NavigationComponent
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,

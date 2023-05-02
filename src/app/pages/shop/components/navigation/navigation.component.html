@@ -1,5 +1,5 @@
 <div class="pagination">
-  <button (click)="handleClickPagination()">shop now</button>
+  <!-- <button (click)="handleClickPagination()">shop now</button> -->
   <div>
     <div class="pagination__prev">
       <svg
@@ -20,16 +20,21 @@
     <div class="pagination__pages">
       <ul>
         <li>
-          <a href="/shop?pageNumber=2&pageSize=12">1</a>
+          <a class="link" href="/shop?pageNumber=2&pageSize=12">1</a>
         </li>
         <li>
-          <a href="/shop?pageNumber=2&pageSize=12">2</a>
+          <a class="link" href="/shop?pageNumber=2&pageSize=12">2</a>
         </li>
         <li>
-          <a href="/shop?pageNumber=2&pageSize=12">3</a>
+          <a class="link" href="/shop?pageNumber=2&pageSize=12">3</a>
         </li>
         <li>
-          <a href="/shop?pageNumber=2&pageSize=12">...</a>
+          <a class="link etc" href="/shop?pageNumber=2&pageSize=12">...</a>
+        </li>
+        <li>
+          <a class="link total-pages" href="/shop?pageNumber=2&pageSize=12">{{
+            totalPages
+          }}</a>
         </li>
       </ul>
     </div>

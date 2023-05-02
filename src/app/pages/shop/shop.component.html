@@ -16,8 +16,19 @@
       <app-category></app-category>
     </div>
     <div class="shop-content__right-bar">
-      <app-product [products]="products"></app-product>
-      <app-navigation></app-navigation>
+      <app-product
+        *ngIf="!isLoading; else loading"
+        [products]="products"
+      ></app-product>
+      <ng-template #loading>
+        <div class="loading-container">
+          <div class="loading-circle"></div>
+        </div>
+      </ng-template>
+      <app-navigation
+        *ngIf="!isLoading"
+        [totalPages]="totalPages"
+      ></app-navigation>
     </div>
   </section>
 </div>

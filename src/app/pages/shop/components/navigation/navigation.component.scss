@@ -1,8 +1,30 @@
+@import "../../../../../scss/variables";
+
 .pagination {
   margin-top: 20px;
   text-align: center;
-  color: #6f7373;
+  color: $gray-medium-color;
   padding-bottom: 16px;
+
+  .etc,
+  .total-pages {
+    color: $gray-medium-color;
+  }
+
+  .total-pages {
+    position: relative;
+
+    &:before {
+      content: "";
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 32px;
+      transform: translateY(8px);
+      background-color: #d5d9d9;
+      position: absolute;
+    }
+  }
 
   > div {
     display: inline-flex;
@@ -32,7 +54,6 @@
   }
 
   &__pages {
-    border: 1px solid red;
     display: inline-block;
     height: 46px;
 
