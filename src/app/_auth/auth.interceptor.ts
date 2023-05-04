@@ -11,10 +11,12 @@ import { Observable, throwError } from 'rxjs';
 import { UserAuthService } from '../_services/user-auth.service';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
+    private logger: NgxFancyLoggerService,
     private toastService: ToastrService,
     private router: Router,
     private userAuthSerive: UserAuthService
@@ -24,7 +26,7 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('Sending Request interceptor');
+    this.logger.info('Sending Request interceptor');
     if (req.headers.get('No-Auth') === 'True') {
       return next.handle(req.clone());
     }
@@ -54,7 +56,7 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     token: string | null
   ): HttpRequest<any> {
-    console.log('addToken');
+    this.logger.info('addToken');
     return request.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,

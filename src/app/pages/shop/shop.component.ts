@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProductService } from 'src/app/_services/product/product.service';
 import { Product } from '@models';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +12,7 @@ import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 })
 export class ShopComponnet {
   products: Product[] = [];
+  pageNumber: number = 1;
   totalPages: number | undefined;
   isLoading: boolean = true;
 
@@ -19,68 +20,43 @@ export class ShopComponnet {
     private logger: NgxFancyLoggerService,
     private toastService: ToastrService,
     private productService: ProductService,
-    private route: ActivatedRoute,
-    private el: ElementRef
+    private route: ActivatedRoute
   ) {}
-
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit');
-    const linkElements = this.el.nativeElement.querySelectorAll(
-      '.pagination__pages .link'
-    );
-    console.log('linkElements :>> ', linkElements);
-  }
 
   ngOnInit() {
     console.log('ngOnInit of ShopComponnet');
-    // Auto trigger when the route change something
+    // Event url listenner
     this.route.queryParams.subscribe((params) => {
       const pageNumber: number = params['pageNumber'];
-      console.log('pageNumber :>> ', pageNumber);
-      if (pageNumber > 1) {
-        console.log('pageNumber > 1');
-        this.getProductsBasedOnPageNumber(pageNumber);
+      if (pageNumber >= 1) {
+        this.pageNumber = pageNumber;
+        this.getProductsBasedOnPageNumber();
       }
-      // Send request
     });
-    this.getProducts();
+    this.getProductsBasedOnPageNumber();
   }
 
-  getProductsBasedOnPageNumber(pageNumber: number): void {
+  getProductsBasedOnPageNumber(): void {
     this.logger.info(
       'ShopComponnet getProductsBasedOnPageNumber method is running...'
     );
-    this.productService.getAllProuctsBasedOnPageNumber(pageNumber).subscribe({
-      next: (response: any) => {
-        this.logger.info('Response: ', response);
-        if (response.errorMessage) {
-          this.logger.warning(response.errorMessage);
-          this.toastService.warning(response.errorMessage);
-        } else {
-          this.totalPages = response.totalPages;
-          this.products = response.products;
-          this.isLoading = false;
-        }
-      },
-      error: (error: any) => {
-        this.logger.error(`Error :>> `, error);
-      },
-    });
-  }
-
-  getProducts(): void {
-    console.log('ShopComponent getProducts method is running...');
-    this.productService.getAllProducts().subscribe({
-      next: (response: any) => {
-        this.logger.info('Response: ', response);
-        this.products = response.products;
-        this.totalPages = response.totalPages;
-        this.isLoading = false;
-        console.log('totalPages var :>> ', this.totalPages);
-      },
-      error: (error: any) => {
-        console.log('Error :>> ', error);
-      },
-    });
+    this.productService
+      .getAllProuctsBasedOnPageNumber(this.pageNumber)
+      .subscribe({
+        next: (response: any) => {
+          this.logger.info('Response: ', response);
+          if (response.errorMessage) {
+            this.logger.warning(response.errorMessage);
+            this.toastService.warning(response.errorMessage);
+          } else {
+            this.totalPages = response.totalPages;
+            this.products = response.products;
+            this.isLoading = false;
+          }
+        },
+        error: (error: any) => {
+          this.logger.error(`Error :>> `, error);
+        },
+      });
   }
 }

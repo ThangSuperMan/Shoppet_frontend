@@ -28,7 +28,7 @@ import { CategoryComponent } from './pages/shop/components/category/category.com
 import { ShopComponnet } from './pages/shop/shop.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { RatingPopupComponent } from './components/rating-popup/rating-popup.component';
-import { NavigationComponent } from './pages/shop/components/navigation/navigation.component';
+import { PaginationComponent } from './pages/shop/components/pagination/navigation.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +52,7 @@ import { NavigationComponent } from './pages/shop/components/navigation/navigati
     CategoryComponent,
     ProductDetailsComponent,
     RatingPopupComponent,
-    NavigationComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,12 +6,37 @@
   color: $gray-medium-color;
   padding-bottom: 16px;
 
+  .page-active {
+    border: 1px solid #000 !important;
+
+    &:hover {
+      background: none !important;
+    }
+  }
+
+  .etc {
+    button {
+      display: block !important;
+      height: 24px !important;
+      width: 34px !important;
+    }
+  }
+
   .etc,
   .total-pages {
     color: $gray-medium-color;
+    pointer-events: none;
   }
 
-  .total-pages {
+  > div {
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+  }
+
+  &__prev {
     position: relative;
 
     &:before {
@@ -26,12 +51,19 @@
     }
   }
 
-  > div {
-    display: inline-flex;
-    align-items: center;
-    height: 48px;
-    border: 1px solid #d5d9d9;
-    border-radius: 8px;
+  &__next {
+    position: relative;
+
+    &:before {
+      content: "";
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 32px;
+      transform: translateY(8px);
+      background-color: #d5d9d9;
+      position: absolute;
+    }
   }
 
   &__prev,
@@ -41,6 +73,19 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
+
+    button {
+      background-color: transparent;
+      border: none;
+    }
+
+    &:hover {
+      background: red;
+      transition: all 0.2s linear;
+      background-color: #d5d9d9;
+      opacity: 0.7;
+    }
   }
 
   &__prev {
@@ -63,13 +108,21 @@
       align-items: center;
 
       li {
-        a {
+        button {
           display: flex;
           align-items: center;
           justify-content: center;
           padding-inline: 11px;
           width: 48px;
           height: 48px;
+          background-color: transparent;
+          border: none;
+          transition: all 0.2s linear;
+
+          &:hover {
+            background-color: #d5d9d9;
+            opacity: 0.7;
+          }
         }
       }
     }

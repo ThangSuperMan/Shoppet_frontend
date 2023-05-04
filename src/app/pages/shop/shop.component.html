@@ -25,10 +25,11 @@
           <div class="loading-circle"></div>
         </div>
       </ng-template>
-      <app-navigation
-        *ngIf="!isLoading"
+      <!-- *ngIf="!isLoading" -->
+      <app-pagination
+        [pageNumber]="pageNumber"
         [totalPages]="totalPages"
-      ></app-navigation>
+      ></app-pagination>
     </div>
   </section>
 </div>
