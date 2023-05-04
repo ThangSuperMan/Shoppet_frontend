@@ -272,6 +272,7 @@ export class PaginationComponent {
   highlightActivePaginationItem(activePageNumber: number): void {
     for (let i = 0; i < this.paginationItems.length; i++) {
       if (this.paginationItems[i].content === activePageNumber) {
+        console.log('this.paginationItems[i].content === activePageNumber');
         this.removePaginationItemActive();
         this.paginationItems[i].isActive = true;
         break;
@@ -304,7 +305,7 @@ export class PaginationComponent {
     pageOne?.insertAdjacentHTML('afterend', template);
   }
 
-  handleClickNavigationItem(event: Event): void {
+  handleClickNavigationItem(event?: Event): void {
     // @ts-ignore
     const activePageNumber = parseInt(event.target.innerText);
     this.highlightActivePaginationItem(activePageNumber);
@@ -328,5 +329,14 @@ export class PaginationComponent {
       const pageNumber: number = params['pageNumber'];
       this.activePaginationItem = pageNumber;
     });
+
+    // Update the active pagination when re-rendered
+    // let activePageNumber: number = 1;
+    // if (typeof this.activePaginationItem === 'string') {
+    //   console.log('typeof this.activePaginationItem === string');
+    //   activePageNumber = parseInt(this.activePaginationItem);
+    // }
+
+    // this.highlightActivePaginationItem(activePageNumber);
   }
 }

@@ -25,12 +25,17 @@
           <div class="loading-circle"></div>
         </div>
       </ng-template>
-      <!-- *ngIf="!isLoading" -->
-      <app-pagination
-        (onLoadingChanged)="onLoadingChanged($event)"
-        [pageNumber]="pageNumber"
-        [totalPages]="totalPages"
-      ></app-pagination>
+      <div
+        [style]="isLoading ? 'visibility: hidden; margin-top: 100vh;' : ''"
+        class="pagination-wrapper"
+      >
+        <strong>here</strong>
+        <app-pagination
+          (onLoadingChanged)="onLoadingChanged($event)"
+          [pageNumber]="pageNumber"
+          [totalPages]="totalPages"
+        ></app-pagination>
+      </div>
     </div>
   </section>
 </div>
