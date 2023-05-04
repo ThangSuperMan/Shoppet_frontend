@@ -1,7 +1,9 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
+  Output,
   QueryList,
   ViewChildren,
 } from '@angular/core';
@@ -19,6 +21,13 @@ interface PaginationItemProps {
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent {
+  @Output() onLoadingChanged = new EventEmitter<boolean>();
+
+  requireLoading() {
+    const isLoading = true;
+    this.onLoadingChanged.emit(isLoading);
+  }
+
   insertedEtcOnce: boolean = false;
   paginationItems: PaginationItemProps[] = [
     {
@@ -44,10 +53,6 @@ export class PaginationComponent {
     private router: Router,
     private route: ActivatedRoute
   ) {}
-
-  ngOnChanges(): void {
-    console.log('pageNumber :>> ', this.pageNumber);
-  }
 
   handleRenderNextPagination(activePageNumber: number): void {
     const pageNumberTriggerAtThree = 3;
@@ -85,11 +90,7 @@ export class PaginationComponent {
       isHavePaginationItemTwo = true;
     }
 
-    console.log('activePageNumber :>> ', activePageNumber);
-    console.log('isHavePaginationItemTwo :>> ', isHavePaginationItemTwo);
     if (activePageNumber === 4 && !isHavePaginationItemTwo) {
-      this.logger.info('activePageNumber === 4 && !isHavePaginationItemTwo');
-      // New
       this.renderPaginationLayoutOne();
     }
     this.removeEtcElement();
@@ -109,8 +110,6 @@ export class PaginationComponent {
       this.renderPaginationLayoutTwo(activePageNumber);
       this.renderEtcElement();
     }
-
-    // Banana
   }
 
   renderPaginationLayoutOne(): void {
@@ -174,15 +173,8 @@ export class PaginationComponent {
 
   handleGotoPreviousPage(): void {
     console.log('handleGotoPreviousPage');
-    this.logger.info(
-      `active page numbe receive from url: ${this.activePaginationItem}`
-    );
-
-    console.log('this.activePaginationItem :>> ', this.activePaginationItem);
-    console.log('this.pageNumber :>> ', this.pageNumber);
     // 5 -> 4
     if (this.activePaginationItem == 5) {
-      console.log('this.activePaginationItem <= 5');
       this.removeEtcElement();
       this.paginationItems = [
         {
@@ -218,7 +210,6 @@ export class PaginationComponent {
       }
 
       this.renderPaginationLayoutTwo(this.activePaginationItem - 1);
-      // Remove the old etc element one
       this.removeEtcElement();
       this.renderEtcElement();
     }
@@ -232,6 +223,8 @@ export class PaginationComponent {
     this.router.navigate(['/shop'], {
       queryParams: { pageNumber: this.pageNumber },
     });
+    window.scrollTo(0, 0);
+    this.requireLoading();
   }
 
   handleGotoNextPage(): void {
@@ -239,9 +232,7 @@ export class PaginationComponent {
     let activePageNumber: number = 1;
     if (typeof this.activePaginationItem === 'string') {
       const hehe = parseInt(this.activePaginationItem);
-      console.log('hehe :>> ', typeof hehe);
       activePageNumber = hehe + 1;
-      console.log('activePageNumber value :>> ', activePageNumber);
       this.highlightActivePaginationItem(activePageNumber);
     }
     this.handleRenderNextPagination(activePageNumber);
@@ -252,6 +243,8 @@ export class PaginationComponent {
     this.router.navigate(['/shop'], {
       queryParams: { pageNumber: this.pageNumber },
     });
+    window.scrollTo(0, 0);
+    this.requireLoading();
   }
 
   removePaginationItemActive(): void {
@@ -325,6 +318,8 @@ export class PaginationComponent {
     this.router.navigate(['/shop'], {
       queryParams: { pageNumber: this.pageNumber },
     });
+    this.requireLoading();
+    window.scrollTo(0, 0);
   }
 
   ngOnInit(): void {

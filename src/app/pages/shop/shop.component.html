@@ -27,6 +27,7 @@
       </ng-template>
       <!-- *ngIf="!isLoading" -->
       <app-pagination
+        (onLoadingChanged)="onLoadingChanged($event)"
         [pageNumber]="pageNumber"
         [totalPages]="totalPages"
       ></app-pagination>

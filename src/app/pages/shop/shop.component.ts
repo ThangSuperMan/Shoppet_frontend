@@ -23,6 +23,11 @@ export class ShopComponnet {
     private route: ActivatedRoute
   ) {}
 
+  onLoadingChanged(isLoading: boolean) {
+    this.isLoading = isLoading;
+    this.getProductsBasedOnPageNumber();
+  }
+
   ngOnInit() {
     console.log('ngOnInit of ShopComponnet');
     // Event url listenner
