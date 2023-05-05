@@ -231,8 +231,8 @@ export class PaginationComponent {
     console.log('handleGotoNextPage');
     let activePageNumber: number = 1;
     if (typeof this.activePaginationItem === 'string') {
-      const hehe = parseInt(this.activePaginationItem);
-      activePageNumber = hehe + 1;
+      const paginationItem = parseInt(this.activePaginationItem);
+      activePageNumber = paginationItem + 1;
       this.highlightActivePaginationItem(activePageNumber);
     }
     this.handleRenderNextPagination(activePageNumber);
@@ -331,12 +331,12 @@ export class PaginationComponent {
     });
 
     // Update the active pagination when re-rendered
-    // let activePageNumber: number = 1;
-    // if (typeof this.activePaginationItem === 'string') {
-    //   console.log('typeof this.activePaginationItem === string');
-    //   activePageNumber = parseInt(this.activePaginationItem);
-    // }
+    let activePageNumber: number = 1;
+    if (typeof this.activePaginationItem === 'string') {
+      console.log('typeof this.activePaginationItem === string');
+      activePageNumber = parseInt(this.activePaginationItem);
+    }
 
-    // this.highlightActivePaginationItem(activePageNumber);
+    this.highlightActivePaginationItem(activePageNumber);
   }
 }
