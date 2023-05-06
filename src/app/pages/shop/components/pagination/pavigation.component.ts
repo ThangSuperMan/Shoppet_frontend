@@ -335,6 +335,26 @@ export class PaginationComponent {
     if (typeof this.activePaginationItem === 'string') {
       console.log('typeof this.activePaginationItem === string');
       activePageNumber = parseInt(this.activePaginationItem);
+
+      // if (activePageNumber === 4) {
+      //   console.log('here');
+      //   this.renderPaginationLayoutOne();
+      // } else if (activePageNumber >= 5) {
+      //   const paginationItem: PaginationItemProps | undefined =
+      //     this.paginationItems.find(
+      //       (paginationItem: PaginationItemProps) =>
+      //         paginationItem.content === 1
+      //     );
+
+      //   // Reset array
+      //   if (paginationItem) {
+      //     this.paginationItems = [paginationItem];
+      //   }
+
+      //   this.renderPaginationLayoutTwo(this.activePaginationItem - 1);
+      //   this.removeEtcElement();
+      //   this.renderEtcElement();
+      // }
     }
 
     this.highlightActivePaginationItem(activePageNumber);

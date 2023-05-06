@@ -1,1 +1,88 @@
-<h1>Cart page</h1>
+<div class="shopping-cart">
+  <div class="shopping-cart__left">
+    <h1 class="shopping-cart__title">Shopping Cart</h1>
+    <div class="row">
+      <span class="price">Price</span>
+    </div>
+    <div class="content">
+      <div class="col-1">
+        <a routerLink="/shop/products/1">
+          <img
+            src="https://m.media-amazon.com/images/I/81zoEhDafVL._AC_AA360_.jpg"
+            alt="Product image"
+          />
+        </a>
+      </div>
+      <div class="col-2">
+        <ul>
+          <li>
+            <span
+              >Fresh Step Clumping Cat Litter, Multi-Cat Odor Control, 14
+              lbs</span
+            >
+            <div class="price">
+              <span>$10.49</span>
+            </div>
+          </li>
+          <li>
+            <span class="count">10K+ bought in past week</span>
+          </li>
+          <li>
+            <span class="in-stock">In Stock</span>
+          </li>
+          <li>
+            <span class="info"> Size: </span>
+            <span>14 lb</span>
+          </li>
+          <li>
+            <span class="info"> Style: </span>
+            <span>Multi-Cat</span>
+          </li>
+        </ul>
+        <div class="shopping-cart__features">
+          <div class="quantity-select">
+            <span class="qty">Qty:</span>
+            <div class="select-wrapper">
+              <select id="quantity" name="quantity">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10+</option>
+              </select>
+            </div>
+          </div>
+          <div class="sep-vertical"></div>
+          <span class="feature-item">Delete</span>
+          <div class="sep-vertical"></div>
+          <span class="feature-item">Compare with similar items</span>
+          <div class="sep-vertical"></div>
+          <span class="feature-item">Share</span>
+        </div>
+      </div>
+    </div>
+    <div class="row"></div>
+    <div class="sub-total">
+      <span>Subtotal ( 1 item ):</span>
+      <span class="price">&#160;$10.49</span>
+    </div>
+  </div>
+  <div class="shopping-cart__right">
+    <div class="content">
+      <div class="sub-total">
+        <span>Subtotal ( 1 item ):</span>
+        <span class="price">&#160;$10.49</span>
+        <div class="text-field">
+          <input type="checkbox" />
+          <span>This order contains a gift</span>
+        </div>
+        <button class="btn-checkout">Procced to checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
