@@ -22,9 +22,6 @@
       <div class="product-details-content__center">
         <h1 class="title">
           {{ product?.title }}
-          <!-- (Packaging May Vary) Earth Rated Dog Poop Bags, Guaranteed Leak Proof -->
-          <!-- and Extra Thick Waste Bag Refill Rolls For Dogs, Lavender Scented, 270 -->
-          <!-- Count -->
         </h1>
         <!-- <span class="indicator brand">Brand: Earth Rated</span> -->
         <span class="indicator brand">Brand: {{ brand?.name }}</span>
@@ -159,7 +156,7 @@
           <div class="quantity-select">
             <span>Qty:</span>
             <div class="select-wrapper">
-              <select id="quantity" name="quantity">
+              <select #quantityProduct id="quantity" name="quantity">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -174,7 +171,12 @@
             </div>
           </div>
           <br />
-          <button class="btn-addtocart">Add to cart</button>
+          <button
+            (click)="handleAddToCart(quantityProduct.value)"
+            class="btn-addtocart"
+          >
+            Add to cart
+          </button>
         </div>
       </div>
     </div>

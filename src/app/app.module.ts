@@ -29,6 +29,7 @@ import { ShopComponnet } from './pages/shop/shop.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { RatingPopupComponent } from './components/rating-popup/rating-popup.component';
 import { PaginationComponent } from './pages/shop/components/pagination/pavigation.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { PaginationComponent } from './pages/shop/components/pagination/pavigati
     SignupComponent,
     FooterComponent,
     AdminComponent,
+    CartComponent,
     UserComponent,
     ForbiddenComponent,
     CategoryComponent,

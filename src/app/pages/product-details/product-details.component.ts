@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ProductService } from 'src/app/_services/product/product.service';
 import { Brand, FoodFlavor, Product } from '@models';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
+import { CartService } from 'src/app/_services/cart/cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -18,6 +19,7 @@ export class ProductDetailsComponent {
   @ViewChild('inputOptionColorProduct') inputOptionColorProduct:
     | ElementRef
     | undefined;
+  // @ViewChild('quantityProduct') quantityProduct: ElementRef | undefined;
   product: Product | undefined;
   productDetail: any | undefined;
   aboutThisItem: any | undefined;
@@ -27,9 +29,10 @@ export class ProductDetailsComponent {
 
   constructor(
     private logger: NgxFancyLoggerService,
+    private route: ActivatedRoute,
     private router: Router,
     private productSerivce: ProductService,
-    private route: ActivatedRoute
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +41,15 @@ export class ProductDetailsComponent {
 
   handleGoBackPreviousPage() {
     this.router.navigate(['/shop']);
+  }
+
+  handleAddToCart(quantityProduct: string) {
+    console.log('handleAddToCart');
+    if (this.product) {
+      this.product.quantity = parseInt(quantityProduct);
+      console.log('quantityProduct :>> ', quantityProduct);
+      this.cartService.setCartToLocalStorage(this.product);
+    }
   }
 
   getProduct(): void {
