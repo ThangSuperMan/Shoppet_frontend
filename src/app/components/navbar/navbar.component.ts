@@ -1,5 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { Component, Output } from '@angular/core';
+import { Product } from 'src/app/models';
+import { CartService } from 'src/app/_services/cart/cart.service';
 
 interface SideNavToggleProps {
   isShowSideNav: boolean;
@@ -13,7 +15,24 @@ interface SideNavToggleProps {
 export class NavbarComponent {
   @Output() onSideNavToggle: EventEmitter<SideNavToggleProps> =
     new EventEmitter<any>();
+  countProductsInCart: number = 0;
   isShowSideNav: boolean = false;
+
+  constructor(private cartService: CartService) {}
+
+  ngOnInit(): void {
+    const products: Product[] | null =
+      this.cartService.getCartFromLocalStorage();
+    if (products) {
+      products.forEach((product: Product) => {
+        this.countProductsInCart++;
+      });
+
+      console.log('products in cart :>> ', products);
+    }
+
+    console.log('this.countProductsInCart :>> ', this.countProductsInCart);
+  }
 
   toggleSideNav(): void {
     this.isShowSideNav = !this.isShowSideNav;

@@ -1,4 +1,4 @@
-<div *ngIf="!products; else elseBlock" class="shopping-cart">
+<div *ngIf="products?.length == 0; else elseBlock" class="shopping-cart">
   <div class="shopping-cart__empty">
     <div class="banner">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1106.02 634.55">
@@ -318,15 +318,13 @@
                 <span class="qty">Qty:</span>
                 <div class="select-wrapper">
                   <select id="quantity" name="quantity">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
+                    <option
+                      *ngFor="let quantity of quantityOptions"
+                      [value]="quantity"
+                      [selected]="product.quantity == quantity"
+                    >
+                      <span>{{ quantity }}</span>
+                    </option>
                     <option value="10">10+</option>
                   </select>
                 </div>
@@ -415,14 +413,15 @@
         <div class="row"></div>
         <div class="sub-total">
           <span>Subtotal ( 1 item ):</span>
-          <span class="price">&#160;$10.49</span>
+          <span class="price">&#160;${{ subtotal }}</span>
         </div>
       </div>
       <div class="shopping-cart__right">
         <div class="content">
           <div class="sub-total">
             <span>Subtotal ( 1 item ):</span>
-            <span class="price">&#160;$10.49</span>
+            <!-- <span class="price">&#160;$10.49</span> -->
+            <span class="price">&#160;${{ subtotal }}</span>
             <div class="text-field">
               <input type="checkbox" />
               <span>This order contains a gift</span>
