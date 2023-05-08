@@ -13,6 +13,8 @@ export class CartComponent {
   products: Product[] | undefined;
   subtotal: string = '';
   countProduct: number = 0;
+  isFading: boolean = false;
+  productIdIsFading: string = '-1';
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
@@ -24,15 +26,30 @@ export class CartComponent {
     if (this.products) {
       let subtotal: number = 0;
       this.products.forEach((product: Product) => {
-        const price: number = product.price;
-        subtotal += price;
+        if (product.quantity) {
+          subtotal += product.price * product.quantity;
+        }
         this.countProduct++;
       });
       this.subtotal = subtotal.toFixed(2);
     }
   }
 
-  updateSubtotal() {
+  handleSelectQuantity(productId: string): void {
+    console.log('handleSelectQuantity');
+    setTimeout(() => {
+      console.log('timout 1000ms');
+      this.isFading = true;
+      if (this.productIdIsFading) {
+        this.productIdIsFading = productId;
+      }
+      setTimeout(() => {
+        this.isFading = false;
+      }, 1000);
+    }, 0);
+  }
+
+  updateSubtotal(): void {
     if (this.products) {
       let newSubtotal: number = 0;
       this.products.forEach((product: Product) => {
@@ -57,5 +74,6 @@ export class CartComponent {
       this.products = cartInfo;
     }
     this.updateSubtotal();
+    location.reload();
   }
 }

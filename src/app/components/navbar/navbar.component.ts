@@ -24,7 +24,7 @@ export class NavbarComponent {
     const products: Product[] | null =
       this.cartService.getCartFromLocalStorage();
     if (products) {
-      products.forEach((product: Product) => {
+      products.forEach(() => {
         this.countProductsInCart++;
       });
 
@@ -32,6 +32,10 @@ export class NavbarComponent {
     }
 
     console.log('this.countProductsInCart :>> ', this.countProductsInCart);
+  }
+
+  ngOnChanges(): void {
+    console.log('ngOnChanges in navbar compo');
   }
 
   toggleSideNav(): void {

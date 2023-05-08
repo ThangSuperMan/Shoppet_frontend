@@ -1,5 +1,12 @@
 @import "../../../scss/variables";
 
+.isFading {
+  background-color: #f3f3f3;
+  opacity: 0.1;
+  transition: all 0.3s linear;
+  position: relative;
+}
+
 .btn-signup {
   margin-top: 20px;
   margin-left: 12px;
@@ -127,10 +134,12 @@
     }
 
     .content {
-      padding-block: 12px;
-      padding-left: 12px;
-      display: flex;
-      align-items: flex-start;
+      > div {
+        padding-block: 12px;
+        padding-left: 12px;
+        display: flex;
+        align-items: flex-start;
+      }
     }
 
     .col-1 {

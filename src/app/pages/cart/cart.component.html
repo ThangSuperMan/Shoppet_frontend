@@ -283,62 +283,73 @@
         <div class="row">
           <span class="price">Price</span>
         </div>
-        <!-- New -->
         <div *ngFor="let product of products" class="content">
-          <div class="col-1">
-            <a routerLink="/shop/products/{{ product?.id }}">
-              <img src="{{ product?.imageUrl }}" alt="Product image" />
-            </a>
-          </div>
-          <div class="col-2">
-            <ul>
-              <li>
-                <a routerLink="/shop/products/1">{{ product?.title }}</a>
-                <div class="price">
-                  <span>${{ product?.price }}</span>
-                </div>
-              </li>
-              <li>
-                <span class="count">10K+ bought in past week</span>
-              </li>
-              <li>
-                <span class="in-stock">In Stock</span>
-              </li>
-              <li>
-                <span class="info"> Size: </span>
-                <span>14 lb</span>
-              </li>
-              <li>
-                <span class="info"> Style: </span>
-                <span>Multi-Cat</span>
-              </li>
-            </ul>
-            <div class="shopping-cart__features">
-              <div class="quantity-select">
-                <span class="qty">Qty:</span>
-                <div class="select-wrapper">
-                  <select id="quantity" name="quantity">
-                    <option
-                      *ngFor="let quantity of quantityOptions"
-                      [value]="quantity"
-                      [selected]="product.quantity == quantity"
+          <div
+            [style]="
+              isFading && product.id == productIdIsFading
+                ? 'background-color: #f3f3f3; opacity: 0.5; transition: all 0.3s linear; position: relative;'
+                : ''
+            "
+          >
+            <div class="col-1">
+              <a routerLink="/shop/products/{{ product?.id }}">
+                <img src="{{ product?.imageUrl }}" alt="Product image" />
+              </a>
+            </div>
+            <div class="col-2">
+              <ul>
+                <li>
+                  <a routerLink="/shop/products/1">{{ product?.title }}</a>
+                  <div class="price">
+                    <span>${{ product?.price }}</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="count">10K+ bought in past week</span>
+                </li>
+                <li>
+                  <span class="in-stock">In Stock</span>
+                </li>
+                <li>
+                  <span class="info"> Size: </span>
+                  <span>14 lb</span>
+                </li>
+                <li>
+                  <span class="info"> Style: </span>
+                  <span>Multi-Cat</span>
+                </li>
+              </ul>
+              <div class="shopping-cart__features">
+                <div class="quantity-select">
+                  <span class="qty">Qty:</span>
+                  <div class="select-wrapper">
+                    <select
+                      (change)="handleSelectQuantity(product.id)"
+                      id="quantity"
+                      name="quantity"
                     >
-                      <span>{{ quantity }}</span>
-                    </option>
-                    <option value="10">10+</option>
-                  </select>
+                      <option
+                        *ngFor="let quantity of quantityOptions"
+                        [value]="quantity"
+                        [selected]="product.quantity == quantity"
+                      >
+                        <span>{{ quantity }}</span>
+                      </option>
+                      <option value="10">10+</option>
+                    </select>
+                  </div>
                 </div>
+                <div class="sep-vertical"></div>
+                <span
+                  (click)="handleDeleteProductInCart(product?.id)"
+                  class="feature-item"
+                  >Delete</span
+                >
+                <div class="sep-vertical"></div>
+                <span class="feature-item">Compare with similar items</span>
+                <div class="sep-vertical"></div>
+                <span class="feature-item">Share</span>
               </div>
-              <div class="sep-vertical"></div>
-              <span
-                (click)="handleDeleteProductInCart(product?.id)"
-                class="feature-item"
-                >Delete</span
-              >
-              <div class="sep-vertical"></div>
-              <span class="feature-item">Compare with similar items</span>
-              <div class="sep-vertical"></div>
-              <span class="feature-item">Share</span>
             </div>
           </div>
         </div>
@@ -409,17 +420,16 @@
         <!--   </div> -->
         <!-- </div> -->
 
-        <!-- New -->
         <div class="row"></div>
         <div class="sub-total">
-          <span>Subtotal ( 1 item ):</span>
+          <span>Subtotal ( {{ countProduct }} item ):</span>
           <span class="price">&#160;${{ subtotal }}</span>
         </div>
       </div>
       <div class="shopping-cart__right">
         <div class="content">
           <div class="sub-total">
-            <span>Subtotal ( 1 item ):</span>
+            <span>Subtotal ( {{ countProduct }} item ):</span>
             <!-- <span class="price">&#160;$10.49</span> -->
             <span class="price">&#160;${{ subtotal }}</span>
             <div class="text-field">

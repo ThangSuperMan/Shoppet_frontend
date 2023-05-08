@@ -49,17 +49,16 @@ export class ProductDetailsComponent {
       this.product.quantity = parseInt(quantityProduct);
       console.log('quantityProduct :>> ', quantityProduct);
       this.cartService.setCartToLocalStorage(this.product);
+      // setTimeout(() => {
+      //   location.reload();
+      // }, 300);
     }
   }
 
   getProduct(): void {
-    // console.log('ProductDetailsComponent getProuduct method is running...');
     this.logger.header(
       'ProductDetailsComponent getProuduct method is running...'
     );
-    // this.logger.info('infor');
-    // this.logger.error('error');
-    // consola.info('ProductDetailsComponent getProuduct method is running...');
     const routeParams: ParamMap = this.route.snapshot.paramMap;
     const productId: number = Number(routeParams.get('product_id'));
     console.log('productId :>> ', productId);
