@@ -29,7 +29,8 @@ export class UserService {
 
   public login(loginData: LoginProps) {
     console.log('UserService login method is running...');
-    return this.httpClient.post(`${env.pathApi}/signin`, loginData, {
+    const url = `${env.pathApi}/signin`;
+    return this.httpClient.post(url, loginData, {
       headers: this.requestHeader,
     });
   }
@@ -37,7 +38,8 @@ export class UserService {
   public signup(registerData: RegisterProps) {
     console.log('UserSerivce sign up method is running...');
     console.log('registerData :>> ', registerData);
-    return this.httpClient.post(`${env.pathApi}/signup`, registerData, {
+    const url = `${env.pathApi}/signup`;
+    return this.httpClient.post(url, registerData, {
       headers: this.requestHeader,
     });
   }
@@ -45,7 +47,8 @@ export class UserService {
   public getUserByUsername(username: string): Observable<User> {
     let queryParams = new HttpParams().append('username', username);
     console.log('queryParams :>> ', queryParams);
-    return this.httpClient.get<User>(`${env.pathApi}/users`, {
+    const url = `${env.pathApi}/users`;
+    return this.httpClient.get<User>(url, {
       params: queryParams,
       headers: this.requestHeader,
     });
@@ -53,7 +56,8 @@ export class UserService {
 
   public forAdmin() {
     console.log('forAdmin just triggred');
-    return this.httpClient.get(`${env.pathApi}/admin`, {
+    const url = `${env.pathApi}/admin`;
+    return this.httpClient.get(url, {
       responseType: 'text',
     });
   }

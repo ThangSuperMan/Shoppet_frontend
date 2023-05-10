@@ -1,0 +1,11 @@
+<h1>payment works!</h1>
+<agm-map
+  [latitude]="lat"
+  [longitude]="lng"
+  (mapClick)="handlePickUpLocation($event)"
+>
+  <agm-marker
+    [latitude]="latitudePicker"
+    [longitude]="longitudePicker"
+  ></agm-marker>
+</agm-map>

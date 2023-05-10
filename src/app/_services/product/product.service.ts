@@ -13,7 +13,8 @@ export class ProductService {
 
   public getAllProducts(): Observable<any> {
     console.log('ProductService getAllProducts method is running...');
-    return this.httpClient.get<any>(`${env.pathApi}/products`, {
+    const url = `${env.pathApi}/products`;
+    return this.httpClient.get<any>(url, {
       headers: this.requestHeader,
     });
   }
@@ -22,17 +23,16 @@ export class ProductService {
     console.log(
       'ProductService getAllProuctsBasedOnPageNumber method is running...'
     );
-    return this.httpClient.get<any>(
-      `${env.pathApi}/products?pageNumber=${pageNumber}`,
-      {
-        headers: this.requestHeader,
-      }
-    );
+    const url = `${env.pathApi}/products?pageNumber=${pageNumber}`;
+    return this.httpClient.get<any>(url, {
+      headers: this.requestHeader,
+    });
   }
 
   public getProduct(id: number): Observable<any> {
     console.log('ProductService getProduct method is running...');
-    return this.httpClient.get<any>(`${env.pathApi}/products/${id}`, {
+    const url = `${env.pathApi}/products/${id}`;
+    return this.httpClient.get<any>(url, {
       headers: this.requestHeader,
     });
   }

@@ -324,7 +324,13 @@
                   <span class="qty">Qty:</span>
                   <div class="select-wrapper">
                     <select
-                      (change)="handleSelectQuantity(product.id)"
+                      #selectQuantityEl
+                      (change)="
+                        handleUpdateProductQuantity(
+                          product.id,
+                          selectQuantityEl.value
+                        )
+                      "
                       id="quantity"
                       name="quantity"
                     >

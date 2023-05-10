@@ -30,6 +30,9 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
 import { RatingPopupComponent } from './components/rating-popup/rating-popup.component';
 import { PaginationComponent } from './pages/shop/components/pagination/pavigation.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { PaymentComponent } from './pages/payment/payment.component';
+import { AgmCoreModule } from '@agm/core';
+import env from '@env';
 
 @NgModule({
   declarations: [
@@ -55,6 +58,7 @@ import { CartComponent } from './pages/cart/cart.component';
     ProductDetailsComponent,
     RatingPopupComponent,
     PaginationComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,9 @@ import { CartComponent } from './pages/cart/cart.component';
       timeOut: 2500,
       positionClass: 'toast-bottom-right',
       preventDuplicates: false,
+    }),
+    AgmCoreModule.forRoot({
+      apiKey: env.googleMapApiKey,
     }),
   ],
   providers: [

@@ -19,6 +19,11 @@ export class CartService {
     return false;
   }
 
+  public setCartAfterUpdateProduct(products: Product[] | undefined) {
+    const producetJson = JSON.stringify(products);
+    localStorage.setItem('cartInfo', producetJson);
+  }
+
   public setCartAfterDeleteProduct(products: Product[] | undefined) {
     const producetJson = JSON.stringify(products);
     localStorage.setItem('cartInfo', producetJson);

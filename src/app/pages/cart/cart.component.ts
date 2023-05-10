@@ -12,33 +12,47 @@ export class CartComponent {
   quantityOptions: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   products: Product[] | undefined;
   subtotal: string = '';
-  countProduct: number = 0;
+  countProduct: number = 9;
   isFading: boolean = false;
   productIdIsFading: string = '-1';
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
+    console.log('ngonInit');
     const cartInfo = this.cartService.getCartFromLocalStorage();
     if (cartInfo) {
       this.products = cartInfo;
     }
     console.log('cartInfo :>> ', cartInfo);
-    if (this.products) {
-      let subtotal: number = 0;
-      this.products.forEach((product: Product) => {
-        if (product.quantity) {
-          subtotal += product.price * product.quantity;
-        }
-        this.countProduct++;
-      });
-      this.subtotal = subtotal.toFixed(2);
-    }
+    this.updateSubtotal();
+    this.updateCountProuducts();
   }
 
-  handleSelectQuantity(productId: string): void {
+  handleUpdateProductQuantity(
+    productId: string,
+    selectedQuantityValue: string
+  ): void {
     console.log('handleSelectQuantity');
+    if (this.products) {
+      const indexWillBeRemove = this.products?.findIndex(
+        (product: Product) => product.id === productId
+      );
+      const productWillBeUpdate = this.products.find(
+        (product: Product) => product.id === productId
+      );
+      const newQuantity = selectedQuantityValue;
+      if (productWillBeUpdate) {
+        productWillBeUpdate.quantity = parseInt(newQuantity);
+      }
+
+      console.log('productWillBeUpdate :>> ', productWillBeUpdate);
+      if (productWillBeUpdate) {
+        this.products.splice(indexWillBeRemove, 1, productWillBeUpdate);
+        this.cartService.setCartAfterUpdateProduct(this.products);
+      }
+    }
+
     setTimeout(() => {
-      console.log('timout 1000ms');
       this.isFading = true;
       if (this.productIdIsFading) {
         this.productIdIsFading = productId;
@@ -47,13 +61,25 @@ export class CartComponent {
         this.isFading = false;
       }, 1000);
     }, 0);
+
+    this.updateSubtotal();
+  }
+
+  updateCountProuducts() {
+    this.countProduct = 0;
+    if (this.products) {
+      this.products.forEach(() => {
+        this.countProduct++;
+      });
+    }
   }
 
   updateSubtotal(): void {
+    console.log('updateSubtotal');
     if (this.products) {
       let newSubtotal: number = 0;
       this.products.forEach((product: Product) => {
-        newSubtotal += product.price;
+        newSubtotal += product.price * product.quantity;
       });
 
       this.subtotal = newSubtotal.toFixed(2);
