@@ -22,8 +22,16 @@
       ></app-product>
       <ng-template #loading>
         <div class="loading-container">
-          <div class="loading-circle"></div>
+          <img
+            height="25"
+            width="25"
+            src="/assets/images/loading.gif"
+            alt="Loading animate gif"
+          />
         </div>
+        <!-- <div class="loading-container"> -->
+        <!--   <div class="loading-circle"></div> -->
+        <!-- </div> -->
       </ng-template>
       <div
         [style]="isLoading ? 'visibility: hidden; margin-top: 100vh;' : ''"

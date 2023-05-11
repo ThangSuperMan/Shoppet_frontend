@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/models';
 import { CartService } from 'src/app/_services/cart/cart.service';
 
@@ -15,7 +16,7 @@ export class CartComponent {
   countProduct: number = 9;
   isFading: boolean = false;
   productIdIsFading: string = '-1';
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
     console.log('ngonInit');
@@ -26,6 +27,11 @@ export class CartComponent {
     console.log('cartInfo :>> ', cartInfo);
     this.updateSubtotal();
     this.updateCountProuducts();
+  }
+
+  handlePayment(): void {
+    console.log('handlePayment');
+    this.router.navigate(['/payment']);
   }
 
   handleUpdateProductQuantity(
@@ -49,6 +55,7 @@ export class CartComponent {
       if (productWillBeUpdate) {
         this.products.splice(indexWillBeRemove, 1, productWillBeUpdate);
         this.cartService.setCartAfterUpdateProduct(this.products);
+        this.updateCountProuducts();
       }
     }
 
@@ -68,8 +75,8 @@ export class CartComponent {
   updateCountProuducts() {
     this.countProduct = 0;
     if (this.products) {
-      this.products.forEach(() => {
-        this.countProduct++;
+      this.products.forEach((product: Product) => {
+        this.countProduct += product.quantity;
       });
     }
   }
@@ -100,6 +107,7 @@ export class CartComponent {
       this.products = cartInfo;
     }
     this.updateSubtotal();
+    this.updateCountProuducts();
     location.reload();
   }
 }

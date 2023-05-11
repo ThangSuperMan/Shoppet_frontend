@@ -442,7 +442,9 @@
               <input type="checkbox" />
               <span>This order contains a gift</span>
             </div>
-            <button class="btn-checkout">Procced to checkout</button>
+            <button (click)="handlePayment()" class="btn-checkout">
+              Procced to checkout
+            </button>
           </div>
         </div>
       </div>

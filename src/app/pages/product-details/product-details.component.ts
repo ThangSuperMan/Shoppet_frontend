@@ -45,13 +45,11 @@ export class ProductDetailsComponent {
 
   handleAddToCart(quantityProduct: string) {
     console.log('handleAddToCart');
+    console.log('this.product :>> ', this.product);
     if (this.product) {
       this.product.quantity = parseInt(quantityProduct);
       console.log('quantityProduct :>> ', quantityProduct);
       this.cartService.setCartToLocalStorage(this.product);
-      // setTimeout(() => {
-      //   location.reload();
-      // }, 300);
     }
   }
 
@@ -75,7 +73,6 @@ export class ProductDetailsComponent {
         }
         if (this.foodFlavors) {
           this.lastFlavor = this.foodFlavors[this.foodFlavors.length - 1].name;
-          console.log('lastFlavor :>> ', this.lastFlavor);
         }
       },
       error: (error: any) => {

@@ -29,6 +29,7 @@ export class UserService {
 
   public login(loginData: LoginProps) {
     console.log('UserService login method is running...');
+    console.log('login data :>> ', loginData);
     const url = `${env.pathApi}/signin`;
     return this.httpClient.post(url, loginData, {
       headers: this.requestHeader,

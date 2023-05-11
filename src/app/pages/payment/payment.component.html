@@ -1,11 +1,136 @@
-<h1>payment works!</h1>
-<agm-map
-  [latitude]="lat"
-  [longitude]="lng"
-  (mapClick)="handlePickUpLocation($event)"
->
-  <agm-marker
-    [latitude]="latitudePicker"
-    [longitude]="longitudePicker"
-  ></agm-marker>
-</agm-map>
+<div class="checkout">
+  <div class="overlay"></div>
+  <div class="edit-address__popup">
+    <div class="popup-header">
+      <h4>Update your shipping address</h4>
+      <button class="icon-close">
+        <i></i>
+      </button>
+    </div>
+    <div class="popup-content">
+      <h2>Edit your address</h2>
+      <form>
+        <div class="text-field">
+          <div class="form-group">
+            <label for="inputCountry" class="control-label"
+              >Country/Region</label
+            >
+            <div class="select-wrapper">
+              <select id="inputCountry" name="country" class="form-control">
+                <option value="">Select a country/region...</option>
+                <optgroup label="Asia">
+                  <option value="VN">Vietnam</option>
+                  <option value="CN">China</option>
+                  <option value="IN">India</option>
+                  <option value="JP">Japan</option>
+                  <option value="KR">South Korea</option>
+                  <option value="MY">Malaysia</option>
+                  <option value="SG">Singapore</option>
+                  <option value="TH">Thailand</option>
+                </optgroup>
+                <optgroup label="Europe">
+                  <option value="AT">Austria</option>
+                  <option value="BE">Belgium</option>
+                  <option value="DK">Denmark</option>
+                  <option value="FI">Finland</option>
+                  <option value="FR">France</option>
+                  <option value="DE">Germany</option>
+                  <option value="IT">Italy</option>
+                  <option value="NL">Netherlands</option>
+                  <option value="NO">Norway</option>
+                  <option value="PL">Poland</option>
+                  <option value="RU">Russia</option>
+                  <option value="ES">Spain</option>
+                  <option value="SE">Sweden</option>
+                  <option value="CH">Switzerland</option>
+                  <option value="GB">United Kingdom</option>
+                </optgroup>
+                <optgroup label="North America">
+                  <option value="CA">Canada</option>
+                  <option value="US">United States</option>
+                </optgroup>
+                <optgroup label="South America">
+                  <option value="AR">Argentina</option>
+                  <option value="BR">Brazil</option>
+                  <option value="CL">Chile</option>
+                  <option value="CO">Colombia</option>
+                  <option value="MX">Mexico</option>
+                  <option value="PE">Peru</option>
+                </optgroup>
+                <optgroup label="Oceania">
+                  <option value="AU">Australia</option>
+                  <option value="NZ">New Zealand</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+        </div>
+        <Div class="text-field">
+          <label for="inputCountry" class="control-label">Street address</label>
+          <input id="inputStreetAddress" name="city" class="form-control" />
+        </Div>
+        <Div class="text-field">
+          <label for="inputCountry" class="control-label">City</label>
+          <input id="inputCity" name="city" class="form-control" />
+        </Div>
+        <Div class="text-field">
+          <label for="inputCountry" class="control-label">State</label>
+          <input id="inputState" name="city" class="form-control" />
+        </Div>
+        <Div class="text-field">
+          <label for="inputCountry" class="control-label">Zip Code</label>
+          <input id="inputState" name="city" class="form-control" />
+        </Div>
+        <Div class="text-field">
+          <label for="inputCountry" class="control-label">Phone number</label>
+          <input id="inputPhoneNumber" name="phone" class="form-control" />
+        </Div>
+        <button class="btn__use-this-address">Use this address</button>
+      </form>
+    </div>
+  </div>
+  <div class="checkout__item">
+    <div>
+      <h3>
+        1 <span class="letter-space"></span>
+        <span class="letter-space"></span> Choose a shipping address
+      </h3>
+      <div class="close">Close x</div>
+    </div>
+    <div class="content">
+      <div class="title">
+        <span>Your address</span>
+        <a href="/">Shipping to more than one address?</a>
+      </div>
+      <div class="sep"></div>
+      <div class="address">
+        <input type="radio" checked />
+        <span class="address__username">Thang Jenny</span>
+        <span class="address__full-formatted">
+          &nbsp;15031 23RD AVE, WHITESTONE, NY, 11357-3615, United States
+        </span>
+        <button class="address__edit">Edit address</button>
+      </div>
+      <div class="new-address">
+        <img
+          width="16"
+          height="16"
+          src="/assets/images/icons/addAddress.png"
+          alt=""
+        />
+        <a>Add a new address</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <agm-map -->
+<!--   [latitude]="lat" -->
+<!--   [longitude]="lng" -->
+<!--   (mapClick)="handlePickUpLocation($event)" -->
+<!-- > -->
+<!--   <agm-marker -->
+<!--     [latitude]="latitudePicker" -->
+<!--     [longitude]="longitudePicker" -->
+<!--   ></agm-marker> -->
+<!-- </agm-map> -->

@@ -1,7 +1,8 @@
 <div class="signin">
   <form
-    #loginForm="ngForm"
-    (ngSubmit)="handleLogin(loginForm)"
+    #userLogin="ngForm"
+    [formGroup]="loginForm"
+    (ngSubmit)="handleLogin(userLogin.value)"
     class="signin__form"
   >
     <h5 class="signin__title">Login</h5>
@@ -23,11 +24,28 @@
       <br />
       <input
         ngModel
+        formControlName="username"
         name="username"
         type="text"
         placeholder="Username"
         id="username"
       />
+      <div class="validate">
+        <span
+          *ngIf="loginFormControl['username'].touched &&
+            loginFormControl['username'].errors?.['required']
+          "
+          class="text-danger"
+        >
+          Required!
+        </span>
+        <span
+          *ngIf="loginFormControl['username'].touched && !loginFormControl['username'].errors?.['userNameAvailable']"
+          class="text-danger"
+        >
+          Username does not exist!
+        </span>
+      </div>
     </div>
     <div class="signin__text-field">
       <label for="password">
@@ -48,7 +66,7 @@
       </label>
       <br />
       <input
-        ngModel
+        formControlName="password"
         name="password"
         type="password"
         placeholder="Password"

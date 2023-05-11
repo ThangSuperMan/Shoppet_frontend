@@ -21,7 +21,8 @@ export class UserAuthService {
   }
 
   public clear() {
-    localStorage.clear();
+    localStorage.removeItem('access-token');
+    localStorage.removeItem('role');
   }
 
   public isLoggedIn() {

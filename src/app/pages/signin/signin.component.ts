@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CustomValidationService } from 'src/app/_services/custom-validation/custom-validation.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { UserService } from 'src/app/_services/user/user.service';
 
@@ -11,14 +12,31 @@ import { UserService } from 'src/app/_services/user/user.service';
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent {
+  loginForm!: FormGroup;
+
   constructor(
     private toastService: ToastrService,
+    private customValidator: CustomValidationService,
     private userService: UserService,
     private userAuthService: UserAuthService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginForm = new FormGroup(
+      {
+        username: new FormControl('', Validators.required),
+        password: new FormControl('', Validators.required),
+      },
+      {
+        validators: [this.customValidator.checkUsername('username')],
+      }
+    );
+  }
+
+  get loginFormControl() {
+    return this.loginForm.controls;
+  }
 
   setUpLocalStorage(jwtToken: string, role: string) {
     this.userAuthService.setToken(jwtToken);
@@ -27,10 +45,11 @@ export class SigninComponent {
 
   handleLogin(loginForm: NgForm) {
     console.log('Login form submitted!');
-    console.log('loginForm :>> ', loginForm);
     const user = {
-      username: loginForm.value.username,
-      password: loginForm.value.password,
+      // @ts-ignore
+      username: loginForm.username,
+      // @ts-ignore
+      password: loginForm.password,
     };
 
     if (user.username === '' || user.password === '') {
@@ -40,7 +59,7 @@ export class SigninComponent {
       );
     }
 
-    this.userService.login(loginForm.value).subscribe({
+    this.userService.login(user).subscribe({
       next: (response: any) => {
         console.log('response :>> ', response);
         const jwtToken: string = response.jwtToken;

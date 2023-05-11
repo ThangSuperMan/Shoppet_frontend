@@ -39,9 +39,18 @@ export class CartService {
       return;
     }
 
+    console.log(
+      ' this.isProductExistsInCart(products, product.id):>> ',
+      this.isProductExistsInCart(products, product.id)
+    );
+
     if (products) {
       products.push(product);
+    } else {
+      products = [product];
     }
+
+    console.log('products :>> ', products);
     const producetJson = JSON.stringify(products);
     localStorage.setItem('cartInfo', producetJson);
     this.toastService.success('Added to cart');
