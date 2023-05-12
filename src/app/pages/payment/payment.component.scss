@@ -39,6 +39,10 @@ agm-map {
   padding: 14px 18px 18px 18px;
 
   &__item {
+    &:not(:first-child) {
+      margin-top: 12px;
+    }
+
     > div:first-child {
       display: flex;
       align-items: center;
@@ -114,10 +118,18 @@ agm-map {
           color: $blue-light-color;
           text-decoration: none;
           cursor: pointer;
+          padding-left: 4px;
 
           &:hover {
             text-decoration: underline;
           }
+        }
+
+        .card-logo {
+          width: 52px;
+          height: 18px;
+          padding-left: 6px;
+          padding-right: 16px;
         }
       }
     }
@@ -133,7 +145,171 @@ agm-map {
   position: fixed;
 }
 
-.edit-address__popup {
+.add-card__popup {
+  width: 716px;
+  max-width: 80%;
+  border-radius: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  z-index: 900;
+  position: fixed;
+
+  .quantity-select {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+
+  .quantity-select span {
+    margin-right: 8px;
+  }
+
+  .quantity-select .select-wrapper {
+    position: relative;
+    width: 48px;
+    height: 24px;
+    background-color: #f3f3f3;
+    border: 1px solid #b2b2b2;
+    border-radius: 2px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    &:before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+    }
+  }
+
+  .quantity-select select {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    color: #111;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 8px;
+    cursor: pointer;
+  }
+
+  .quantity-select .arrow {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4px 4px 0 4px;
+    border-color: #000 transparent transparent transparent;
+    transform: translateY(-50%);
+  }
+
+  .popup-header {
+    padding-inline: 24px;
+    border-bottom: 1px solid #d5d9d9;
+    background-color: #f0f2f2;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h4 {
+      font-size: 18px;
+      padding-block: 16px;
+      margin-right: 24px;
+    }
+
+    .icon-close {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+
+      > i {
+        display: inline-block;
+        vertical-align: top;
+        background-image: url(https://m.media-amazon.com/images/S/sash/f9Cwl2OUDVHGXk8.png);
+        opacity: 0.64;
+        width: 10px;
+        height: 9px;
+        background-size: 400px 900px;
+        background-repeat: no-repeat;
+        background-position: -297px -5px;
+      }
+    }
+  }
+
+  .popup-content {
+    padding-inline: 24px;
+    padding-block: 16px;
+    display: flex;
+    align-items: flex-start;
+
+    .content__left {
+      height: 230px;
+      border-right-width: 1px;
+      border-right-style: solid;
+      border-right-color: #eee;
+    }
+
+    form {
+      .text-field {
+        display: flex;
+        align-items: center;
+
+        &:not(:first-child) {
+          margin-top: 12px;
+        }
+
+        > div {
+          width: 116px;
+          font-size: 15px;
+          font-weight: bold;
+          margin-top: 4px;
+          margin-right: 14px;
+
+          > label {
+            padding-left: 2px;
+            padding-bottom: 2px;
+          }
+        }
+
+        > input {
+          height: 31px;
+          margin-right: 40px;
+          padding: 3px 7px;
+          border-radius: 8px;
+          line-height: normal;
+          transition: border-color 0.15s ease-in-out,
+            box-shadow 0.15s ease-in-out;
+          background-color: #fff;
+          border: 1px solid #ced4da;
+          border-radius: 4px;
+          color: #495057;
+
+          &::-ms-expand {
+            display: none;
+          }
+
+          &:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.add-address__popup {
   width: 40%;
   border-radius: 8px;
   top: 50%;

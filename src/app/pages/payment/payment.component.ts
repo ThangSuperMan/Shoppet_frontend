@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { GeolocationService } from 'src/app/_services/geolocation/geolocation.service';
 import { Location } from '@models';
 
@@ -9,6 +8,8 @@ import { Location } from '@models';
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent {
+  isShowAddAddressWindow: boolean = false;
+  years: number[] | undefined;
   lat = 10.82302;
   lng = 106.62965;
   latitudePicker = 10.82302;
@@ -17,9 +18,25 @@ export class PaymentComponent {
   city: string = '';
   district: string = '';
 
-  constructor(private geolocationService: GeolocationService) {}
+  constructor(private geolocationService: GeolocationService) {
+    const currentYear = new Date().getFullYear();
+    this.years = Array.from({ length: 10 }, (_, index) => currentYear + index);
+  }
 
   ngOnInit() {}
+
+  handleClickOverlay(): void {
+    console.log('handleClickOverlay');
+    this.isShowAddAddressWindow = false;
+  }
+
+  handleAddAddress(): void {
+    this.isShowAddAddressWindow = true;
+  }
+
+  handleCloseAddressWindow(): void {
+    this.isShowAddAddressWindow = false;
+  }
 
   handlePickUpLocation(event: Location) {
     console.log('handlePickUpLocation');

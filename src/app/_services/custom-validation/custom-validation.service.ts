@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { UserService } from '../user/user.service';
 
 @Injectable({
@@ -8,9 +13,32 @@ import { UserService } from '../user/user.service';
 export class CustomValidationService {
   constructor(private userService: UserService) {}
 
+  patternCardValidator(): ValidatorFn {
+    console.log('patterncardValidator');
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const visaRegex = /^4[0-9]{12}(?:[0-9]{3})?$/;
+      const paypalRegex =
+        /^(?:5019|5020|5038|6304|6759|6761|6762|6763)[0-9]{12}(?:[0-9]{3})?$/;
+
+      // Remove whitespace characters
+      const cardNumber = control.value.replace(/\s/g, '');
+
+      if (visaRegex.test(cardNumber)) {
+        return null; // Valid Visa card number
+      } else if (paypalRegex.test(cardNumber)) {
+        return null; // Valid PayPal card number
+      } else {
+        return { invalidCard: true }; // Invalid card number
+      }
+    };
+  }
+
   patternValidator(): ValidatorFn {
     console.log('patternValidator');
-    return (control: AbstractControl): any => {
+    return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) {
         return null;
       }

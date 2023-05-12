@@ -19,7 +19,6 @@ export class ProductDetailsComponent {
   @ViewChild('inputOptionColorProduct') inputOptionColorProduct:
     | ElementRef
     | undefined;
-  // @ViewChild('quantityProduct') quantityProduct: ElementRef | undefined;
   product: Product | undefined;
   productDetail: any | undefined;
   aboutThisItem: any | undefined;
