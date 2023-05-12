@@ -4,6 +4,42 @@ agm-map {
   height: 600px;
 }
 
+.btn {
+  display: inline-block;
+  cursor: pointer;
+  white-space: nowrap;
+  height: 29px;
+}
+
+.btn-cancel {
+  padding-left: 11px;
+  padding-right: 10px;
+  border-radius: 8px;
+  border: 1px solid #d5d9d9;
+  background: #ffffff;
+  font-size: 13px;
+  text-align: center;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.btn-addcard {
+  font-size: 13px;
+  padding: 1px 6px;
+  margin-left: 0.385em;
+  background: $yellow-light-color;
+  border: 1px solid #fcd200;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px 0 rgba(213, 217, 217, 0.5);
+
+  &:hover {
+    background-color: #f0c14b;
+  }
+}
+
 .sep {
   width: 100%;
   height: 1px;
@@ -156,56 +192,82 @@ agm-map {
   z-index: 900;
   position: fixed;
 
-  .quantity-select {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-  }
-
-  .quantity-select span {
-    margin-right: 8px;
-  }
-
-  .quantity-select .select-wrapper {
+  .button-inner {
+    height: 29px;
+    line-height: 29px;
+    padding-right: 26px;
+    padding-left: 11px;
+    color: #0f1111;
+    border-radius: 8px;
+    border: 1px solid #d5d9d9;
+    font-size: 13px;
+    background: #f0f2f2;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     position: relative;
-    width: 48px;
-    height: 24px;
-    background-color: #f3f3f3;
-    border: 1px solid #b2b2b2;
-    border-radius: 2px;
-    box-sizing: border-box;
-    overflow: hidden;
 
-    &:before {
-      content: "";
-      width: 100%;
-      height: 100%;
-      background-color: transparent;
+    &__year {
+      margin-left: 8px;
+    }
+
+    &:hover .button-inner__dropdown {
+      display: block;
+    }
+
+    &__dropdown {
+      list-style-type: none;
+      padding-block: 8px;
+      height: 286px;
+      width: 58px;
+      border-radius: 8px;
+      border: 1px solid #d5d9d9;
+      overflow-y: scroll;
+      top: -1px;
+      right: 0;
+      left: -1px;
+      position: absolute;
+      background: #ffffff;
+      display: none;
+
+      > li {
+        height: 24px;
+        display: block;
+        padding: 2px 12px 1px 13px;
+        position: relative;
+        border: 1px solid transparent;
+        transition: all 0.2s linear;
+
+        &.active {
+          border-color: #d5d9d9;
+          background-color: #edfdff;
+          border-left-color: #007185 !important;
+        }
+
+        &:hover {
+          border: 1px solid $gray-thin-color;
+          background-color: #d5d9d9;
+        }
+
+        > span {
+          display: inline-block;
+          font-size: 13px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
     }
   }
 
-  .quantity-select select {
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    border: none;
-    color: #111;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 2px 8px;
-    cursor: pointer;
-  }
-
-  .quantity-select .arrow {
-    position: absolute;
-    top: 50%;
+  .icon-dropdown {
+    display: inline-block;
+    top: 10px;
     right: 8px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 4px 4px 0 4px;
-    border-color: #000 transparent transparent transparent;
-    transform: translateY(-50%);
+    width: 10px;
+    height: 8px;
+    background-position: -7px -102px;
+    background-image: url(https://m.media-amazon.com/images/S/sash/McBZv0ZvnbehkIx.png);
+    position: absolute;
   }
 
   .popup-header {
@@ -259,6 +321,37 @@ agm-map {
       border-right-color: #eee;
     }
 
+    .content__right {
+      padding-left: 20px;
+
+      p {
+        font-size: 14px;
+        margin-bottom: 8px;
+        height: 40px;
+      }
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+
+        .visa {
+          height: 29px;
+          width: 45px;
+          background-image: url(https://images-na.ssl-images-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png);
+          background-position: 0px;
+          margin-right: 6px;
+        }
+
+        .mastercard {
+          height: 29px;
+          width: 45px;
+          background-image: url(https://images-na.ssl-images-amazon.com/images/G/01/payments-portal/r1/issuer-images/sprite-map._CB636461779_.png);
+          background-position: -45px;
+        }
+      }
+    }
+
     form {
       .text-field {
         display: flex;
@@ -270,20 +363,28 @@ agm-map {
 
         > div {
           width: 116px;
-          font-size: 15px;
+          font-size: 14px;
           font-weight: bold;
           margin-top: 4px;
           margin-right: 14px;
 
           > label {
+            white-space: nowrap;
             padding-left: 2px;
             padding-bottom: 2px;
           }
         }
 
+        .recognize-card {
+          width: 45px;
+          height: 29px;
+          background: red;
+        }
+
         > input {
+          width: 189px;
           height: 31px;
-          margin-right: 40px;
+          margin-right: 20px;
           padding: 3px 7px;
           border-radius: 8px;
           line-height: normal;
@@ -306,6 +407,20 @@ agm-map {
         }
       }
     }
+  }
+
+  .popup-footer {
+    background: transparent linear-gradient(to bottom, #f7f7f7, #eaeaea) repeat
+      scroll 0 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset,
+      0 -1px 0 rgba(255, 255, 255, 0.4) inset;
+    height: 48px;
+    padding-inline: 18px;
+    margin-block: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
   }
 }
 

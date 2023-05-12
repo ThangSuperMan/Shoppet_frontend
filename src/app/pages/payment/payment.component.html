@@ -1,10 +1,10 @@
 <div class="checkout">
-  <ng-container>
+  <ng-container *ngIf="isShowAddCardWindow">
     <div (click)="handleClickOverlay()" #overlayEl class="overlay"></div>
     <div class="add-card__popup">
       <div class="popup-header">
         <h4>Add a credit or debit card</h4>
-        <button (click)="handleCloseAddressWindow()" class="icon-close">
+        <button (click)="handleCloseCardWindow()" class="icon-close">
           <i></i>
         </button>
       </div>
@@ -16,6 +16,7 @@
                 <label>Card number</label>
               </div>
               <input type="text" />
+              <div class="recognize-card"></div>
             </div>
             <div class="text-field">
               <div>
@@ -24,29 +25,41 @@
               <input type="text" />
             </div>
             <div class="text-field">
+              <div>
+                <label>Expiration date</label>
+              </div>
+              <span class="button-inner">
+                <span>{{ this.expirationMonthActiveNumber }}</span>
+                <i class="icon-dropdown"> </i>
+                <ul class="button-inner__dropdown">
+                  <li
+                    (click)="handleClickExiprationMonth(month)"
+                    *ngFor="let month of months"
+                    [class.active]="expirationMonthActiveNumber == month"
+                  >
+                    <span>{{ month }}</span>
+                  </li>
+                </ul>
+              </span>
+              <span class="button-inner button-inner__year">
+                <span>{{ this.expirationYearActiveNumber }}</span>
+                <i class="icon-dropdown"> </i>
+                <ul class="button-inner__dropdown">
+                  <li
+                    (click)="handleClickExiprationYear(year)"
+                    *ngFor="let year of years"
+                    [class.active]="expirationYearActiveNumber == year"
+                  >
+                    <span>{{ year }}</span>
+                  </li>
+                </ul>
+              </span>
               <!-- <select class="expiration-select"> -->
               <!--   <option value="" disabled selected>Expiration Date</option> -->
               <!--   <option *ngFor="let year of years" [value]="year"> -->
               <!--     {{ year }} -->
               <!--   </option> -->
               <!-- </select> -->
-              <div class="quantity-select">
-                <span>Qty:</span>
-                <div class="select-wrapper">
-                  <select #quantityProduct id="quantity" name="quantity">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10+</option>
-                  </select>
-                </div>
-              </div>
             </div>
             <div class="text-field">
               <div>
@@ -60,7 +73,19 @@
             </div>
           </form>
         </div>
-        <div class="content__right">right</div>
+        <div class="content__right">
+          <p>Amazon accepts all major credit and debit cards:</p>
+          <ul class="card-logos">
+            <li class="visa"></li>
+            <li class="mastercard"></li>
+          </ul>
+        </div>
+      </div>
+      <div class="popup-footer">
+        <div>
+          <button class="btn btn-cancel">cancel</button>
+          <button class="btn btn-addcard">Add your Card</button>
+        </div>
       </div>
     </div>
   </ng-container>
@@ -217,7 +242,9 @@
           src="/assets/images/payment/card-logo-compact.gif"
           alt=""
         />
-        <a (click)="handleAddAddress()">Add a credit or debit cards</a>
+        <a (click)="handleAddCreditOrDebitCard()"
+          >Add a credit or debit cards</a
+        >
       </div>
     </div>
   </div>
