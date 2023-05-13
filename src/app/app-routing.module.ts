@@ -30,7 +30,7 @@ const routes: Routes = [
     component: ShopComponnet,
   },
   {
-    path: 'shop/products/:product_id',
+    path: 'shop/products/:product_title',
     component: ProductDetailsComponent,
   },
   {
@@ -44,6 +44,8 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'USER' },
   },
   {
     path: 'admin',

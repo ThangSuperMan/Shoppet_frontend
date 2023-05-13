@@ -55,6 +55,14 @@ export class UserService {
     });
   }
 
+  public forUser() {
+    console.log('forUser just triggered');
+    const url = `${env.pathApi}/user`;
+    return this.httpClient.get(url, {
+      responseType: 'text',
+    });
+  }
+
   public forAdmin() {
     console.log('forAdmin just triggred');
     const url = `${env.pathApi}/admin`;

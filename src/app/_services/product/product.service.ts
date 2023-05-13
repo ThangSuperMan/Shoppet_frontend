@@ -29,11 +29,19 @@ export class ProductService {
     });
   }
 
-  public getProduct(id: number): Observable<any> {
+  public getProduct(title: string): Observable<any> {
     console.log('ProductService getProduct method is running...');
-    const url = `${env.pathApi}/products/${id}`;
+    const url = `${env.pathApi}/products/${title}`;
     return this.httpClient.get<any>(url, {
       headers: this.requestHeader,
     });
   }
+
+  // public getProduct(id: number): Observable<any> {
+  //   console.log('ProductService getProduct method is running...');
+  //   const url = `${env.pathApi}/products/${id}`;
+  //   return this.httpClient.get<any>(url, {
+  //     headers: this.requestHeader,
+  //   });
+  // }
 }

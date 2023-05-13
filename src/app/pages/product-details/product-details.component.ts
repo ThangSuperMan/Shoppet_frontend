@@ -57,27 +57,30 @@ export class ProductDetailsComponent {
       'ProductDetailsComponent getProuduct method is running...'
     );
     const routeParams: ParamMap = this.route.snapshot.paramMap;
-    const productId: number = Number(routeParams.get('product_id'));
-    console.log('productId :>> ', productId);
-    this.productSerivce.getProduct(productId).subscribe({
-      next: (response: any) => {
-        this.logger.info('response :>> ', response);
-        this.product = response.product;
-        this.brand = response.brand;
-        this.foodFlavors = response.foodFlavors;
-        this.productDetail = response.productDetail;
-        if (this.productDetail) {
-          this.aboutThisItem = this.productDetail.description.split('<br>');
-          console.log('aboutThisItem :>> ', this.aboutThisItem);
-        }
-        if (this.foodFlavors) {
-          this.lastFlavor = this.foodFlavors[this.foodFlavors.length - 1].name;
-        }
-      },
-      error: (error: any) => {
-        console.log('Error :>> ', error);
-      },
-    });
+    const productTitle: string | null = routeParams.get('product_title');
+    console.log('productTitle :>> ', productTitle);
+    if (productTitle) {
+      this.productSerivce.getProduct(productTitle).subscribe({
+        next: (response: any) => {
+          this.logger.info('response :>> ', response);
+          this.product = response.product;
+          this.brand = response.brand;
+          this.foodFlavors = response.foodFlavors;
+          this.productDetail = response.productDetail;
+          if (this.productDetail) {
+            this.aboutThisItem = this.productDetail.description.split('<br>');
+            console.log('aboutThisItem :>> ', this.aboutThisItem);
+          }
+          if (this.foodFlavors) {
+            this.lastFlavor =
+              this.foodFlavors[this.foodFlavors.length - 1].name;
+          }
+        },
+        error: (error: any) => {
+          console.log('Error :>> ', error);
+        },
+      });
+    }
   }
 
   changeOptionFlavorProduct(flavor: string): void {
