@@ -4,6 +4,8 @@ import { ProductService } from 'src/app/_services/product/product.service';
 import { Brand, FoodFlavor, Product } from '@models';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { CartService } from 'src/app/_services/cart/cart.service';
+import { UserService } from 'src/app/_services/user/user.service';
+import { UserAuthService } from 'src/app/_services/user-auth.service';
 
 @Component({
   selector: 'app-product-details',
@@ -30,6 +32,7 @@ export class ProductDetailsComponent {
     private logger: NgxFancyLoggerService,
     private route: ActivatedRoute,
     private router: Router,
+    private userAuthService: UserAuthService,
     private productSerivce: ProductService,
     private cartService: CartService
   ) {}
@@ -45,6 +48,10 @@ export class ProductDetailsComponent {
   handleAddToCart(quantityProduct: string) {
     console.log('handleAddToCart');
     console.log('this.product :>> ', this.product);
+    if (this.userAuthService.isLoggedIn()) {
+      // Save the product to our server
+      // with jwt auth acdess token
+    }
     if (this.product) {
       this.product.quantity = parseInt(quantityProduct);
       console.log('quantityProduct :>> ', quantityProduct);

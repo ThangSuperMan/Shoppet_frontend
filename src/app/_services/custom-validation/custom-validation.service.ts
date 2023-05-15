@@ -48,6 +48,18 @@ export class CustomValidationService {
     };
   }
 
+  patternPhoneNumberValidator(): ValidatorFn {
+    console.log('patternPhoneNumberValidator');
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+      const regex = new RegExp('^0[0-9]{9}$');
+      const valid = regex.test(control.value);
+      return valid ? null : { invalidPhoneNumber: true };
+    };
+  }
+
   checkUsername(username: string): any {
     console.log('checkUsername triggred!');
     return (formGroup: FormGroup): any => {

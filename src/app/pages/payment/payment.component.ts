@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { GeolocationService } from 'src/app/_services/geolocation/geolocation.service';
-import { Location } from '@models';
+import { Address, Location } from '@models';
+import { UserService } from 'src/app/_services/user/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomValidationService } from 'src/app/_services/custom-validation/custom-validation.service';
 
 @Component({
   selector: 'app-payment',
@@ -8,8 +12,9 @@ import { Location } from '@models';
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent {
+  addressForm!: FormGroup;
   isShowAddAddressWindow: boolean = false;
-  isShowAddCardWindow: boolean = true;
+  isShowAddCardWindow: boolean = false;
   expirationMonthActiveNumber: string = '01';
   expirationYearActiveNumber: number = new Date().getFullYear();
   years: number[] | undefined;
@@ -22,7 +27,12 @@ export class PaymentComponent {
   city: string = '';
   district: string = '';
 
-  constructor(private geolocationService: GeolocationService) {
+  constructor(
+    private toastService: ToastrService,
+    private customValidator: CustomValidationService,
+    private geolocationService: GeolocationService,
+    private userSerivce: UserService
+  ) {
     const currentYear = new Date().getFullYear();
     const zero = '0';
     this.years = Array.from({ length: 10 }, (_, index) => currentYear + index);
@@ -33,10 +43,43 @@ export class PaymentComponent {
         this.months?.push(index.toString());
       }
     }
-    console.log('months :>> ', this.months);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.forUser();
+    this.addressForm = new FormGroup({
+      country: new FormControl('', Validators.required),
+      streetAddress: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
+      state: new FormControl('', Validators.required),
+      zipcode: new FormControl('', Validators.required),
+      phoneNumber: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          this.customValidator.patternPhoneNumberValidator(),
+        ])
+      ),
+    });
+  }
+  get addressFormControl() {
+    return this.addressForm.controls;
+  }
+
+  forUser() {
+    console.log('forUser in admin route just triggered!');
+    this.userSerivce.forUser().subscribe({
+      next: (response: any) => {
+        console.log('response :>> ', response);
+      },
+      error: (error: any) => {
+        console.log('Error when call forUser method :>> ', error);
+        this.toastService.warning(
+          'You have to login first, if your would like to use this feature!'
+        );
+      },
+    });
+  }
 
   handleClickExiprationMonth(month: string): void {
     console.log('handleClickExiprationMonth');
@@ -59,6 +102,20 @@ export class PaymentComponent {
   handleAddCreditOrDebitCard(): void {
     console.log('handleAddCreditOrDebitCard');
     this.isShowAddCardWindow = true;
+  }
+
+  onSubmitFormAddAdress(addressFormData: Address): void {
+    console.log('onSubmitFormAddAdress');
+    console.log('addressFormData :>> ', addressFormData);
+    const address: Address = {
+      streetAddress: addressFormData.streetAddress,
+      city: addressFormData.city,
+      state: addressFormData.state,
+      zipcode: addressFormData.zipcode,
+      phoneNumber: addressFormData.phoneNumber,
+    };
+
+    console.log('address :>> ', address);
   }
 
   handleAddAddress(): void {

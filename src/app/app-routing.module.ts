@@ -40,6 +40,8 @@ const routes: Routes = [
   {
     path: 'payment',
     component: PaymentComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'USER' },
   },
   {
     path: 'user',

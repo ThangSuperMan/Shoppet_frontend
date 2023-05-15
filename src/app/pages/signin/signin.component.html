@@ -1,8 +1,8 @@
 <div class="signin">
   <form
-    #userLogin="ngForm"
+    #userLoginData="ngForm"
     [formGroup]="loginForm"
-    (ngSubmit)="handleLogin(userLogin.value)"
+    (ngSubmit)="handleLogin(userLoginData.value)"
     class="signin__form"
   >
     <h5 class="signin__title">Login</h5>
