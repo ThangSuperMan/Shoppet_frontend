@@ -32,7 +32,6 @@ export class AuthInterceptor implements HttpInterceptor {
     }
     const jwtToken = this.userAuthSerive.getToken();
     let modifiedRequest = this.addToken(req, jwtToken);
-    console.log('here');
     console.log('jwtToken :>> ', jwtToken);
 
     return next.handle(modifiedRequest).pipe(

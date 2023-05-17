@@ -10,19 +10,19 @@
       </div>
       <div class="popup-content">
         <div class="content__left">
-          <form>
+          <form #addCardForm>
             <div class="text-field">
               <div>
                 <label>Card number</label>
               </div>
-              <input type="text" />
+              <input type="text" name="cardNumber" [(ngModel)]="cardNumber" />
               <div class="recognize-card"></div>
             </div>
             <div class="text-field">
               <div>
                 <label>Name on card</label>
               </div>
-              <input type="text" />
+              <input type="text" name="nameOnCard" [(ngModel)]="nameOnCard" />
             </div>
             <div class="text-field">
               <div>
@@ -69,7 +69,7 @@
                   (CVV/CVC)
                 </label>
               </div>
-              <input type="text" />
+              <input type="text" name="securityCode" ngModel />
             </div>
           </form>
         </div>
@@ -84,7 +84,9 @@
       <div class="popup-footer">
         <div>
           <button class="btn btn-cancel">cancel</button>
-          <button class="btn btn-addcard">Add your Card</button>
+          <button (click)="onSubmitCard()" class="btn btn-addcard">
+            Add your Card
+          </button>
         </div>
       </div>
     </div>

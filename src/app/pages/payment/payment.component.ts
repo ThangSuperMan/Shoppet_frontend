@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { GeolocationService } from 'src/app/_services/geolocation/geolocation.service';
 import { Address, Location } from '@models';
 import { UserService } from 'src/app/_services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { CustomValidationService } from 'src/app/_services/custom-validation/custom-validation.service';
+
+/*
+  Notes:
+  // Add card (should valite form first)
+  // Send card information to database
+  // Send request paypal payment when click use this pay method
+ */
 
 @Component({
   selector: 'app-payment',
@@ -23,9 +30,13 @@ export class PaymentComponent {
   lng = 106.62965;
   latitudePicker = 10.82302;
   longitudePicker = 106.62965;
+  cardNumber: string = '';
+  nameOnCard: string = '';
+  securityCode: number = -1;
   address: string = '';
   city: string = '';
   district: string = '';
+  @ViewChild('addCardForm') addCardForm!: NgForm;
 
   constructor(
     private toastService: ToastrService,
@@ -79,6 +90,26 @@ export class PaymentComponent {
         );
       },
     });
+  }
+
+  onSubmitCard(): void {
+    console.log('onSubmitCard');
+    console.log('this.addCardForm:>> ', this.addCardForm.value);
+    console.log('this.cardNumber :>> ', this.cardNumber);
+    console.log('this.nameOnCard :>> ', this.nameOnCard);
+    console.log(
+      'this.expirationMonthActiveNumber :>> ',
+      this.expirationMonthActiveNumber
+    );
+    console.log(
+      'this.expirationYearActiveNumber :>> ',
+      this.expirationYearActiveNumber
+    );
+    if (this.addCardForm.valid) {
+      // Send request to server
+    } else {
+      // No Send request to server
+    }
   }
 
   handleClickExiprationMonth(month: string): void {

@@ -1,11 +1,22 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ProductService } from 'src/app/_services/product/product.service';
-import { Brand, FoodFlavor, Product } from '@models';
+import { Brand, FoodFlavor, Order, Product, User } from '@models';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { CartService } from 'src/app/_services/cart/cart.service';
-import { UserService } from 'src/app/_services/user/user.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
+import { OrderService } from 'src/app/_services/order/order.service';
+import { UserService } from 'src/app/_services/user/user.service';
+
+interface NextProps {
+  response: any;
+  callback: () => void;
+}
+
+interface ErrorProps {
+  response: any;
+  callback: () => void;
+}
 
 @Component({
   selector: 'app-product-details',
@@ -33,12 +44,33 @@ export class ProductDetailsComponent {
     private route: ActivatedRoute,
     private router: Router,
     private userAuthService: UserAuthService,
+    private userService: UserService,
     private productSerivce: ProductService,
+    private orderService: OrderService,
     private cartService: CartService
   ) {}
 
   ngOnInit(): void {
     this.getProduct();
+  }
+
+  // I have declared function:
+  // _translate(value: T, callback: (name: T) => T): void;
+  // And function is:
+  // public _translate(value: T, callback: T) {
+  // if (!this.translate) {
+  //  callback(value);
+  // }
+  // }
+
+  handleNext(response: any, callback: () => void): void {
+    console.log('response :>> ', response);
+    callback();
+  }
+
+  handleError(error: any, callback: () => void): void {
+    console.log('Error :>> ', error);
+    callback();
   }
 
   handleGoBackPreviousPage() {
@@ -51,6 +83,37 @@ export class ProductDetailsComponent {
     if (this.userAuthService.isLoggedIn()) {
       // Save the product to our server
       // with jwt auth acdess token
+
+      if (this.product) {
+        const { id, quantity } = this.product;
+
+        this.userService.forUser().subscribe({
+          next: (response: any) => {
+            console.log('response :>> ', response);
+            const user: User = JSON.parse(response).user;
+            console.log('user :>> ', user);
+            console.log('user.id :>> ', user.id);
+            if (user.id) {
+              const order: Order = {
+                productId: id,
+                quantity: quantity,
+                userId: user.id,
+              };
+              this.orderService.saveOrder(order).subscribe({
+                next: (response: any) => {
+                  console.log('response :>> ', response);
+                },
+                error: (error: any) => {
+                  console.log('error :>> ', error);
+                },
+              });
+            }
+          },
+          error: (error: any) => {
+            console.log('error here :>> ', error);
+          },
+        });
+      }
     }
     if (this.product) {
       this.product.quantity = parseInt(quantityProduct);

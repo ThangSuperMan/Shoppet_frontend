@@ -61,4 +61,8 @@ export class CartService {
     // @ts-ignore
     return JSON.parse(localStorage.getItem('cartInfo'));
   }
+
+  public clearnCartFromLocalStorage(): void {
+    localStorage.removeItem('cartInfo');
+  }
 }
