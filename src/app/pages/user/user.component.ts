@@ -14,12 +14,12 @@ export class UserComponent {
   ) {}
 
   ngOnInit(): void {
-    this.forUser();
+    this.getProfileUser();
   }
 
-  forUser() {
+  getProfileUser() {
     console.log('forUser in user route just triggered!');
-    this.userSerivce.forUser().subscribe({
+    this.userSerivce.getUserProfile().subscribe({
       next: (response: any) => {
         console.log('response :>> ', response);
         console.log('here');

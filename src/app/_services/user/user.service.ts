@@ -55,20 +55,16 @@ export class UserService {
     });
   }
 
-  public forUser() {
-    console.log('forUser just triggered');
+  public getUserProfile(): Observable<any> {
+    console.log('UserService getUserProfile method is running');
     const url = `${env.pathApi}/user`;
-    return this.httpClient.get(url, {
-      responseType: 'text',
-    });
+    return this.httpClient.get(url);
   }
 
-  public forAdmin() {
+  public forAdmin(): Observable<any> {
     console.log('forAdmin just triggred');
     const url = `${env.pathApi}/admin`;
-    return this.httpClient.get(url, {
-      responseType: 'text',
-    });
+    return this.httpClient.get(url);
   }
 
   public isRoleMatch(allowRole: string) {

@@ -2,6 +2,10 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models';
 import { CartService } from 'src/app/_services/cart/cart.service';
+import { OrderService } from 'src/app/_services/order/order.service';
+import { UserAuthService } from 'src/app/_services/user-auth.service';
+import { UserService } from 'src/app/_services/user/user.service';
+import { User } from '@models';
 
 @Component({
   selector: 'app-cart',
@@ -11,12 +15,18 @@ import { CartService } from 'src/app/_services/cart/cart.service';
 export class CartComponent {
   @ViewChild('selectQuantity') selectQuantityEl: ElementRef | undefined;
   quantityOptions: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  products: Product[] | undefined;
+  products: Product[] | undefined = [];
   subtotal: string = '';
   countProduct: number = 9;
   isFading: boolean = false;
   productIdIsFading: string = '-1';
-  constructor(private cartService: CartService, private router: Router) {}
+  constructor(
+    private userAuthServer: UserAuthService,
+    private userService: UserService,
+    private orderService: OrderService,
+    private cartService: CartService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     console.log('ngonInit');
@@ -25,8 +35,52 @@ export class CartComponent {
       this.products = cartInfo;
     }
     console.log('cartInfo :>> ', cartInfo);
+    console.log('length of products :>> ', this.products?.length);
     this.updateSubtotal();
     this.updateCountProuducts();
+
+    // Get order unpaid if user logged in
+    if (this.userAuthServer.isLoggedIn()) {
+      this.getOrder();
+    }
+  }
+
+  getOrder(): void {
+    console.log('CartComponent getOrder method is running');
+    let user: User | undefined;
+    this.userService.getUserProfile().subscribe({
+      next: (response: { user: User }) => {
+        console.log('response :>> ', response);
+        user = response.user;
+        if (user.id) {
+          this.orderService.getOrder(user.id).subscribe({
+            next: (response: { products: Product[] }) => {
+              console.log('response :>> ', response);
+              this.products = response.products;
+            },
+            error: (error: any) => {
+              console.log('error :>> ', error);
+            },
+          });
+        }
+      },
+      error: (error: any) => {
+        console.log('error :>> ', error);
+      },
+    });
+
+    // console.log('user.id :>> ', user?.id);
+    // if (user?.id) {
+    //   console.log('banana');
+    //   this.orderService.getOrder(user.id).subscribe({
+    //     next: (response: any) => {
+    //       console.log('response :>> ', response);
+    //     },
+    //     error: (error: any) => {
+    //       console.log('error :>> ', error);
+    //     },
+    //   });
+    // }
   }
 
   handlePayment(): void {
@@ -100,6 +154,10 @@ export class CartComponent {
     products = cartInfo;
     products = cartInfo?.filter((product: Product) => product.id !== productId);
     this.cartService.setCartAfterDeleteProduct(products);
+
+    if (this.userAuthServer.isLoggedIn() && productId) {
+      this.orderService.deleteOrderItem(productId);
+    }
 
     // Update the items in cart after delete
     cartInfo = this.cartService.getCartFromLocalStorage();

@@ -79,7 +79,7 @@ export class PaymentComponent {
 
   forUser() {
     console.log('forUser in admin route just triggered!');
-    this.userSerivce.forUser().subscribe({
+    this.userSerivce.getUserProfile().subscribe({
       next: (response: any) => {
         console.log('response :>> ', response);
       },

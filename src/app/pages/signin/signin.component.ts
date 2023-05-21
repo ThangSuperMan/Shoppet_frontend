@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { CustomValidationService } from 'src/app/_services/custom-validation/custom-validation.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { UserService } from 'src/app/_services/user/user.service';
-
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -73,6 +72,7 @@ export class SigninComponent {
       },
       error: (error: any) => {
         console.log('Error in login component :>> ', error);
+        this.toastService.error(error.error.errorMessage);
       },
     });
   }

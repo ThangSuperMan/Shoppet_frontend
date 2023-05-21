@@ -1,22 +1,20 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ProductService } from 'src/app/_services/product/product.service';
-import { Brand, FoodFlavor, Order, Product, User } from '@models';
+import {
+  Brand,
+  FoodFlavor,
+  Order,
+  PaymentStatus,
+  Product,
+  User,
+} from '@models';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { CartService } from 'src/app/_services/cart/cart.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { OrderService } from 'src/app/_services/order/order.service';
 import { UserService } from 'src/app/_services/user/user.service';
-
-interface NextProps {
-  response: any;
-  callback: () => void;
-}
-
-interface ErrorProps {
-  response: any;
-  callback: () => void;
-}
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-details',
@@ -41,6 +39,7 @@ export class ProductDetailsComponent {
 
   constructor(
     private logger: NgxFancyLoggerService,
+    private toastService: ToastrService,
     private route: ActivatedRoute,
     private router: Router,
     private userAuthService: UserAuthService,
@@ -77,6 +76,20 @@ export class ProductDetailsComponent {
     this.router.navigate(['/shop']);
   }
 
+  getTotalMoneyOfProuducts(): number {
+    const products: Product[] | null =
+      this.cartService.getCartFromLocalStorage();
+    let total: number = 0;
+    if (products) {
+      for (let i = 0; i < products.length; i++) {
+        const { price, quantity } = products[i];
+        total += price * quantity;
+      }
+    }
+    console.log('total money of products :>> ', total);
+    return total;
+  }
+
   handleAddToCart(quantityProduct: string) {
     console.log('handleAddToCart');
     console.log('this.product :>> ', this.product);
@@ -85,26 +98,34 @@ export class ProductDetailsComponent {
       // with jwt auth acdess token
 
       if (this.product) {
-        const { id, quantity } = this.product;
+        const { id } = this.product;
+        const productId = id;
 
-        this.userService.forUser().subscribe({
-          next: (response: any) => {
+        // Get user from auth api
+        this.userService.getUserProfile().subscribe({
+          next: (response: { user: User }) => {
             console.log('response :>> ', response);
-            const user: User = JSON.parse(response).user;
+            const user: User = response.user;
             console.log('user :>> ', user);
             console.log('user.id :>> ', user.id);
+            console.log('productId :>> ', productId);
             if (user.id) {
               const order: Order = {
-                productId: id,
-                quantity: quantity,
+                productId: productId,
+                quantity: parseInt(quantityProduct),
                 userId: user.id,
+                paymentStatus: PaymentStatus.UNPAID,
+                total: this.getTotalMoneyOfProuducts(),
               };
+
+              console.log('order before send to api :>> ', order);
               this.orderService.saveOrder(order).subscribe({
                 next: (response: any) => {
                   console.log('response :>> ', response);
                 },
                 error: (error: any) => {
                   console.log('error :>> ', error);
+                  this.toastService.error(error.error.errorMessage);
                 },
               });
             }
