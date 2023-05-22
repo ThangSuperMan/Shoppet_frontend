@@ -61,17 +61,6 @@ export class ProductDetailsComponent {
   //  callback(value);
   // }
   // }
-
-  handleNext(response: any, callback: () => void): void {
-    console.log('response :>> ', response);
-    callback();
-  }
-
-  handleError(error: any, callback: () => void): void {
-    console.log('Error :>> ', error);
-    callback();
-  }
-
   handleGoBackPreviousPage() {
     this.router.navigate(['/shop']);
   }
@@ -96,7 +85,6 @@ export class ProductDetailsComponent {
     if (this.userAuthService.isLoggedIn()) {
       // Save the product to our server
       // with jwt auth acdess token
-
       if (this.product) {
         const { id } = this.product;
         const productId = id;
@@ -122,10 +110,12 @@ export class ProductDetailsComponent {
               this.orderService.saveOrder(order).subscribe({
                 next: (response: any) => {
                   console.log('response :>> ', response);
+                  this.toastService.success('Added product successfully.');
                 },
                 error: (error: any) => {
-                  console.log('error :>> ', error);
-                  this.toastService.error(error.error.errorMessage);
+                  console.log('error banana :>> ', error);
+                  this.toastService.warning(error);
+                  // this.toastService.error(error.error.errorMessage);
                 },
               });
             }
@@ -135,12 +125,15 @@ export class ProductDetailsComponent {
           },
         });
       }
+      // Required login first
+    } else {
+      this.router.navigate(['/login']);
     }
-    if (this.product) {
-      this.product.quantity = parseInt(quantityProduct);
-      console.log('quantityProduct :>> ', quantityProduct);
-      this.cartService.setCartToLocalStorage(this.product);
-    }
+    // if (this.product) {
+    //   this.product.quantity = parseInt(quantityProduct);
+    //   console.log('quantityProduct :>> ', quantityProduct);
+    //   this.cartService.setCartToLocalStorage(this.product);
+    // }
   }
 
   getProduct(): void {

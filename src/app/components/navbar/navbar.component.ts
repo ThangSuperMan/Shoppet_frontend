@@ -2,6 +2,8 @@ import { EventEmitter } from '@angular/core';
 import { Component, Output } from '@angular/core';
 import { Product } from 'src/app/models';
 import { CartService } from 'src/app/_services/cart/cart.service';
+import { OrderService } from 'src/app/_services/order/order.service';
+import { UserAuthService } from 'src/app/_services/user-auth.service';
 
 interface SideNavToggleProps {
   isShowSideNav: boolean;
@@ -18,7 +20,11 @@ export class NavbarComponent {
   countProductsInCart: number = 0;
   isShowSideNav: boolean = false;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private orderService: OrderService,
+    private cartService: CartService,
+    private userAuthSerivce: UserAuthService
+  ) {}
 
   ngOnInit(): void {
     const products: Product[] | null =
@@ -32,6 +38,10 @@ export class NavbarComponent {
     }
 
     console.log('this.countProductsInCart :>> ', this.countProductsInCart);
+
+    if (this.userAuthSerivce.isLoggedIn()) {
+      // get number of products in the cart
+    }
   }
 
   ngOnChanges(): void {

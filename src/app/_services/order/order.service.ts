@@ -15,15 +15,26 @@ export class OrderService {
   public getOrder(userId: string): Observable<any> {
     console.log('OrderService getOrder method is running');
     const url = `${env.pathApi}/orders/${userId}`;
-    console.log('url :>> ', url);
     return this.httpClient.get<any>(url);
   }
 
   public saveOrder(order: Order): Observable<any> {
     console.log('OrderService saveOrder method is running...');
-    console.log('order :>> ', order);
     const url = `${env.pathApi}/orders/save`;
     return this.httpClient.post<any>(url, order);
+    // return this.httpClient.post<any>(url, order).pipe(
+    //   catchError((error: HttpErrorResponse) => {
+    //     console.log('error infor :>> ', error);
+    //     if (error.status == 409) {
+    //       console.log('banana');
+    //       this.logger.warning('This product exists before in your database!');
+    //       this.toastService.warning(
+    //         'This product exists in your cart, please choose another one, thank you.'
+    //       );
+    //     }
+    //     return throwError(() => error);
+    //   })
+    // );
   }
 
   public deleteOrderItem(productId: string): Observable<any> {

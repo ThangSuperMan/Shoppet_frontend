@@ -333,15 +333,22 @@
                       "
                       id="quantity"
                       name="quantity"
+                      value="9"
                     >
                       <option
                         *ngFor="let quantity of quantityOptions"
                         [value]="quantity"
-                        [selected]="product.quantity == quantity"
+                        [selected]="
+                          getQuantityByProductId(product?.id) ==
+                          quantity.toString()
+                        "
                       >
                         <span>{{ quantity }}</span>
                       </option>
-                      <option value="10">10+</option>
+                      <!-- Old -->
+                      <!-- [selected]="product.quantity == quantity" -->
+                      <!-- <option value="10">10+</option> -->
+                      <!-- <span>{{ getQuantityByProductId(product.id) }}</span> -->
                     </select>
                   </div>
                 </div>
@@ -428,14 +435,14 @@
 
         <div class="row"></div>
         <div class="sub-total">
-          <span>Subtotal ( {{ countProduct }} item ):</span>
+          <span>Subtotal ( {{ numberOfProducts }} item ):</span>
           <span class="price">&#160;${{ subtotal }}</span>
         </div>
       </div>
       <div class="shopping-cart__right">
         <div class="content">
           <div class="sub-total">
-            <span>Subtotal ( {{ countProduct }} item ):</span>
+            <span>Subtotal ( {{ numberOfProducts }} item ):</span>
             <!-- <span class="price">&#160;$10.49</span> -->
             <span class="price">&#160;${{ subtotal }}</span>
             <div class="text-field">

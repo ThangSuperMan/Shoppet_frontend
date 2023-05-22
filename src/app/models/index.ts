@@ -5,4 +5,5 @@ export { default as FoodFlavor } from './food-flavor.model';
 export { default as Location } from './location.model';
 export { default as Geolocation } from './geolocation.model';
 export { default as Address } from './address.model';
+export { default as OrderItem } from './order-item.model';
 export { default as Order, PaymentStatus } from './order.model';

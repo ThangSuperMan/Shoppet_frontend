@@ -35,19 +35,25 @@ export class AuthInterceptor implements HttpInterceptor {
     console.log('jwtToken :>> ', jwtToken);
 
     return next.handle(modifiedRequest).pipe(
-      catchError((err: HttpErrorResponse) => {
-        switch (err.status) {
+      catchError((error: HttpErrorResponse) => {
+        console.log('err.status :>> ', error.status);
+        switch (error.status) {
           case 403: // Forbidden
-            this.toastService.error(`${err.statusText}`, 'Access Error');
+            this.toastService.error(`${error.statusText}`, 'Access Error');
             this.router.navigate(['/forbidden']);
             break;
           case 404: // Not found
-            this.toastService.error(`${err.statusText}`, 'Route Error');
+            this.toastService.error(`${error.statusText}`, 'Route Error');
             break;
+          case 409: // Conflict
+            return throwError(
+              () => 'This product exists in your cart, right now!'
+            );
           case 500: // External server
-            this.toastService.error(`${err.statusText}`, 'Access Error');
+            this.toastService.error(`${error.statusText}`, 'Access Error');
             break;
         }
+
         return throwError(() => 'Something is wrong in here!');
       })
     );

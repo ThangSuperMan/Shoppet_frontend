@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Product } from 'src/app/models';
+import { OrderItem, Product } from 'src/app/models';
 import { CartService } from 'src/app/_services/cart/cart.service';
 import { OrderService } from 'src/app/_services/order/order.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
@@ -16,12 +16,13 @@ export class CartComponent {
   @ViewChild('selectQuantity') selectQuantityEl: ElementRef | undefined;
   quantityOptions: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   products: Product[] | undefined = [];
+  orderItems: OrderItem[] | undefined = [];
   subtotal: string = '';
-  countProduct: number = 9;
+  numberOfProducts: number = 9;
   isFading: boolean = false;
   productIdIsFading: string = '-1';
   constructor(
-    private userAuthServer: UserAuthService,
+    private userAuthService: UserAuthService,
     private userService: UserService,
     private orderService: OrderService,
     private cartService: CartService,
@@ -30,18 +31,30 @@ export class CartComponent {
 
   ngOnInit(): void {
     console.log('ngonInit');
-    const cartInfo = this.cartService.getCartFromLocalStorage();
-    if (cartInfo) {
-      this.products = cartInfo;
-    }
-    console.log('cartInfo :>> ', cartInfo);
-    console.log('length of products :>> ', this.products?.length);
-    this.updateSubtotal();
-    this.updateCountProuducts();
+    // const cartInfo = this.cartService.getCartFromLocalStorage();
+    // if (cartInfo) {
+    //   this.products = cartInfo;
+    // }
+    // console.log('cartInfo :>> ', cartInfo);
+    // console.log('length of products :>> ', this.products?.length);
+    // this.updateSubtotal();
+    // this.updateNumberOfProducts();
 
     // Get order unpaid if user logged in
-    if (this.userAuthServer.isLoggedIn()) {
+    if (this.userAuthService.isLoggedIn()) {
       this.getOrder();
+    }
+  }
+
+  getQuantityByProductId(productId: string | undefined): string {
+    console.log('getQuantityByProductId just triggred!');
+    const orderItem = this.orderItems?.find(
+      (orderItem: OrderItem) => orderItem.productId == productId
+    );
+    if (orderItem) {
+      return orderItem.quantity.toString();
+    } else {
+      return '1';
     }
   }
 
@@ -54,9 +67,17 @@ export class CartComponent {
         user = response.user;
         if (user.id) {
           this.orderService.getOrder(user.id).subscribe({
-            next: (response: { products: Product[] }) => {
+            next: (response: {
+              products: Product[];
+              orderItems: OrderItem[];
+            }) => {
               console.log('response :>> ', response);
               this.products = response.products;
+              this.orderItems = response.orderItems;
+              this.getQuantityByProductId('1');
+              console.log('orderItems :>> ', this.orderItems);
+              this.updateSubtotal();
+              this.updateNumberOfProducts();
             },
             error: (error: any) => {
               console.log('error :>> ', error);
@@ -68,19 +89,6 @@ export class CartComponent {
         console.log('error :>> ', error);
       },
     });
-
-    // console.log('user.id :>> ', user?.id);
-    // if (user?.id) {
-    //   console.log('banana');
-    //   this.orderService.getOrder(user.id).subscribe({
-    //     next: (response: any) => {
-    //       console.log('response :>> ', response);
-    //     },
-    //     error: (error: any) => {
-    //       console.log('error :>> ', error);
-    //     },
-    //   });
-    // }
   }
 
   handlePayment(): void {
@@ -93,7 +101,7 @@ export class CartComponent {
     selectedQuantityValue: string
   ): void {
     console.log('handleSelectQuantity');
-    if (this.products) {
+    if (this.products && this.userAuthService.isLoggedIn()) {
       const indexWillBeRemove = this.products?.findIndex(
         (product: Product) => product.id === productId
       );
@@ -109,7 +117,7 @@ export class CartComponent {
       if (productWillBeUpdate) {
         this.products.splice(indexWillBeRemove, 1, productWillBeUpdate);
         this.cartService.setCartAfterUpdateProduct(this.products);
-        this.updateCountProuducts();
+        this.updateNumberOfProducts();
       }
     }
 
@@ -126,21 +134,25 @@ export class CartComponent {
     this.updateSubtotal();
   }
 
-  updateCountProuducts() {
-    this.countProduct = 0;
+  updateNumberOfProducts() {
+    this.numberOfProducts = 0;
     if (this.products) {
-      this.products.forEach((product: Product) => {
-        this.countProduct += product.quantity;
-      });
+      this.numberOfProducts = this.products.length;
     }
   }
 
   updateSubtotal(): void {
     console.log('updateSubtotal');
+    console.log('this.products :>> ', this.products);
     if (this.products) {
       let newSubtotal: number = 0;
       this.products.forEach((product: Product) => {
-        newSubtotal += product.price * product.quantity;
+        const orderItem = this.orderItems?.find(
+          (orderItem: OrderItem) => orderItem.productId === product.id
+        );
+        if (orderItem) {
+          newSubtotal += product.price * orderItem.quantity;
+        }
       });
 
       this.subtotal = newSubtotal.toFixed(2);
@@ -155,7 +167,7 @@ export class CartComponent {
     products = cartInfo?.filter((product: Product) => product.id !== productId);
     this.cartService.setCartAfterDeleteProduct(products);
 
-    if (this.userAuthServer.isLoggedIn() && productId) {
+    if (this.userAuthService.isLoggedIn() && productId) {
       this.orderService.deleteOrderItem(productId);
     }
 
@@ -165,7 +177,7 @@ export class CartComponent {
       this.products = cartInfo;
     }
     this.updateSubtotal();
-    this.updateCountProuducts();
+    this.updateNumberOfProducts();
     location.reload();
   }
 }
