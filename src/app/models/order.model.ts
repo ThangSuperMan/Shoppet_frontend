@@ -5,7 +5,7 @@ export enum PaymentStatus {
   REFUNDED = 'refunded',
 }
 
-export default interface Order {
+export interface Order {
   id?: string;
   userId: string;
   productId: string;

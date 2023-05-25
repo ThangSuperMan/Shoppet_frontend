@@ -1,10 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
 import { GeolocationService } from 'src/app/_services/geolocation/geolocation.service';
-import { Address, Location } from '@models';
 import { UserService } from 'src/app/_services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { CustomValidationService } from 'src/app/_services/custom-validation/custom-validation.service';
+import { PaymentService } from 'src/app/_services/payment/payment.service';
+import {
+  Address,
+  Location,
+  Payment,
+  PaymentIntent,
+  PaymentMethod,
+  PaymentCurrency,
+} from '@models';
 
 /*
   Notes:
@@ -42,6 +50,7 @@ export class PaymentComponent {
     private toastService: ToastrService,
     private customValidator: CustomValidationService,
     private geolocationService: GeolocationService,
+    private paymentService: PaymentService,
     private userSerivce: UserService
   ) {
     const currentYear = new Date().getFullYear();
@@ -73,6 +82,31 @@ export class PaymentComponent {
       ),
     });
   }
+
+  handlePaymentWithPaypal(): void {
+    console.log('PaymentComponent handlePaymentWithPaypal is running');
+    // Get total money from products (api)
+    const paypalInfo: Payment = {
+      id: null,
+      userId: null,
+      total: 24.5,
+      currency: PaymentCurrency.USD,
+      method: PaymentMethod.PAYPAL,
+      intent: PaymentIntent.sale,
+      description: 'This is my first description',
+    };
+    this.paymentService.paymentWithPaypal(paypalInfo).subscribe({
+      next: (response: { redirectUrl: string }) => {
+        console.log('response :>> ', response);
+        console.log('response.redirectUrl :>> ', response.redirectUrl);
+        window.location.href = response.redirectUrl;
+      },
+      error: (error: any) => {
+        console.log('error :>> ', error);
+      },
+    });
+  }
+
   get addressFormControl() {
     return this.addressForm.controls;
   }

@@ -1,308 +1,338 @@
-<div class="checkout">
-  <ng-container *ngIf="isShowAddCardWindow">
-    <div (click)="handleClickOverlay()" #overlayEl class="overlay"></div>
-    <div class="add-card__popup">
-      <div class="popup-header">
-        <h4>Add a credit or debit card</h4>
-        <button (click)="handleCloseCardWindow()" class="icon-close">
-          <i></i>
-        </button>
-      </div>
-      <div class="popup-content">
-        <div class="content__left">
-          <form #addCardForm>
-            <div class="text-field">
-              <div>
-                <label>Card number</label>
-              </div>
-              <input type="text" name="cardNumber" [(ngModel)]="cardNumber" />
-              <div class="recognize-card"></div>
-            </div>
-            <div class="text-field">
-              <div>
-                <label>Name on card</label>
-              </div>
-              <input type="text" name="nameOnCard" [(ngModel)]="nameOnCard" />
-            </div>
-            <div class="text-field">
-              <div>
-                <label>Expiration date</label>
-              </div>
-              <span class="button-inner">
-                <span>{{ this.expirationMonthActiveNumber }}</span>
-                <i class="icon-dropdown"> </i>
-                <ul class="button-inner__dropdown">
-                  <li
-                    (click)="handleClickExiprationMonth(month)"
-                    *ngFor="let month of months"
-                    [class.active]="expirationMonthActiveNumber == month"
-                  >
-                    <span>{{ month }}</span>
-                  </li>
-                </ul>
-              </span>
-              <span class="button-inner button-inner__year">
-                <span>{{ this.expirationYearActiveNumber }}</span>
-                <i class="icon-dropdown"> </i>
-                <ul class="button-inner__dropdown">
-                  <li
-                    (click)="handleClickExiprationYear(year)"
-                    *ngFor="let year of years"
-                    [class.active]="expirationYearActiveNumber == year"
-                  >
-                    <span>{{ year }}</span>
-                  </li>
-                </ul>
-              </span>
-              <!-- <select class="expiration-select"> -->
-              <!--   <option value="" disabled selected>Expiration Date</option> -->
-              <!--   <option *ngFor="let year of years" [value]="year"> -->
-              <!--     {{ year }} -->
-              <!--   </option> -->
-              <!-- </select> -->
-            </div>
-            <div class="text-field">
-              <div>
-                <label
-                  >Security Code
-                  <br />
-                  (CVV/CVC)
-                </label>
-              </div>
-              <input type="text" name="securityCode" ngModel />
-            </div>
-          </form>
-        </div>
-        <div class="content__right">
-          <p>Amazon accepts all major credit and debit cards:</p>
-          <ul class="card-logos">
-            <li class="visa"></li>
-            <li class="mastercard"></li>
-          </ul>
-        </div>
-      </div>
-      <div class="popup-footer">
-        <div>
-          <button class="btn btn-cancel">cancel</button>
-          <button (click)="onSubmitCard()" class="btn btn-addcard">
-            Add your Card
+<div class="checkout-container">
+  <div class="checkout">
+    <ng-container *ngIf="isShowAddCardWindow">
+      <div (click)="handleClickOverlay()" #overlayEl class="overlay"></div>
+      <div class="add-card__popup">
+        <div class="popup-header">
+          <h4>Add a credit or debit card</h4>
+          <button (click)="handleCloseCardWindow()" class="icon-close">
+            <i></i>
           </button>
         </div>
+        <div class="popup-content">
+          <div class="content__left">
+            <form #addCardForm>
+              <div class="text-field">
+                <div>
+                  <label>Card number</label>
+                </div>
+                <input type="text" name="cardNumber" [(ngModel)]="cardNumber" />
+                <div class="recognize-card"></div>
+              </div>
+              <div class="text-field">
+                <div>
+                  <label>Name on card</label>
+                </div>
+                <input type="text" name="nameOnCard" [(ngModel)]="nameOnCard" />
+              </div>
+              <div class="text-field">
+                <div>
+                  <label>Expiration date</label>
+                </div>
+                <span class="button-inner">
+                  <span>{{ this.expirationMonthActiveNumber }}</span>
+                  <i class="icon-dropdown"> </i>
+                  <ul class="button-inner__dropdown">
+                    <li
+                      (click)="handleClickExiprationMonth(month)"
+                      *ngFor="let month of months"
+                      [class.active]="expirationMonthActiveNumber == month"
+                    >
+                      <span>{{ month }}</span>
+                    </li>
+                  </ul>
+                </span>
+                <span class="button-inner button-inner__year">
+                  <span>{{ this.expirationYearActiveNumber }}</span>
+                  <i class="icon-dropdown"> </i>
+                  <ul class="button-inner__dropdown">
+                    <li
+                      (click)="handleClickExiprationYear(year)"
+                      *ngFor="let year of years"
+                      [class.active]="expirationYearActiveNumber == year"
+                    >
+                      <span>{{ year }}</span>
+                    </li>
+                  </ul>
+                </span>
+                <!-- <select class="expiration-select"> -->
+                <!--   <option value="" disabled selected>Expiration Date</option> -->
+                <!--   <option *ngFor="let year of years" [value]="year"> -->
+                <!--     {{ year }} -->
+                <!--   </option> -->
+                <!-- </select> -->
+              </div>
+              <div class="text-field">
+                <div>
+                  <label
+                    >Security Code
+                    <br />
+                    (CVV/CVC)
+                  </label>
+                </div>
+                <input type="text" name="securityCode" ngModel />
+              </div>
+            </form>
+          </div>
+          <div class="content__right">
+            <p>Amazon accepts all major credit and debit cards:</p>
+            <ul class="card-logos">
+              <li class="visa"></li>
+              <li class="mastercard"></li>
+            </ul>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <div>
+            <button class="btn btn-cancel">cancel</button>
+            <button (click)="onSubmitCard()" class="btn btn-addcard">
+              Add your Card
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="isShowAddAddressWindow">
-    <div (click)="handleClickOverlay()" #overlayEl class="overlay"></div>
-    <div class="add-address__popup">
-      <div class="popup-header">
-        <h4>Update your shipping address</h4>
-        <button (click)="handleCloseAddressWindow()" class="icon-close">
-          <i></i>
-        </button>
-      </div>
-      <div class="popup-content">
-        <h2>Add your address</h2>
-        <form
-          #addressFormData="ngForm"
-          [formGroup]="addressForm"
-          (ngSubmit)="onSubmitFormAddAdress(addressFormData.value)"
-        >
-          <div class="text-field">
-            <div class="form-group">
-              <label for="inputCountry" class="control-label"
-                >Country/Region</label
-              >
-              <div class="select-wrapper">
-                <select
-                  id="inputCountry"
-                  name="country"
-                  formControlName="country"
-                  class="form-control"
+    </ng-container>
+    <ng-container *ngIf="isShowAddAddressWindow">
+      <div (click)="handleClickOverlay()" #overlayEl class="overlay"></div>
+      <div class="add-address__popup">
+        <div class="popup-header">
+          <h4>Update your shipping address</h4>
+          <button (click)="handleCloseAddressWindow()" class="icon-close">
+            <i></i>
+          </button>
+        </div>
+        <div class="popup-content">
+          <h2>Add your address</h2>
+          <form
+            #addressFormData="ngForm"
+            [formGroup]="addressForm"
+            (ngSubmit)="onSubmitFormAddAdress(addressFormData.value)"
+          >
+            <div class="text-field">
+              <div class="form-group">
+                <label for="inputCountry" class="control-label"
+                  >Country/Region</label
                 >
-                  <option value="">Select a country/region...</option>
-                  <optgroup label="Asia">
-                    <option value="VN">Vietnam</option>
-                    <option value="CN">China</option>
-                    <option value="IN">India</option>
-                    <option value="JP">Japan</option>
-                    <option value="KR">South Korea</option>
-                    <option value="MY">Malaysia</option>
-                    <option value="SG">Singapore</option>
-                    <option value="TH">Thailand</option>
-                  </optgroup>
-                  <optgroup label="Europe">
-                    <option value="AT">Austria</option>
-                    <option value="BE">Belgium</option>
-                    <option value="DK">Denmark</option>
-                    <option value="FI">Finland</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
-                    <option value="IT">Italy</option>
-                    <option value="NL">Netherlands</option>
-                    <option value="NO">Norway</option>
-                    <option value="PL">Poland</option>
-                    <option value="RU">Russia</option>
-                    <option value="ES">Spain</option>
-                    <option value="SE">Sweden</option>
-                    <option value="CH">Switzerland</option>
-                    <option value="GB">United Kingdom</option>
-                  </optgroup>
-                  <optgroup label="North America">
-                    <option value="CA">Canada</option>
-                    <option value="US">United States</option>
-                  </optgroup>
-                  <optgroup label="South America">
-                    <option value="AR">Argentina</option>
-                    <option value="BR">Brazil</option>
-                    <option value="CL">Chile</option>
-                    <option value="CO">Colombia</option>
-                    <option value="MX">Mexico</option>
-                    <option value="PE">Peru</option>
-                  </optgroup>
-                  <optgroup label="Oceania">
-                    <option value="AU">Australia</option>
-                    <option value="NZ">New Zealand</option>
-                  </optgroup>
-                </select>
+                <div class="select-wrapper">
+                  <select
+                    id="inputCountry"
+                    name="country"
+                    formControlName="country"
+                    class="form-control"
+                  >
+                    <option value="">Select a country/region...</option>
+                    <optgroup label="Asia">
+                      <option value="VN">Vietnam</option>
+                      <option value="CN">China</option>
+                      <option value="IN">India</option>
+                      <option value="JP">Japan</option>
+                      <option value="KR">South Korea</option>
+                      <option value="MY">Malaysia</option>
+                      <option value="SG">Singapore</option>
+                      <option value="TH">Thailand</option>
+                    </optgroup>
+                    <optgroup label="Europe">
+                      <option value="AT">Austria</option>
+                      <option value="BE">Belgium</option>
+                      <option value="DK">Denmark</option>
+                      <option value="FI">Finland</option>
+                      <option value="FR">France</option>
+                      <option value="DE">Germany</option>
+                      <option value="IT">Italy</option>
+                      <option value="NL">Netherlands</option>
+                      <option value="NO">Norway</option>
+                      <option value="PL">Poland</option>
+                      <option value="RU">Russia</option>
+                      <option value="ES">Spain</option>
+                      <option value="SE">Sweden</option>
+                      <option value="CH">Switzerland</option>
+                      <option value="GB">United Kingdom</option>
+                    </optgroup>
+                    <optgroup label="North America">
+                      <option value="CA">Canada</option>
+                      <option value="US">United States</option>
+                    </optgroup>
+                    <optgroup label="South America">
+                      <option value="AR">Argentina</option>
+                      <option value="BR">Brazil</option>
+                      <option value="CL">Chile</option>
+                      <option value="CO">Colombia</option>
+                      <option value="MX">Mexico</option>
+                      <option value="PE">Peru</option>
+                    </optgroup>
+                    <optgroup label="Oceania">
+                      <option value="AU">Australia</option>
+                      <option value="NZ">New Zealand</option>
+                    </optgroup>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="text-field">
-            <label for="inputCountry" class="control-label"
-              >Street address</label
-            >
-            <input
-              id="inputStreetAddress"
-              name="city"
-              class="form-control"
-              formControlName="streetAddress"
-            />
-          </div>
-          <div class="text-field">
-            <label for="inputCountry" class="control-label">City</label>
-            <input
-              id="inputCity"
-              name="city"
-              class="form-control"
-              name="city"
-              formControlName="city"
-            />
-          </div>
-          <div class="text-field">
-            <label for="" class="control-label">State</label>
-            <input
-              id="inputState"
-              class="form-control"
-              formControlName="state"
-            />
-          </div>
-          <div class="text-field">
-            <label for="inputCountry" class="control-label">Zip Code</label>
-            <input
-              id="inputZipcode"
-              type="number"
-              class="form-control"
-              formControlName="zipcode"
-            />
-          </div>
-          <div class="text-field">
-            <label for="inputCountry" class="control-label">Phone number</label>
-            <input
-              id="inputPhoneNumber"
-              name="phone"
-              class="form-control"
-              formControlName="phoneNumber"
-            />
-            <div class="valdiate">
-              <span
-                *ngIf="addressFormControl['phoneNumber'].touched &&
-                       addressFormControl['phoneNumber'].errors?.['required']"
-                class="text-danger"
+            <div class="text-field">
+              <label for="inputCountry" class="control-label"
+                >Street address</label
               >
-                Required!
-              </span>
-              <span
-                *ngIf="
+              <input
+                id="inputStreetAddress"
+                name="city"
+                class="form-control"
+                formControlName="streetAddress"
+              />
+            </div>
+            <div class="text-field">
+              <label for="inputCountry" class="control-label">City</label>
+              <input
+                id="inputCity"
+                name="city"
+                class="form-control"
+                name="city"
+                formControlName="city"
+              />
+            </div>
+            <div class="text-field">
+              <label for="" class="control-label">State</label>
+              <input
+                id="inputState"
+                class="form-control"
+                formControlName="state"
+              />
+            </div>
+            <div class="text-field">
+              <label for="inputCountry" class="control-label">Zip Code</label>
+              <input
+                id="inputZipcode"
+                type="number"
+                class="form-control"
+                formControlName="zipcode"
+              />
+            </div>
+            <div class="text-field">
+              <label for="inputCountry" class="control-label"
+                >Phone number</label
+              >
+              <input
+                id="inputPhoneNumber"
+                name="phone"
+                class="form-control"
+                formControlName="phoneNumber"
+              />
+              <div class="valdiate">
+                <span
+                  *ngIf="addressFormControl['phoneNumber'].touched &&
+                       addressFormControl['phoneNumber'].errors?.['required']"
+                  class="text-danger"
+                >
+                  Required!
+                </span>
+                <span
+                  *ngIf="
                       addressFormControl['phoneNumber'].touched &&
                       addressFormControl['phoneNumber'].errors?.['invalidPhoneNumber'] "
-                class="text-danger"
-              >
-                Phone number must be a valid Vietnamese phone number.
-              </span>
+                  class="text-danger"
+                >
+                  Phone number must be a valid Vietnamese phone number.
+                </span>
+              </div>
             </div>
+            <button type="submit" class="btn__use-this-address">
+              Use this address
+            </button>
+          </form>
+        </div>
+      </div>
+    </ng-container>
+    <div class="checkout__item">
+      <div>
+        <h3>
+          1 <span class="letter-space"></span>
+          <span class="letter-space"></span> Choose a shipping address
+        </h3>
+        <div class="close">Close x</div>
+      </div>
+      <div class="content">
+        <div class="title">
+          <span>Your address</span>
+          <a href="/">Shipping to more than one address?</a>
+        </div>
+        <div class="sep"></div>
+        <div class="address">
+          <input type="radio" checked />
+          <span class="address__username">Thang Jenny</span>
+          <span class="address__full-formatted">
+            &nbsp;15031 23RD AVE, WHITESTONE, NY, 11357-3615, United States
+          </span>
+          <button class="address__edit">Edit address</button>
+        </div>
+        <div class="new-address">
+          <img
+            width="16"
+            height="16"
+            src="/assets/images/icons/addAddress.png"
+            alt=""
+          />
+          <a (click)="handleAddAddress()">Add a new address</a>
+        </div>
+      </div>
+    </div>
+    <div class="checkout__item">
+      <div>
+        <h3>
+          2 <span class="letter-space"></span>
+          <span class="letter-space"></span> Choose a payment method
+        </h3>
+        <div class="close">Close x</div>
+      </div>
+      <div class="content">
+        <div class="title">
+          <span>Your credit and debit cards</span>
+          <a href="/">Shipping to more than one address?</a>
+        </div>
+        <div class="sep"></div>
+        <div class="new-address">
+          <img
+            width="16"
+            height="16"
+            src="/assets/images/icons/addAddress.png"
+            alt=""
+          />
+          <img
+            class="card-logo"
+            src="/assets/images/payment/card-logo-compact.gif"
+            alt=""
+          />
+          <a (click)="handleAddCreditOrDebitCard()"
+            >Add a credit or debit cards</a
+          >
+          <br />
+          <div (click)="handlePaymentWithPaypal()" class="btn-paypal">
+            <img
+              src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png"
+              alt="PayPal Button"
+            />
+            <span>Pay with PayPal</span>
           </div>
-          <button type="submit" class="btn__use-this-address">
-            Use this address
-          </button>
-        </form>
-      </div>
-    </div>
-  </ng-container>
-  <div class="checkout__item">
-    <div>
-      <h3>
-        1 <span class="letter-space"></span>
-        <span class="letter-space"></span> Choose a shipping address
-      </h3>
-      <div class="close">Close x</div>
-    </div>
-    <div class="content">
-      <div class="title">
-        <span>Your address</span>
-        <a href="/">Shipping to more than one address?</a>
-      </div>
-      <div class="sep"></div>
-      <div class="address">
-        <input type="radio" checked />
-        <span class="address__username">Thang Jenny</span>
-        <span class="address__full-formatted">
-          &nbsp;15031 23RD AVE, WHITESTONE, NY, 11357-3615, United States
-        </span>
-        <button class="address__edit">Edit address</button>
-      </div>
-      <div class="new-address">
-        <img
-          width="16"
-          height="16"
-          src="/assets/images/icons/addAddress.png"
-          alt=""
-        />
-        <a (click)="handleAddAddress()">Add a new address</a>
+        </div>
       </div>
     </div>
   </div>
-  <div class="checkout__item">
-    <div>
-      <h3>
-        2 <span class="letter-space"></span>
-        <span class="letter-space"></span> Choose a payment method
-      </h3>
-      <div class="close">Close x</div>
-    </div>
-    <div class="content">
-      <div class="title">
-        <span>Your credit and debit cards</span>
-        <a href="/">Shipping to more than one address?</a>
-      </div>
-      <div class="sep"></div>
-      <div class="new-address">
-        <img
-          width="16"
-          height="16"
-          src="/assets/images/icons/addAddress.png"
-          alt=""
-        />
-        <img
-          class="card-logo"
-          src="/assets/images/payment/card-logo-compact.gif"
-          alt=""
-        />
-        <a (click)="handleAddCreditOrDebitCard()"
-          >Add a credit or debit cards</a
-        >
-        <button>Payment by using paypal account</button>
-      </div>
-    </div>
+  <div class="checkout-subtotal">
+    <span class="checkout-subtotal__hint">
+      Choose a payment method to continue checking out. You'll still have a
+      chance to review and edit your order before it's final.
+    </span>
+    <div class="sep"></div>
+    <h3 class="checkout-subtotal__order-summary">Order Summary</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>Items (10):</td>
+          <td>$142.67</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <div class="checkout-subtotal__footer"> -->
+    <!--   <span>How are shipping costs calculated?</span> -->
+    <!-- </div> -->
   </div>
 </div>
 

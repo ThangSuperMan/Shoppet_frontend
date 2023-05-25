@@ -42,6 +42,7 @@ export class CartComponent {
 
   ngOnInit(): void {
     console.log('ngonInit');
+    // Local storage way
     // const cartInfo = this.cartService.getCartFromLocalStorage();
     // if (cartInfo) {
     //   this.products = cartInfo;
@@ -89,9 +90,9 @@ export class CartComponent {
               this.orderItems = response.orderItems;
               this.getCurrentQuantityByProductId('1');
               console.log('orderItems :>> ', this.orderItems);
-              // this.updateSubtotal();
               this.getSubtotalOfProducts();
-              this.updateNumberOfProducts();
+              this.getNumberOfProducts();
+              this.numberOfProducts = this.getTotalItemsInCart();
             },
             error: (error: any) => {
               console.log('error :>> ', error);
@@ -147,14 +148,18 @@ export class CartComponent {
             this.orderService.getOrderItems(this.orderId).subscribe({
               next: (response: any) => {
                 console.log('response :>> ', response);
-                console.log('response :>> ', response.orderItems);
+                console.log('response.orderItems :>> ', response.orderItems);
+                this.orderItems = response.orderItems;
+                this.getSubtotalOfProducts();
+                this.getNumberOfProducts();
+                this.numberOfProducts = this.getTotalItemsInCart();
               },
               error: (error: any) => {
                 console.log('error :>> ', error);
               },
             });
             // api updated -> need to query to get updated api this.getOrder()
-            this.getOrder();
+            // this.getOrder();
           },
           error: (error: any) => {
             console.log('error :>> ', error);
@@ -187,11 +192,24 @@ export class CartComponent {
     this.getSubtotalOfProducts();
   }
 
-  updateNumberOfProducts() {
+  getNumberOfProducts() {
     this.numberOfProducts = 0;
     if (this.products) {
       this.numberOfProducts = this.products.length;
     }
+  }
+
+  getTotalItemsInCart(): number {
+    console.log('CartComponent getTotalItemsInCart is running');
+    let count: number = 0;
+    if (this.orderItems) {
+      this.orderItems.forEach((orderItem: OrderItem) => {
+        if (orderItem.quantity) {
+          count += orderItem.quantity;
+        }
+      });
+    }
+    return count;
   }
 
   getSubtotalOfProducts(): void {

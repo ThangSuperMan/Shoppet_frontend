@@ -4,6 +4,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { HomeComponent } from './pages/home/home.component';
+import { PaySuccessComponent } from './pages/pay-success/pay-success.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { ShopComponnet } from './pages/shop/shop.component';
@@ -42,6 +43,10 @@ const routes: Routes = [
     component: PaymentComponent,
     canActivate: [AuthGuard],
     data: { role: 'USER' },
+  },
+  {
+    path: 'pay/success',
+    component: PaySuccessComponent,
   },
   {
     path: 'user',

@@ -53,14 +53,6 @@ export class ProductDetailsComponent {
     this.getProduct();
   }
 
-  // I have declared function:
-  // _translate(value: T, callback: (name: T) => T): void;
-  // And function is:
-  // public _translate(value: T, callback: T) {
-  // if (!this.translate) {
-  //  callback(value);
-  // }
-  // }
   handleGoBackPreviousPage() {
     this.router.navigate(['/shop']);
   }
@@ -129,17 +121,10 @@ export class ProductDetailsComponent {
     } else {
       this.router.navigate(['/login']);
     }
-    // if (this.product) {
-    //   this.product.quantity = parseInt(quantityProduct);
-    //   console.log('quantityProduct :>> ', quantityProduct);
-    //   this.cartService.setCartToLocalStorage(this.product);
-    // }
   }
 
   getProduct(): void {
-    this.logger.header(
-      'ProductDetailsComponent getProuduct method is running...'
-    );
+    this.logger.info('ProductDetailsComponent getProuduct method is running');
     const routeParams: ParamMap = this.route.snapshot.paramMap;
     const productTitle: string | null = routeParams.get('product_title');
     console.log('productTitle :>> ', productTitle);

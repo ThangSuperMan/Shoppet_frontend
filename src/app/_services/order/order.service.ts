@@ -21,7 +21,7 @@ export class OrderService {
   public getOrderItems(orderId: string | undefined): Observable<any> {
     console.log('OrderService getOrderItems method is running');
     const url = `${env.pathApi}/orders/order_items/${orderId}`;
-    console.log("url :>> ", url);
+    console.log('url :>> ', url);
     return this.httpClient.get<any>(url);
   }
 

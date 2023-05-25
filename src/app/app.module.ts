@@ -33,6 +33,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { AgmCoreModule } from '@agm/core';
 import env from '@env';
+import { PaySuccessComponent } from './pages/pay-success/pay-success.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import env from '@env';
     RatingPopupComponent,
     PaginationComponent,
     PaymentComponent,
+    PaySuccessComponent,
   ],
   imports: [
     BrowserModule,
