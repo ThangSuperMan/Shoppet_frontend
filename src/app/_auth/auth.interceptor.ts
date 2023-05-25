@@ -54,6 +54,7 @@ export class AuthInterceptor implements HttpInterceptor {
             break;
         }
 
+        console.log('error :>> ', error);
         return throwError(() => 'Something is wrong in here!');
       })
     );

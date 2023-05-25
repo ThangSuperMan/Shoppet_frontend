@@ -292,14 +292,16 @@
             "
           >
             <div class="col-1">
-              <a routerLink="/shop/products/{{ product?.id }}">
+              <a routerLink="/shop/products/{{ product?.seoTitle }}">
                 <img src="{{ product?.imageUrl }}" alt="Product image" />
               </a>
             </div>
             <div class="col-2">
               <ul>
                 <li>
-                  <a routerLink="/shop/products/1">{{ product?.title }}</a>
+                  <a routerLink="/shop/products/{{ product?.seoTitle }}">{{
+                    product?.title
+                  }}</a>
                   <div class="price">
                     <span>${{ product?.price }}</span>
                   </div>
@@ -339,7 +341,7 @@
                         *ngFor="let quantity of quantityOptions"
                         [value]="quantity"
                         [selected]="
-                          getQuantityByProductId(product?.id) ==
+                          getCurrentQuantityByProductId(product?.id) ==
                           quantity.toString()
                         "
                       >

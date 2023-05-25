@@ -56,6 +56,9 @@ export class ShopComponnet {
           } else {
             this.totalPages = response.totalPages;
             this.products = response.products;
+            this.products = this.productService.addSeoProductTiles(
+              this.products
+            );
             this.isLoading = false;
           }
         },

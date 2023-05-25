@@ -1,11 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderItem, Product } from 'src/app/models';
 import { CartService } from 'src/app/_services/cart/cart.service';
 import { OrderService } from 'src/app/_services/order/order.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { UserService } from 'src/app/_services/user/user.service';
-import { User } from '@models';
+import { User, Product, OrderItem } from '@models';
 
 @Component({
   selector: 'app-cart',
@@ -16,6 +15,7 @@ export class CartComponent {
   @ViewChild('selectQuantity') selectQuantityEl: ElementRef | undefined;
   quantityOptions: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   products: Product[] | undefined = [];
+  orderId: string | undefined;
   orderItems: OrderItem[] | undefined = [];
   subtotal: string = '';
   numberOfProducts: number = 9;
@@ -28,6 +28,19 @@ export class CartComponent {
     private cartService: CartService,
     private router: Router
   ) {}
+
+  addSeoProductTiles(): void {
+    console.log('addSeoProductTiles');
+    console.log('products :>> ', this.products);
+    if (this.products) {
+      if (this.products.length > 0) {
+        for (let product of this.products) {
+          let seoTitle = product.title.replace(/ /g, '-');
+          product.seoTitle = seoTitle;
+        }
+      }
+    }
+  }
 
   ngOnInit(): void {
     console.log('ngonInit');
@@ -46,12 +59,11 @@ export class CartComponent {
     }
   }
 
-  getQuantityByProductId(productId: string | undefined): string {
-    console.log('getQuantityByProductId just triggred!');
+  getCurrentQuantityByProductId(productId: string | undefined): string {
     const orderItem = this.orderItems?.find(
       (orderItem: OrderItem) => orderItem.productId == productId
     );
-    if (orderItem) {
+    if (orderItem && orderItem.quantity) {
       return orderItem.quantity.toString();
     } else {
       return '1';
@@ -73,8 +85,11 @@ export class CartComponent {
             }) => {
               console.log('response :>> ', response);
               this.products = response.products;
+              if (this.products) {
+                this.addSeoProductTiles();
+              }
               this.orderItems = response.orderItems;
-              this.getQuantityByProductId('1');
+              this.getCurrentQuantityByProductId('1');
               console.log('orderItems :>> ', this.orderItems);
               this.updateSubtotal();
               this.updateNumberOfProducts();
@@ -101,6 +116,10 @@ export class CartComponent {
     selectedQuantityValue: string
   ): void {
     console.log('handleSelectQuantity');
+
+    // New
+
+    // Old
     if (this.products && this.userAuthService.isLoggedIn()) {
       const indexWillBeRemove = this.products?.findIndex(
         (product: Product) => product.id === productId
@@ -113,12 +132,35 @@ export class CartComponent {
         productWillBeUpdate.quantity = parseInt(newQuantity);
       }
 
-      console.log('productWillBeUpdate :>> ', productWillBeUpdate);
-      if (productWillBeUpdate) {
-        this.products.splice(indexWillBeRemove, 1, productWillBeUpdate);
-        this.cartService.setCartAfterUpdateProduct(this.products);
-        this.updateNumberOfProducts();
+      // Order id, product id, quantity
+      if (productWillBeUpdate && this.orderItems) {
+        this.orderId = this.orderItems[0].orderId;
+        console.log('orderId :>> ', this.orderId);
+        const orderItem: OrderItem = {
+          orderId: this.orderId,
+          productId: productWillBeUpdate.id,
+          quantity: productWillBeUpdate.quantity,
+        };
+        this.orderService.updateOrder(orderItem).subscribe({
+          next: (response: any) => {
+            console.log('response :>> ', response);
+            this.getOrder();
+          },
+          error: (error: any) => {
+            console.log('error :>> ', error);
+          },
+        });
       }
+
+      // Old
+      // console.log('productWillBeUpdate :>> ', productWillBeUpdate);
+
+      // console.log('productWillBeUpdate :>> ', productWillBeUpdate);
+      // if (productWillBeUpdate) {
+      //   this.products.splice(indexWillBeRemove, 1, productWillBeUpdate);
+      //   this.cartService.setCartAfterUpdateProduct(this.products);
+      //   this.updateNumberOfProducts();
+      // }
     }
 
     setTimeout(() => {
@@ -150,7 +192,7 @@ export class CartComponent {
         const orderItem = this.orderItems?.find(
           (orderItem: OrderItem) => orderItem.productId === product.id
         );
-        if (orderItem) {
+        if (orderItem && orderItem.quantity) {
           newSubtotal += product.price * orderItem.quantity;
         }
       });
@@ -161,23 +203,47 @@ export class CartComponent {
 
   handleDeleteProductInCart(productId: string | undefined): void {
     console.log('handleDeleteProductInCart');
-    let products: Product[] | null | undefined = [];
-    let cartInfo = this.cartService.getCartFromLocalStorage();
-    products = cartInfo;
-    products = cartInfo?.filter((product: Product) => product.id !== productId);
-    this.cartService.setCartAfterDeleteProduct(products);
 
-    if (this.userAuthService.isLoggedIn() && productId) {
-      this.orderService.deleteOrderItem(productId);
+    console.log('products :>> ', this.products);
+    console.log('productId :>> ', productId);
+    // Get the order item baeed on the productId
+    if (this.products && this.orderItems) {
+      this.orderId = this.orderItems[0].orderId;
+      console.log('this.orderId :>> ', this.orderId);
+      if (this.userAuthService.isLoggedIn() && productId && this.orderId) {
+        console.log('here');
+        const orderItem: OrderItem = {
+          orderId: this.orderId,
+          productId: productId,
+        };
+        console.log('orderItem will be delete :>> ', orderItem);
+        this.orderService.deleteOrderItem(orderItem).subscribe({
+          next: (response: any) => {
+            console.log('response :>> ', response);
+            this.getOrder();
+          },
+          error: (error: any) => {
+            console.log('error :>> ', error);
+          },
+        });
+      }
     }
+    // location.reload();
 
-    // Update the items in cart after delete
-    cartInfo = this.cartService.getCartFromLocalStorage();
-    if (cartInfo) {
-      this.products = cartInfo;
-    }
-    this.updateSubtotal();
-    this.updateNumberOfProducts();
-    location.reload();
+    // Delete with api
+
+    // Delete with local storage
+    // let products: Product[] | null | undefined = [];
+    // let cartInfo = this.cartService.getCartFromLocalStorage();
+    // products = cartInfo;
+    // products = cartInfo?.filter((product: Product) => product.id !== productId);
+    // this.cartService.setCartAfterDeleteProduct(products);
+    // // Update the items in cart after delete
+    // cartInfo = this.cartService.getCartFromLocalStorage();
+    // if (cartInfo) {
+    //   this.products = cartInfo;
+    // }
+    // this.updateSubtotal();
+    // this.updateNumberOfProducts();
   }
 }
