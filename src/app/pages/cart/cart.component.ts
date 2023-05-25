@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartService } from 'src/app/_services/cart/cart.service';
 import { OrderService } from 'src/app/_services/order/order.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { UserService } from 'src/app/_services/user/user.service';
@@ -25,7 +24,6 @@ export class CartComponent {
     private userAuthService: UserAuthService,
     private userService: UserService,
     private orderService: OrderService,
-    private cartService: CartService,
     private router: Router
   ) {}
 
@@ -91,7 +89,8 @@ export class CartComponent {
               this.orderItems = response.orderItems;
               this.getCurrentQuantityByProductId('1');
               console.log('orderItems :>> ', this.orderItems);
-              this.updateSubtotal();
+              // this.updateSubtotal();
+              this.getSubtotalOfProducts();
               this.updateNumberOfProducts();
             },
             error: (error: any) => {
@@ -121,9 +120,9 @@ export class CartComponent {
 
     // Old
     if (this.products && this.userAuthService.isLoggedIn()) {
-      const indexWillBeRemove = this.products?.findIndex(
-        (product: Product) => product.id === productId
-      );
+      // const indexWillBeRemove = this.products?.findIndex(
+      //   (product: Product) => product.id === productId
+      // );
       const productWillBeUpdate = this.products.find(
         (product: Product) => product.id === productId
       );
@@ -144,6 +143,17 @@ export class CartComponent {
         this.orderService.updateOrder(orderItem).subscribe({
           next: (response: any) => {
             console.log('response :>> ', response);
+            // Get the updated orderitems
+            this.orderService.getOrderItems(this.orderId).subscribe({
+              next: (response: any) => {
+                console.log('response :>> ', response);
+                console.log('response :>> ', response.orderItems);
+              },
+              error: (error: any) => {
+                console.log('error :>> ', error);
+              },
+            });
+            // api updated -> need to query to get updated api this.getOrder()
             this.getOrder();
           },
           error: (error: any) => {
@@ -152,7 +162,7 @@ export class CartComponent {
         });
       }
 
-      // Old
+      // Local storage way
       // console.log('productWillBeUpdate :>> ', productWillBeUpdate);
 
       // console.log('productWillBeUpdate :>> ', productWillBeUpdate);
@@ -173,7 +183,8 @@ export class CartComponent {
       }, 1000);
     }, 0);
 
-    this.updateSubtotal();
+    // this.updateSubtotal();
+    this.getSubtotalOfProducts();
   }
 
   updateNumberOfProducts() {
@@ -183,21 +194,23 @@ export class CartComponent {
     }
   }
 
-  updateSubtotal(): void {
-    console.log('updateSubtotal');
-    console.log('this.products :>> ', this.products);
+  getSubtotalOfProducts(): void {
+    console.log('CartComponent getSubtotalOfProducts is running');
     if (this.products) {
       let newSubtotal: number = 0;
       this.products.forEach((product: Product) => {
         const orderItem = this.orderItems?.find(
-          (orderItem: OrderItem) => orderItem.productId === product.id
+          (orderItem: OrderItem) => orderItem.productId == product.id
         );
+
+        console.log('orderItem by product id :>> ', orderItem);
         if (orderItem && orderItem.quantity) {
           newSubtotal += product.price * orderItem.quantity;
+          console.log('newSubtotal apple :>> ', newSubtotal);
         }
       });
-
       this.subtotal = newSubtotal.toFixed(2);
+      console.log('this.subtotal :>> ', this.subtotal);
     }
   }
 
