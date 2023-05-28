@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import env from '@env';
 import { Order, OrderItem } from '@models';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +18,16 @@ export class OrderService {
     return this.httpClient.get<any>(url);
   }
 
-  public getOrderItems(orderId: string | undefined): Observable<any> {
+  public getOrderItemsByAccessToken(): Observable<any> {
+    console.log('OrderService getOrderItemsByAccessToken method is running');
+    const url = `${env.pathApi}/orders/order_items/authenticated`;
+    // username auto inject in the request when send request to the server
+    return this.httpClient.get<any>(url);
+  }
+
+  public getOrderItemsByOrderId(orderId: string | undefined): Observable<any> {
     console.log('OrderService getOrderItems method is running');
     const url = `${env.pathApi}/orders/order_items/${orderId}`;
-    console.log('url :>> ', url);
     return this.httpClient.get<any>(url);
   }
 

@@ -39,13 +39,11 @@ export class ProductDetailsComponent {
 
   constructor(
     private logger: NgxFancyLoggerService,
-    private toastService: ToastrService,
     private route: ActivatedRoute,
     private router: Router,
     private userAuthService: UserAuthService,
     private userService: UserService,
     private productSerivce: ProductService,
-    private orderService: OrderService,
     private cartService: CartService
   ) {}
 
@@ -81,7 +79,7 @@ export class ProductDetailsComponent {
         const { id } = this.product;
         const productId = id;
 
-        // Get user from auth api
+        // Have to authorization the user role first
         this.userService.getUserProfile().subscribe({
           next: (response: { user: User }) => {
             console.log('response :>> ', response);
@@ -99,23 +97,52 @@ export class ProductDetailsComponent {
               };
 
               console.log('order before send to api :>> ', order);
-              this.orderService.saveOrder(order).subscribe({
-                next: (response: any) => {
-                  console.log('response :>> ', response);
-                  this.toastService.success('Added product successfully.');
-                },
-                error: (error: any) => {
-                  console.log('error banana :>> ', error);
-                  this.toastService.warning(error);
-                  // this.toastService.error(error.error.errorMessage);
-                },
-              });
+              // Implement here
+              this.cartService.addToCart(order);
             }
           },
           error: (error: any) => {
             console.log('error here :>> ', error);
           },
         });
+
+        // New
+        // Get user from auth api
+        // this.userService.getUserProfile().subscribe({
+        //   next: (response: { user: User }) => {
+        //     console.log('response :>> ', response);
+        //     const user: User = response.user;
+        //     console.log('user :>> ', user);
+        //     console.log('user.id :>> ', user.id);
+        //     console.log('productId :>> ', productId);
+        //     if (user.id) {
+        //       const order: Order = {
+        //         productId: productId,
+        //         quantity: parseInt(quantityProduct),
+        //         userId: user.id,
+        //         paymentStatus: PaymentStatus.UNPAID,
+        //         total: this.getTotalMoneyOfProuducts(),
+        //       };
+
+        //       console.log('order before send to api :>> ', order);
+        //       this.orderService.saveOrder(order).subscribe({
+        //         next: (response: any) => {
+        //           console.log('response :>> ', response);
+        //           this.toastService.success('Added product successfully.');
+        //         },
+        //         error: (error: any) => {
+        //           console.log('error banana :>> ', error);
+        //           this.toastService.warning(error);
+        //           // this.toastService.error(error.error.errorMessage);
+        //         },
+        //       });
+        //     }
+        //   },
+        //   error: (error: any) => {
+        //     console.log('error here :>> ', error);
+        //   },
+        // });
+        // New
       }
       // Required login first
     } else {

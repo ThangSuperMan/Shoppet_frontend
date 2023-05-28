@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Product } from '@models';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { OrderService } from '../order/order.service';
+import { UserService } from '../user/user.service';
+import { Product, OrderItem, Order, PaymentStatus } from '@models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  constructor(private toastService: ToastrService) {}
+  private cartItemAdded$: Subject<void> = new Subject<void>();
+  public cartItemAdded = this.cartItemAdded$.asObservable();
+
+  constructor(
+    private toastService: ToastrService,
+    private userService: UserService,
+    private orderService: OrderService
+  ) {}
 
   private isProductExistsInCart(
     products: Product[] | null,
@@ -17,6 +27,50 @@ export class CartService {
     );
     if (product) return true;
     return false;
+  }
+
+  async getCartItemCount(): Promise<number> {
+    return new Promise<number>((resolve: any, reject: any) => {
+      this.orderService.getOrderItemsByAccessToken().subscribe({
+        next: (response: { orderItems: OrderItem[] }) => {
+          const { orderItems } = response;
+          console.log('response pineapple :>> ', orderItems);
+          if (orderItems) {
+            let count = 0;
+            orderItems.forEach((orderItem: OrderItem) => {
+              if (orderItem.quantity) {
+                count += orderItem.quantity;
+              }
+            });
+            resolve(count);
+          }
+        },
+        error: (error: any) => {
+          console.log('error :>> ', error);
+          reject(error);
+        },
+      });
+    });
+  }
+
+  addToCart(order: Order) {
+    console.log('CartService addToCart is running');
+    // Get user from auth api
+    if (order.userId) {
+      console.log('order before send to api :>> ', order);
+      this.orderService.saveOrder(order).subscribe({
+        next: async (response: any) => {
+          console.log('response :>> ', response);
+          this.toastService.success('Added product successfully.');
+          // Emit a value to notify subscribers that a new item has been added to the cart
+          this.cartItemAdded$.next();
+        },
+        error: (error: any) => {
+          console.log('error :>> ', error);
+          this.toastService.warning(error);
+        },
+      });
+    }
   }
 
   public setCartAfterUpdateProduct(products: Product[] | undefined) {

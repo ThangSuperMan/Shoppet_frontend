@@ -145,7 +145,7 @@ export class CartComponent {
           next: (response: any) => {
             console.log('response :>> ', response);
             // Get the updated orderitems
-            this.orderService.getOrderItems(this.orderId).subscribe({
+            this.orderService.getOrderItemsByOrderId(this.orderId).subscribe({
               next: (response: any) => {
                 console.log('response :>> ', response);
                 console.log('response.orderItems :>> ', response.orderItems);

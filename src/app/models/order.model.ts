@@ -7,7 +7,7 @@ export enum PaymentStatus {
 
 export interface Order {
   id?: string;
-  userId: string;
+  userId?: string;
   productId: string;
   createdAt?: string;
   isFreeShipping?: boolean;
