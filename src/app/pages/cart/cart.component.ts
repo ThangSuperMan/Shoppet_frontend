@@ -4,6 +4,7 @@ import { OrderService } from 'src/app/_services/order/order.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { UserService } from 'src/app/_services/user/user.service';
 import { User, Product, OrderItem } from '@models';
+import { SharedService } from 'src/app/_services/shared/shared.service';
 
 @Component({
   selector: 'app-cart',
@@ -23,6 +24,7 @@ export class CartComponent {
   constructor(
     private userAuthService: UserAuthService,
     private userService: UserService,
+    private sharedService: SharedService,
     private orderService: OrderService,
     private router: Router
   ) {}
@@ -115,15 +117,8 @@ export class CartComponent {
     productId: string,
     selectedQuantityValue: string
   ): void {
-    console.log('handleSelectQuantity');
-
-    // New
-
-    // Old
+    console.log('handleUpdateProductQuantity');
     if (this.products && this.userAuthService.isLoggedIn()) {
-      // const indexWillBeRemove = this.products?.findIndex(
-      //   (product: Product) => product.id === productId
-      // );
       const productWillBeUpdate = this.products.find(
         (product: Product) => product.id === productId
       );
@@ -153,6 +148,7 @@ export class CartComponent {
                 this.getSubtotalOfProducts();
                 this.getNumberOfProducts();
                 this.numberOfProducts = this.getTotalItemsInCart();
+                this.sharedService.triggerReloadNavbarComponent();
               },
               error: (error: any) => {
                 console.log('error :>> ', error);

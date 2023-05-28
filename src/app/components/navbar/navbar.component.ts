@@ -2,14 +2,13 @@ import { EventEmitter } from '@angular/core';
 import { Component, Output } from '@angular/core';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { Subscription } from 'rxjs';
-import { OrderItem, Product } from 'src/app/models';
 import { CartService } from 'src/app/_services/cart/cart.service';
-import { OrderService } from 'src/app/_services/order/order.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 
 interface SideNavToggleProps {
   isShowSideNav: boolean;
 }
+import { SharedService } from 'src/app/_services/shared/shared.service';
 
 @Component({
   selector: 'app-navbar',
@@ -26,14 +25,36 @@ export class NavbarComponent {
   constructor(
     private logger: NgxFancyLoggerService,
     private cartService: CartService,
+    private sharedService: SharedService,
     private userAuthSerivce: UserAuthService
   ) {}
 
   ngOnInit(): void {
+    console.log('ngOnInit of NavbarComponent');
+    this.loadOnInit();
+    this.subscribeToReload();
+  }
+
+  loadOnInit(): void {
+    // Still not log in for the first load
     if (this.userAuthSerivce.isLoggedIn()) {
       this.getInitNumberOfItemsInCart();
+      // Add event listener for subscribe
       this.countItemsInCart();
+    } else {
+      this.numberOfProductsInCart = 0;
     }
+  }
+
+  reloadOnInit(): void {
+    this.loadOnInit();
+  }
+
+  subscribeToReload(): void {
+    console.log('subscribeToReload');
+    this.sharedService.reload$.subscribe(() => {
+      this.reloadOnInit();
+    });
   }
 
   async getInitNumberOfItemsInCart(): Promise<any> {
@@ -48,15 +69,11 @@ export class NavbarComponent {
 
   async countItemsInCart(): Promise<any> {
     console.log('NavbarComponent countItemsInCart method is running');
-
     this.cartItemAddedSubscription = this.cartService.cartItemAdded.subscribe(
       async () => {
-        console.log('trigger me');
+        console.log('here');
         try {
           const count = await this.cartService.getCartItemCount();
-          // Use the result here
-          console.log(count);
-          console.log('count :>> ', count);
           this.numberOfProductsInCart = count;
         } catch (error) {
           this.logger.error(error);

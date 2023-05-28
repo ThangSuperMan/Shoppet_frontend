@@ -3,6 +3,7 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CustomValidationService } from 'src/app/_services/custom-validation/custom-validation.service';
+import { SharedService } from 'src/app/_services/shared/shared.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { UserService } from 'src/app/_services/user/user.service';
 @Component({
@@ -17,6 +18,7 @@ export class SigninComponent {
     private toastService: ToastrService,
     private customValidator: CustomValidationService,
     private userService: UserService,
+    private sharedService: SharedService,
     private userAuthService: UserAuthService,
     private router: Router
   ) {}
@@ -63,10 +65,13 @@ export class SigninComponent {
         console.log('response :>> ', response);
         const jwtToken: string = response.jwtToken;
         const role: string = response.user.role;
+
         this.setUpLocalStorage(jwtToken, role);
         if (role === 'ADMIN') {
           this.router.navigate(['/admin']);
         } else {
+          // Make the ngOnInit method in navbar re-run
+          this.sharedService.triggerReloadNavbarComponent();
           this.router.navigate(['/user']);
         }
       },

@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/_services/cart/cart.service';
+import { SharedService } from 'src/app/_services/shared/shared.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
 import { sideNavData, sideNavProps } from './sidenav-data';
 
@@ -15,12 +17,15 @@ export class SideNavComponent {
 
   constructor(
     private userAuthService: UserAuthService,
-    private router: Router
+    private sharedService: SharedService
   ) {}
 
   handleLogout() {
+    console.log('handleLogout');
     this.userAuthService.clear();
-    this.router.navigate(['/']);
+    this.sharedService.triggerReloadNavbarComponent();
+    const url = '/';
+    window.location.href = url;
   }
 
   handleOnClickBodyEl = () => {

@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { OrderService } from '../order/order.service';
-import { UserService } from '../user/user.service';
-import { Product, OrderItem, Order, PaymentStatus } from '@models';
+import { Product, OrderItem, Order } from '@models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,6 @@ export class CartService {
 
   constructor(
     private toastService: ToastrService,
-    private userService: UserService,
     private orderService: OrderService
   ) {}
 
@@ -34,7 +32,7 @@ export class CartService {
       this.orderService.getOrderItemsByAccessToken().subscribe({
         next: (response: { orderItems: OrderItem[] }) => {
           const { orderItems } = response;
-          console.log('response pineapple :>> ', orderItems);
+          console.log('response :>> ', orderItems);
           if (orderItems) {
             let count = 0;
             orderItems.forEach((orderItem: OrderItem) => {
