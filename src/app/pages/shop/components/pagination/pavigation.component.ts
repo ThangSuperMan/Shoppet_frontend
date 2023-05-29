@@ -89,6 +89,9 @@ export class PaginationComponent {
     if (paginationItemTwo) {
       isHavePaginationItemTwo = true;
     }
+    if (paginationItemTwo && activePageNumber === 1) {
+      this.highlightActivePaginationItem(paginationItemTwo.content);
+    }
 
     if (activePageNumber === 4 && !isHavePaginationItemTwo) {
       this.renderPaginationLayoutOne();
