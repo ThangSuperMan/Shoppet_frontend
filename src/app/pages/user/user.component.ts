@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NgxFancyLoggerService } from 'ngx-fancy-logger';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/_services/cart/cart.service';
 import { UserService } from 'src/app/_services/user/user.service';
 
@@ -9,6 +11,7 @@ import { UserService } from 'src/app/_services/user/user.service';
 })
 export class UserComponent {
   constructor(
+    private toastService: ToastrService,
     private userSerivce: UserService,
     private cartService: CartService
   ) {}
@@ -23,7 +26,8 @@ export class UserComponent {
       next: (response: any) => {
         console.log('response :>> ', response);
         console.log('here');
-        this.cartService.clearnCartFromLocalStorage();
+        this.toastService.success('Sign in successfully');
+        // this.cartService.clearnCartFromLocalStorage();
       },
       error: (error: any) => {
         console.log('Error when call forAdmin method :>> ', error);

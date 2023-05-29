@@ -86,12 +86,20 @@ export class PaginationComponent {
         (paginationItem: PaginationItemProps) => paginationItem.content === 2
       );
     let isHavePaginationItemTwo: boolean = false;
+
     if (paginationItemTwo) {
       isHavePaginationItemTwo = true;
     }
-    if (paginationItemTwo && activePageNumber === 1) {
-      this.highlightActivePaginationItem(paginationItemTwo.content);
+
+    // Previous is 1 -> hightlight the next number
+    if (activePageNumber === 1) {
+      this.highlightActivePaginationItem(activePageNumber + 1);
     }
+
+    // if (paginationItemTwo && activePageNumber === 1) {
+    //   console.log('banana');
+    //   this.highlightActivePaginationItem(activePageNumber + 1);
+    // }
 
     if (activePageNumber === 4 && !isHavePaginationItemTwo) {
       this.renderPaginationLayoutOne();
@@ -156,22 +164,22 @@ export class PaginationComponent {
   }
 
   handleClickPaginationOne(activePageNumber: number): void {
-    if (activePageNumber === 1) {
-      this.paginationItems = [
-        {
-          content: 1,
-          isActive: true,
-        },
-        {
-          content: 2,
-          isActive: false,
-        },
-        {
-          content: 3,
-          isActive: false,
-        },
-      ];
-    }
+    console.log('handleClickPaginationOne');
+    this.paginationItems = [
+      {
+        content: 1,
+        isActive: true,
+      },
+      {
+        content: 2,
+        isActive: false,
+      },
+      {
+        content: 3,
+        isActive: false,
+      },
+    ];
+    this.highlightActivePaginationItem(activePageNumber);
   }
 
   handleGotoPreviousPage(): void {
@@ -313,10 +321,11 @@ export class PaginationComponent {
     const activePageNumber = parseInt(event.target.innerText);
     this.highlightActivePaginationItem(activePageNumber);
 
-    // Handle when user click pagination number one
-    this.handleClickPaginationOne(activePageNumber);
-
-    this.handleRenderNextPagination(activePageNumber);
+    if (activePageNumber === 1) {
+      this.handleClickPaginationOne(activePageNumber);
+    } else {
+      this.handleRenderNextPagination(activePageNumber);
+    }
 
     this.pageNumber = activePageNumber;
     this.router.navigate(['/shop'], {

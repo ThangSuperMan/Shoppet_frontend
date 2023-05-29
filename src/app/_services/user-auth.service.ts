@@ -16,6 +16,10 @@ export class UserAuthService {
     localStorage.setItem('access-token', jwtToken);
   }
 
+  public setRefreshToken(jwtRefreshToken: string) {
+    localStorage.setItem('refresh-token', jwtRefreshToken);
+  }
+
   public getToken(): string | null {
     return localStorage.getItem('access-token');
   }

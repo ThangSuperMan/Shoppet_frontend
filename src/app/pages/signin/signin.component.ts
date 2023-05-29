@@ -39,10 +39,17 @@ export class SigninComponent {
     return this.loginForm.controls;
   }
 
-  setUpLocalStorage(jwtToken: string, role: string) {
+  // New
+  setUpLocalStorage(jwtToken: string, jwtRefreshToken: string, role: string) {
     this.userAuthService.setToken(jwtToken);
+    this.userAuthService.setRefreshToken(jwtRefreshToken);
     this.userAuthService.setRoles(role);
   }
+
+  // setUpLocalStorage(jwtToken: string, role: string) {
+  //   this.userAuthService.setToken(jwtToken);
+  //   this.userAuthService.setRoles(role);
+  // }
 
   handleLogin(loginForm: NgForm) {
     console.log('Login form submitted!');
@@ -64,9 +71,11 @@ export class SigninComponent {
       next: (response: any) => {
         console.log('response :>> ', response);
         const jwtToken: string = response.jwtToken;
+        const jwtRefreshToken: string = response.jwtRefreshToken;
+        console.log('refresh token apple :>> ', jwtRefreshToken);
         const role: string = response.user.role;
 
-        this.setUpLocalStorage(jwtToken, role);
+        this.setUpLocalStorage(jwtToken, jwtRefreshToken, role);
         if (role === 'ADMIN') {
           this.router.navigate(['/admin']);
         } else {
