@@ -24,6 +24,10 @@ export class UserAuthService {
     return localStorage.getItem('access-token');
   }
 
+  public getRefreshToken() {
+    return localStorage.getItem('refresh-token');
+  }
+
   public clear() {
     localStorage.removeItem('access-token');
     localStorage.removeItem('role');

@@ -9,7 +9,7 @@ import { SharedService } from 'src/app/_services/shared/shared.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss'],
+  styleUrls: ['./cart.component.scss', './cart-split.component.scss'],
 })
 export class CartComponent {
   @ViewChild('selectQuantity') selectQuantityEl: ElementRef | undefined;

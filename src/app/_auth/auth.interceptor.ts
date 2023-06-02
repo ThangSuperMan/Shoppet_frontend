@@ -41,7 +41,19 @@ export class AuthInterceptor implements HttpInterceptor {
           case 403: // Forbidden
             this.toastService.error(`${error.statusText}`, 'Access Error');
             this.router.navigate(['/forbidden']);
-            break;
+            // New
+            // Check if the token is expired
+            // Before push for forbidden page inject the request intercept with a refresh token
+            // and send request to the api again
+            const refreshToken = this.userAuthSerive.getRefreshToken();
+            let modifiedRequest = this.addToken(req, refreshToken);
+            console.log('next.handle :>> ', next.handle);
+            const triggerMe = () => {
+              console.log('triggerMe ');
+              return next.handle(modifiedRequest);
+            };
+            return triggerMe();
+          // break;
           case 404: // Not found
             this.toastService.error(`${error.statusText}`, 'Route Error');
             break;

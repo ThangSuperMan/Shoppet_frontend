@@ -1,0 +1,105 @@
+@import "../../../scss/variables";
+
+.form-control::-ms-expand {
+  display: none;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.select-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  border-top: 8px solid #888;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  pointer-events: none;
+}
+
+.select-wrapper select {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  height: 45px;
+  padding-right: 30px;
+  width: 100%;
+}
+
+.select-wrapper select:focus {
+  outline: none;
+}
+
+optgroup {
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+}
+
+option {
+  font-size: 14px;
+  font-weight: 400;
+  color: #495057;
+}
+
+.checkout {
+  &-subtotal {
+    width: 290px;
+    border-radius: 8px;
+    border: 1px solid #cbcccc;
+    padding: 1rem;
+
+    &__hint {
+      display: block;
+      padding-bottom: 12px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    &__order-summary {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 24px;
+      padding-bottom: 4px;
+      margin-block: 12px;
+    }
+
+    table {
+      width: 100%;
+
+      tbody tr td {
+        font-size: 12px;
+        padding-left: 3px;
+        line-height: 14px;
+
+        &:nth-child(1) {
+          width: calc(100% - 60px);
+          padding-right: 3px;
+          padding-bottom: 3px;
+        }
+
+        &:last-child {
+          width: 60px;
+          padding-left: 3px;
+        }
+      }
+    }
+  }
+
+  &__footer {
+    background: #f0f2f2;
+    padding-block: 14px;
+    padding-inline: 18px;
+
+    span {
+      color: $blue-light-color;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+  }
+}

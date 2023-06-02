@@ -12,14 +12,17 @@ import {
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { CartService } from 'src/app/_services/cart/cart.service';
 import { UserAuthService } from 'src/app/_services/user-auth.service';
-import { OrderService } from 'src/app/_services/order/order.service';
 import { UserService } from 'src/app/_services/user/user.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss'],
+  styleUrls: [
+    './product-details.component.scss',
+    './product-details-split.component.scss',
+    './product-details-split3.component.scss',
+    './product-details-split2.component.scss',
+  ],
 })
 export class ProductDetailsComponent {
   @ViewChild('optionFlavorProduct') optionFlavorProduct: ElementRef | undefined;

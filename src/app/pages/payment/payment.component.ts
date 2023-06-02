@@ -24,7 +24,13 @@ import {
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss'],
+  styleUrls: [
+    './payment.component.scss',
+    './payment-split1.component.scss',
+    './payment-split2.component.scss',
+    './payment-split3.component.scss',
+    './payment-split4.component.scss',
+  ],
 })
 export class PaymentComponent {
   addressForm!: FormGroup;

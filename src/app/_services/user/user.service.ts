@@ -38,11 +38,17 @@ export class UserService {
 
   public signup(registerData: RegisterProps) {
     console.log('UserSerivce sign up method is running...');
-    console.log('registerData :>> ', registerData);
     const url = `${env.pathApi}/signup`;
     return this.httpClient.post(url, registerData, {
       headers: this.requestHeader,
     });
+  }
+
+  public getNewAccessToken() {
+    console.log('UserSerivce getNewAccessToken method is running');
+    const refreshToken: string | null = this.userAuthService.getRefreshToken();
+    console.log('refreshToken:>> ', refreshToken);
+    // return this.httpClient.post<any>(url, )
   }
 
   public getUserByUsername(username: string): Observable<User> {
